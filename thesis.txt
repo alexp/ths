@@ -1,12 +1,7 @@
-\documentclass[a4paper, 12pt]{report}
-\usepackage[polish]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{setspace}
-\onehalfspacing
-\begin{document}
+Streszczenie
 
-\chapter{Streszczenie}
+krótkie streszczenie
+
 Brak ujednoliconego środowiska dokumentowania wymagań użytkownika to jeden z głównych problemów małych i średnich firm, w trakcie fazy analizy.
 Proces dokumentowania wymagań użytkownika zdaje się być zaniedbanym aspektem zarządzania projektami na rynku nowoczesnych 
 aplikacji internetowych. Istniejące rozwiązania są drogie i często przystosowane do dużych projektów. W niniejszej pracy zaprezentowano 
@@ -17,7 +12,18 @@ zaprezentowano rozwiązanie dla małych i średnich projektów, pozwalające sku
 i dokumentowania wymagań. Powstały system umożliwia wprowadzanie i kategoryzowanie wymagań zarówno w formie graficznej, jak i tekstowej.
 Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację dokumentacji wymagań użytkownika.
 
-\chapter{Wstęp}
+// to chyba zbyt szczegolowe //
+Do opisu wymagań w formie tekstowej, system udostępnia edytor tekstowy wspierający podświetlanie składni wprowadzanego tekstu w formacie Markdown.
+Zastosowanie prostego w użyciu formatu sprawia, że użytkownik może w pełni skupić się na konstrukcji treści opisu wymagania. Jednocześnie
+zachowana zostaje struktura dokumentu oraz wizualny podział na odpowiednie sekcje.
+// 
+
+Dzięki zastosowaniu powszechnie dostępnych 
+technologii internetowych, proponowane narzędzie może zostać uruchomione w wielu różnych środowiskach. Wykorzystanie technologii 
+HTML5 oraz języka javascript umożliwiło stworzenie narzędzia wspomagającego gaficzne modelowanie przypadków użycia, będących bazą
+do ostatecznego wygenerowania dokumentacji wymagan uzytkownika.
+
+1. Wstęp
 
     Rozwój technologii internetowych w ostatnich latach umożliwił programistom tworzenie wysoce interaktywnych narzędzi przy jednoczenym
     ograniczeniu wymagań systemowych jakie muszą spełnić klienci, chcący skorzystać z wytworzonego oprogramowania. 
@@ -40,8 +46,15 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
     ułatwić zespołom projektowym komunikację i dostęp do wiedzy przy jednoczesnym skupieniu uwagi na najistotniejszych aspektach
     definiowania i przetwarzania wymagań. 
 
-\section{Cel pracy}
+    ///
+      W niniejszej pracy zaprezentowano nowoczesne narzędzie wspierające proces zbierania wymagań użytkownika. Przyjęte rozwiązania mają 
+      za zadanie ułatwić zespołom projektowym komunikację, dostęp do wiedzy oraz wizualizację przypadków użycia w kontekście fazy analizy
+      i zbierania wymagań. Głównymi założeniami przy tworzeniu koncepcji rozwiązania, były m.in. prostota obsługi oraz skupienie uwagi użytkownika
+      na najważniejszych aspektach definiowaVnia wymagania.
+    ///
 
+  1.1 Cel pracy
+    
     W niewielkich projektach, proces gromadzenia i dokumentowania wymagań użytkowników jest najczęściej słabo sformalizowany. Wymagania 
     trafiają do zespołu z różnych, heterogenicznych źródeł i w wielu, zwykle niekompatybilnych, formatach. Pomimo faktu, iż na rynku 
     nie brakuje oprogramowania wspierającego zarządzanie wymaganiami, istniejące rozwiązania, często nie są przystosowane do realiów 
@@ -57,8 +70,9 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
     wiedzy o wymaganiach; być łatwo dostępne w jak największej ilości różnych środowisk; umożliwiać łatwą kolaborację oraz być łatwe w obsłudze, prowokując 
     do kreatywności, zamiast stawiać bariery w postaci skomplikowanych formularzy i tabel.
 
-\section{Omówienie koncepcji proponowanego rozwiązania}
 
+  1.2 Zarys koncepcji
+    
     Proces zbierania wymagań jest trudny, ponieważ często jest procesem niesformalizowanym, rozproszonym i udokumentowanym na wiele sposobów 
     (różne nośniki danych, niekomatybilne oprogramowanie). Ponadto wymagania zwykle pochodzą od wielu interesariuszy: 
     od sponsora projektu, po użytkowników końcowych. Niezależnie od poziomu dojrzałości organizacji i stosowanej metodyki zarządzania 
@@ -94,15 +108,15 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
     i dokumentowania wymagań. Użytkownik nie powinien być jednocześnie przytłoczony ilością funkcjonalności dostępnych w aplikacji, a narzędzia którmi 
     dysponuje powinny być intuicyjne i nie wymagać żadnej dokumentacji.
 
-\section{Struktura pracy}
+  1.3 Struktura pracy 
 
       W rozdziale 2 zostaną przedstawione, dostępne na rynku, narzędzia wspierające zarządzanie wymaganiami użytkownika. 
       Rodział 3 jest dokładnym opisem dziedziny problemu oraz koncepcji zaimplementowanego prototypu. W rozdziale 4 zaprezentowano 
       najistotniejsze technologie, jakie wykorzystano podczas pracy nad prototypem oraz krótkie omówienie środowiska 
       programistycznego w jakim powstał przedmiot pracy. Rozdział 5 stanowi opis zaimplementowanego prototypu. W rozdziale 6 
       zawarto podsumowanie wyników pracy oraz propozycje kierunków dlaszego rozwoju. 
-    
-\chapter{Istniejące rozwiązania}
+
+2. Istniejące rozwiązania
 
   W poprzednim rozdziale nakreślono temat przewodni niniejszej pracy. Poruszono problem dostępności i użyteczności istniejących narzędzi 
   wspomagających zarządzanie wymaganiami. Zaprezentowano także autorską koncepcję rozwiązania, mającego na celu usprawnienie procesu 
@@ -111,20 +125,25 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
   W tym rozdziale zostanie przeprowadzona analiza rynku oprogramowania wspierającego fazę analizy. Druga część rozdziału zajmie się 
   identyfikacją najistotniejszych problemów jakie posiadają istniejące rozwiązania.
 
-  \subsection{Analiza rynku systemów wsparcia zbierania wymagań}
+  2.1 Analiza rynku systemów wsparcia zbierania wymagań
+
     Na rynku nie brakuje systemów wsparcia procesu zbierania wymagań. Dostępne rozwiązania oferowane są w zasadzie w trzech różnych modelach. 
     Najpopularniejszą ostatnio architekturą jest Software As A Service, czyli aplikacja internetowa zainstalowana na serwerach twórcy oprogramowania.
     Również klasyczne aplikacje okienkowe, które należy zainstalować na komputerze klienta nadal cieszą się dużą popularnością. Należy jednak zaznaczyć,
     iż w przeważającej większości są to starsze systemy, nierzadko implementowane jeszcze przed popularyzacją zaawansowanych aplikacji webowych. 
     Niektóre firmy oferują także platformy w architekturze klient-serwer, wymagające istnienia zarówno centralnego serwera - repozytorium w sieci 
     jak i desktopowych aplikacji klienckich. W tej sekcji zostaną przedstawione i porównane wybrane aplikacje z każdej z trzech kategorii.
-  \subsection{Model SaaS (Software as a Service)}
+
+    2.1.1 Model SaaS (Sofware as a Service)
+  
+      /* Największym sukcesem w modelu SaaS zdaje się być platforma Force.com stworzona przez Salesforce (system klasy ERP) . */
+
       W ostatnim czasie, wraz z popularyzacją i rozwojem technologii internetowych znacznie wzrosły techniczne możliwości aplikacji dostępnych 
       z poziomu przeglądarki internetowej. Tendencja ta sprzyja powstawaniu licznych aplikacji, adresujących bardzo specyficzne problemy,
       często w obrębie ściśle określonego segmentu rynku. Jednym z przykładów takiego wąskiego segmentu mogą być np. aplikacje do zarządzania projektami online. 
       Wśród innych popularnych rozwiązań znajdują się takie produkty jak basecamp.com, polski nozbe.com czy unfuddle.com. 
       Innym przykładem mogą być aplikacje wspierające proces rekrutacji (humanway.com, recruiterbox.com, jobvite.com).
-      Na uwagę zasługują także aplikacje wspierające rezerwacje hoteli, niezależnych pokoi i mieszkań jak airbnb.com, booking.com czy b\$b.com.
+      Na uwagę zasługują także aplikacje wspierające rezerwacje hoteli, niezależnych pokoi i mieszkań jak airbnb.com, booking.com czy b&b.com.
       Naturalnie powyższe przykłady dotyczą tylko skrawka możliwych do zagospodarowania segmentów. W rzeczywistości, bardzo ciężko znaleźć 
       wertykalny rynek, który jest niezagospodarowany serwisami, oferującymi różne podejścia do rozwiązania problemów danego segmentu. 
       
@@ -153,7 +172,7 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
         
         screen, opis
 
-  \subsection{Aplikacje desktopowe}
+    2.1.2 Aplikacje desktopowe
 
       Model SaaS, mimo wszystkich swoich zalet, posiada również wady. Głównym powodem kontrowersji jest konieczność powierzenia danych biznesowych 
       firmie udostępniającej narzędzie na swoich serwerach. Dla dużych korporacji, pilnie strzegących swoich tajemnic handlowych, takie rozwiązanie, może być 
@@ -164,13 +183,16 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
       Dzięki temu, nadal istnieje zapotrzebowanie na oprogramowanie instalowane na lokalnym dysku użytkownika. Przykładami takich aplikacji
       są m.in. IBM DOORS, IBM Rational RequisitePRO oraz seapine.com.
 
-      2.1.3 Platforma IBM .jazz
-        
-        Platforma IBM jazz zasługuje na osobną sekcję, ponieważ jest zintegrowanym, kompleksowym zestawem narzędzi i aplikacji dla przedsiębiorstw tworzących oprogramowanie.
-        Centrum zarządzania platformą jazz jest serwer stanowiący repozytorium danych i ośrodek dowodzenia. 
-        Platforma składa się zarówno udostępnionych na serwerze usług sieciowych oraz aplikacji instalowanych lokalnie, 
-        łączących się ze zdalnym serwerem (tzw. rich-client applications).
-  \subsection{Problemy z istniejącymi narzędziami}
+    
+    2.1.3 Platforma IBM .jazz
+      
+      Platforma IBM jazz zasługuje na osobną sekcję, ponieważ jest zintegrowanym, kompleksowym zestawem narzędzi i aplikacji dla przedsiębiorstw tworzących oprogramowanie.
+      Centrum zarządzania platformą jazz jest serwer stanowiący repozytorium danych i ośrodek dowodzenia. 
+      Platforma składa się zarówno udostępnionych na serwerze usług sieciowych oraz aplikacji instalowanych lokalnie, 
+      łączących się ze zdalnym serwerem (tzw. rich-client applications).
+
+  2.2 Problemy z istniejącymi narzędziami
+
     W poprzedniej sekcji omówiono wybrane narzędzia z wielu dostępnych na rynku aplikacji wspomagających zarządzanie wymaganiami. 
     !! Analiza zastosowanych rozwiązań zdecydowanie prowokuje do przemyśleń i nasuwa na myśl serię pytań związanych motywacjami jakimi kierują się twórcy tego typu oprogramowania. 
 
@@ -185,11 +207,57 @@ Na podstawie wprwadzonych danych, aplikacja umożliwia automatyczną generację 
     Zadaniem osoby lub zespołu odpowiedzialnego za specyfikację wymagań, jest przefiltrowanie cząstkowych informacji oraz ekstrakcja i udokumentowanie 
     wymagań. Żadne narzędzie (przynajmniej na razie) nie zastąpi skutecznie pracy człowieka nad wyłuskaniem wszystkich wymagań.
 
-\chapter{Omówienie koncepcji proponowanego rozwiązania}
-\chapter{Omówienie rozwiązań implementacyjnych}
-\chapter{Trudności i problemy}
-\chapter{Podsumowanie}
-\chapter{Spis źródeł}
-\chapter{Słownik terminologii}
 
-\end{document}
+
+3. Omówienie koncepcji proponowanego rozwiązania
+  
+  krótki wstęp - co napisalem poprzednio, co bedzie w tym rozdziale?
+
+  3.1 Faza analizy - how it is done?
+  3.2 Czego należy oczekiwać od nowoczesnego systemu zarządzania wymaganiami?
+  3.3 Ogólny opis rozwiązania
+  3.4 System "Reqmanager" - opis
+
+4. Technologie wykorzystane w implementacji
+
+  krótki wstep
+
+  4.1 Z czego korzystałem z lotu ptaka - grails, java, tomcat, heroku, git, postgresql, javascript, biblioteka jsuml2, jquery
+  
+  4.2 Framework Grails
+    4.2.1 Język Groovy
+    4.2.2 Spring Framework i Hibernate ORM
+    4.2.3 Framework Grails
+
+  4.3 Pozostałe technologie
+    4.3.1 Postgresql
+    4.3.2 Javascript, jQuery i biblioteka jsUml2
+    4.3.3 System kontroli wersji Git i serwer heroku
+    4.3.4 Środowisko programistyczne (linux, vim, tmux)
+
+5. Opis prototypu - System "Reqmanager"
+  
+  krótki wstęp
+
+  5.1 Filozofia i architektura systemu
+  5.2 Język UML w trakcie fazy analizy
+  5.2 Zbieranie wymagań w Reqmanager
+  5.3 Technologie webowe w kontekście RIA (zalety i wady przenoszenia sie do webu)
+  5.4 Implementacja
+    5.4.1 Diagramy przypadków użycia
+    5.4.2 Przetwarzanie wymagań (Mapowanie obiektów w JS na encje w bazie danych)
+    5.4.3 Generowanie dokumentacji
+  5.5 Problemy techniczne
+  5.7 Podsumowanie rozwiązania (zalety i wady)
+
+6. Podsumowanie
+  
+  krótki wstęp
+
+  6.1 Plan rozwoju
+  6.2 Zakończenie
+
+A Spis źródeł
+B Słownik terminologii
+
+
