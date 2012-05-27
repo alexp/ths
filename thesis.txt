@@ -13,6 +13,11 @@ Dzięki zastosowaniu powszechnie dostępnych  technologii internetowych, propono
 
 1. Wstęp
 
+
+    Wyjście od metodyk i procesow (analiza wymagań jest zawsze, niezależnie od metodyki, itd)
+    Wyjście od inżynierii wymagań! - "Zarządzanie wymaganiami" to tylko jeden z 'końcowych' elementów inżynierii wymagań!
+
+
     Rozwój technologii internetowych w ostatnich latach umożliwił programistom tworzenie wysoce interaktywnych narzędzi przy jednoczenym ograniczeniu wymagań systemowych jakie muszą spełnić klienci, chcący skorzystać z wytworzonego oprogramowania. W szczególności, niedawno wprowadzona na rynek, technologia HTML5 daje nowe, szerokie możliwości przeglądarkom internetowym. Możliwości, które były dotychczas zarezerwowane głównie dla technologii Flash (oraz z trochę gorszymi wynikami MS Silverlight, JavaFX, itp.) stają się wspierane natywnie, w każdej popularnej przeglądarce internetowej. 
 
     Z wymaganiami użytkownika stykamy się praktycznie od samego początku pracy nad projektem informatycznym. Z tego powodu potrzebne są skuteczne narzędzia gromadzenia i przetwarzania wymagań użytkownika oraz komunikowania ich wszystkim członkom zespołu. Dzięki wyżej wspomnianej technologii HTML5, istnieje możliwość usprawnienia procesu dokumentowania wymagań przy jednoczesnym zachowaniu wysokiej dostępności aplikacji, włączając do niego nowe narzędzia oparte na metodach graficznych. 
@@ -102,9 +107,51 @@ Dzięki zastosowaniu powszechnie dostępnych  technologii internetowych, propono
 
 3. Omówienie koncepcji proponowanego rozwiązania
   
-  krótki wstęp - co napisalem poprzednio, co bedzie w tym rozdziale?
+  W poprzednim rozdziale opisano przykładowe narzędzia funkcjonujące na rynku oprogramowania do zarządzania wymaganiami użytkownika. Opisano ich główne wady i zalety oraz przedstawiono podstawowe problemy z istniejącymi rozwiązaniami w kontekście małych projektów.
+  W tym rozdziale, zostanie opisana faza analizy od strony teoretycznej. Autor zwróci również uwagę na niezbędne elementy nowoczesnego systemu zarządzania wymaganiami oraz przedstawi koncepcją będącą podstawą tej pracy.
 
-  3.1 Faza analizy - how it is done?
+  3.1 Teoria - how it is done?
+    
+    Inżynieria wymagań jest dziedziną, na którą składają się wszelkie działania związane z odkrywaniem (elicitation), analizą (analysis), walidacją (validation) oraz zarządzaniem wymaganiami. Dotyczy ona każdego projektu informatycznego, niezależnie od jego rozmiarów i jest jednocześnie jednym z najistotniejszych procesów w cylku życia projektu.
+    Inż. wymagań jest niezależna od wdrożonej metodyki tworzenia oprogramowania. Zarówno w metodykach zwinnych (agile), jak i w starszych procesach wytwórczych takich jak waterfall, spiral, Unified Process, w początkowym etapie projektu, kluczową rolę gra przygotowanie systemu od strony wymagań. Proces wytwórczy nie definiuje sposobu w jaki mają przebiegać procesy inżynierii wymagań. Zamiast tego, skupia się na pod-procesach, które należy wdrożyć, aby zwiększyć prawdopodobieństwo sukcesu projektu.
+    Ostatecznym celem wdrażania procesów inżynierii wymagań jest rozwiązanie problemów stawianych implementowanemu systemowi. Ich podstawowym i jedynym zadaniem, jest określenie takich funkcjonalności i własności systemu, dzięki którym zostaną zrealizowane wszystkie cele podjęcia projektu. Aby jednak, aby ten cel osiągnąć musi powstać dokument specyfikacji wymagań, stanowiący dokumentację wszystkich wymagań powstałych w procesie analizy. Dokument ten powinien być aktualizowany wraz ze zmieniającym się otoczeniem projektu oraz stanowić podstawowe, centralne źródło wiedzy o zakresie projektu. 
+
+  
+    3.1.1 Proces wytwórczy oprogramowania a inżynieria wymagań
+      
+      Decyzja o wyborze metodyki wytwarzania oprogramowania (procesu wytwórczego) naturalnie musi być dyktowana licznymi czynnikami wynikającymi z wielu faktów dotyczących orgniazacji i jej otoczenia. Oczywistym jest fakt, że krytyczne projekty (takie, od których działania zależą życie i bezpieczeństo ludzi lub kluczowe procesy biznesowe) wymagają gruntownie innego podejścia, niż np. komercyjne aplikacje internetowe czy gry komputerowe. Każda branża czy firma rządzi się własnymi prawami, często posiada specyficzne, wypracowane wzorce i najlepsze praktyki oraz wyróżnia się unikalną strukturą społeczną. Wszystkie te czynniki należy wziąć pod uwagę przy podejmowaniu decyzji dotyczącej wyboru procesu wytwórczego oprogramowania w organizacji.
+      
+      Nie istnieje idealny model cyklu życia projektu. Każda metodyka ma swoje silne i słabe strony. Nie zmienia to jednak faktu, iż w każdym modelu, niezmiennie mamy do czynienia z etapami dotyczącymi wymagań, analizy i modelowania, implementacji, testów, wdrożenia oraz utrzymania, aż po zamknięcie projektu. Procesy powinny być dobrane m.in. do skali projektu, dziedziny problemu i kultury organizacji. Cykl życia projektu musi umożliwiać skuteczne przekucie wstępnej koncepcji w istniejące rozwiązania oraz stopniowy rozwój do momentu wdrożenia, realizację swojej funkcji, do rozwiązania.
+
+      Z perspektywy inżynierii oprogramowania, wybrana metodyka jest problemem drugoplanowym. Z uwagi na fakt, że nie jest możliwe rozpoczęcie modelowania ani implementacji systemu, bez wcześniejszej wiedzy w zakresie jego przeznaczenia i oczekiwanych funkcji, analiza i dokumentacja wymagań jest nieunikniona dla każdego projektu informatycznego. Różnica polega tylko i wyłącznie na sposobie, w jaki procesy inżynierii oprogramowania przebiegają w danej organizacji oraz jakie stawiane są w tym zakresie wymagania. Dla przykładu ruch propagujący "zwinne" (agile) podejście do zarządzania projektami kładzie silny nacisk na wczesne włączenie klienta do testowania cząstkowych rozwiązań wypracowanych w bardzo wczesnych fazach projektu. W rezultacie, klient może otrzymać prototypowe elementy systemu, przedstawiające działające już rozwiązania. Dzięki takiemu podejściu, można iteracyjnie nanosić poprawki i weryfikować zgodność koncepcji, na podstawie informacji zwrotnych od klienta. Jak wiadomo, wymagania mają tendencję do ewoluowania w czasie. Podejście iteracyjne powala ustalać z klientem wymagania, implementować je, a następnie, w kolejnej iteracji, dostosowywać do zmieniającej się rzeczywistości. Proces ten przebiega przez cały cykl życia projektu i nie kończy się z chwilą zakończenia fazy analizy. Przeciwnym podejściem, znanym z modelu "wodospadu" (waterfall) [ref.] jest wyodrębnienie całej fazy jako pierwszego etapu cyklu życia projektu. Wówczas wszystkie wymagania muszą zostać zgromadzone, przeanalizowane, opisane i *zatwierdzone* na samym początku trwania projektu, przed przystąpieniem do modelowania i implementacji. O ile w przypadku projektów krytycznych, gdzie wymagania są niezwykle ściśle określone, historycznie takie podejście dawało zadowalające wyniki [ref.], o tyle w systemach niekrytycznych niesie to ze sobą ryzyko wysokich kosztów wprowadzania zmian, na późniejszych etapach projektu. Wynika to przede wszystkim z faktu, iż klient oraz członkowie zespołu zaczynają w coraz większym stopniu rozumieć dziedzinę problemu. W systemach krytycznych, takich jak np. oprogramowanie komputera pokładowego rakiety kosmicznej czy systemu zarządzania elektrownią procesy inżynierii oprogramowania przebiegają nadzwyczaj rzetelnie, w oparciu o liczne procedury kontroli jakości i poprawności. Dokładnie określone wymagania na początkowym etapie projektu, powoduje, że model kaskadowy się sprawdza.
+
+      Jak podaje Sommerville [ref.] w książce Software Engineering 8th Edition, do inżynierii wymagań możemy zaliczyć następujące pod-procesy:
+
+      * studium wykonalności
+      * gromadzenie i analiza wymagań
+      * weryfikacja wymagań
+      * zarządzanie wymaganiami
+
+      
+      Studium wykonalności
+
+        Podstawowym celem przeprowadzania studium wykonalności projektu jest udzielenie odpowiedzi na pytanie, czy należy kontynuować projekt. W trakcie tego etapu zwiększa się wiedza o dziedzinie problemu, a koncepcja systemu jest weryfikowana pod kątem celowości zastosowania w organizacji, wszelkich ograniczeń systemowych, sprzętowych i administracyjnych. W modelu Rational Unified Process, studium wykonalności powinno zostać włączone do fazy rozpoczęcia projektu (inception phase).
+
+      Gromadzenie i analiza wymagań
+
+       W trakcie gromadzenia i analizy wymagań, w szczególności w początkowej fazie, niezbędna jest komunikacja ze wszystkimi interesariuszami projektu w celu sformułowania ogólnej wizji systemu. Analitycy pracują w tym czasie z interesariuszami nad zgromadzeniem wymagań systemu. Następnie, zgormadzone wymagania powinny zostać przeprocesowane oraz odpowiednio skatalogowane. W końcu nadawane są im priorytety, rozwiązywane są konflikty, aby na końcu powstała specyfikacja wymagań systemu.
+
+      Weryfikacja wymagań
+      Zarządzanie wymaganiami
+
+
+
+    3.1.2 Język UML w opisie wymagań
+    3.1.3 Metody formalne w procesie zbierania wymagań
+    3.1.4 Dojrzalosc organizacji a faza analizy
+    3.1.5 Faza analizy w małych firmach (brief, memos, specyfikacja)
+    3.1.6 Oprogramowanie i narzędzia
+
   3.2 Czego należy oczekiwać od nowoczesnego systemu zarządzania wymaganiami?
   3.3 Ogólny opis rozwiązania
   3.4 System "Reqmanager" - opis
