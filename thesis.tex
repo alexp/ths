@@ -3,7 +3,10 @@
   \usepackage[utf8]{inputenc}
   \usepackage[T1]{fontenc}
   \usepackage{setspace}
-  \usepackage{cite}
+  \usepackage{biblatex}
+
+  \bibliography{bibliography}
+
   \onehalfspacing
 
 \begin{document}
@@ -11,10 +14,7 @@
   \tableofcontents
   \newpage
 
-  \include{abstract.tex}
-
-  \include{wstep.tex}
-
+  \include{abstract}
   \include{chapter-1}
   \include{chapter-2}
   \include{chapter-3}
@@ -22,6 +22,5 @@
   \include{chapter-5}
   \include{chapter-6}
 
-  \bibliography{bibliography}{}
-  \bibliographystyle{plain}
+  \printbibliography
 \end{document}
