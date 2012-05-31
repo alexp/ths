@@ -69,9 +69,10 @@
 
     Mając na uwadze teoretyczne tło dziedziny jaką jest inżynieria wymagań oraz praktyczne problemy z jakimi borykają się dzisiaj małe i średnie przedsiębiorstwa w zakresie zarządzania wymaganiami, powstała koncepcja rozwiązania, adresującego najpilniejsze problemy w rzeczywistych projektach małej i średniej skali. 
 
-    Jak wykazano w rozdziale X (Ibid), pomimo rozwoju technologii oraz świadomości firm w zakresie inżynierii oprogramowania, bardzo duża część małych i średnich przedsiębiorstw nadal ignoruje zagadnienia z zakresu inżynierii wymagań. Dojrzałość tych organizacji pod kątem inżynierii oprogramowania jest bardzo niska. Niewielką część harmonogramów projektów przeznacza się na analizę wymagań, a narzędzia stosowane w trakcie tego procesu najczęściej ograniczają się do pakietów biurowych, klientów poczty elektronicznej i odręcznych notatek. Mikro-firmy osiągająjące na tym polu sukcesy najczęściej charakteryzują się posiadaniem bardzo małych zespołów ekspertów z ogromym doświadczeniem w branży, posiadającymi techniki wypracowane metodami prób i błędów, nad którymi pracowali przez wiele lat w swojej karierze.  Jednak zdecydowana większość firm nadal eksperymentuje, często bezskutecznie lub ``strzelając kulą w płot``. Część winy za taki stan rzeczy leży po stronie twórców oprogramowania. Istnieje niewiele systemów umożliwiających skuteczne zarządzanie wymaganiami w środowsiku hiper-dynamicznych, zorientowanych na rynek internetowy, projektów, jakie najczęściej realizują firmy z sektora MŚP. Kolejną ważna obserwacją jest fakt, iż bardzo często mamy do czynienia z projektami, których wymagania wymyślane są przez samych twórców, przez co proces dokumentowania wymagań i tworzenia specyfikacji przebiega ad hoc lub nie istnieje w ogóle. Ewidentnie istnieje niezagospodarowana luka na rynku w tym segmencie. 
-
+    Jak wykazano w rozdziale X (Ibid), pomimo rozwoju technologii oraz świadomości firm w zakresie inżynierii oprogramowania, bardzo duża część małych i średnich przedsiębiorstw nadal ignoruje zagadnienia z zakresu inżynierii wymagań. Dojrzałość tych organizacji pod kątem inżynierii oprogramowania jest bardzo niska. Niewielką część harmonogramów projektów przeznacza się na analizę wymagań, a narzędzia stosowane w trakcie tego procesu najczęściej ograniczają się do pakietów biurowych, klientów poczty elektronicznej i odręcznych notatek. Mikro-firmy osiągająjące na tym polu sukcesy najczęściej charakteryzują się posiadaniem bardzo małych zespołów ekspertów z ogromym doświadczeniem w branży, posiadającymi techniki wypracowane metodami prób i błędów, nad którymi pracowali przez wiele lat w swojej karierze.  Jednak zdecydowana większość firm nadal eksperymentuje, często bezskutecznie lub ``strzelając kulą w płot``. Część winy za taki stan rzeczy leży po stronie twórców oprogramowania. Istnieje niewiele systemów umożliwiających skuteczne zarządzanie wymaganiami w środowsiku hiper-dynamicznych, zorientowanych na rynek internetowy, projektów, jakie najczęściej realizują firmy z sektora MŚP. Kolejną ważna obserwacją jest fakt, iż bardzo często mamy do czynienia z projektami, których wymagania wymyślane są przez samych twórców, przez co proces dokumentowania wymagań i tworzenia specyfikacji przebiega ad hoc lub nie istnieje w ogóle. Dodatkowo, brak umiejętności zarządzania zmianą, powoduje, że projekty oddawane są po terminie, z przekroczonym budżetem, często niedostarczając klientowi porządanego efektu. Jest to problem całej branży - zarówno kadry zarządzającej, analityków, programistów, klientów i użytkowników. Problemy z zarządzaniem wymaganiami, powodują, że spowolniona jest innowacja. Gdyby wszyscy umiejętnie zarządzali wymaganiami i zmianą, więcej proejktów kończyłoby się sukcesem, przez co rozwój oprogramowania przebiegałby szybciej. Ewidentnie istnieje niezagospodarowana luka na rynku w tym segmencie. 
     (!) Czasem firmy też tworzą własne rozwiązania na potrzeby wewnętrzne lub dostosowują istniejące narzędzia do swoich potrzeb (vide redmine, etc)
+
+    Małe i średnie przedsiębiorstwa są motorem napędowym dzisiejszej gospodarki opartej w znacznym stopniu o techniki informacyjne. Obowiązkiem inżynierii oprogramowania jest stałe kwestionowanie istniejących rozwiązań i katalizowanie zmian w kierunku usprawniania procesów związanych z wytwarzaniem oprogramowania. Jednak inżynieria wymagań zdaje się być niedocenianym i nadal słabo rozumianym zagadanieniem związanym z wytwarzaniem oprogramowania. Jest to jednak kluczowa, przyszłościowa dziedzina - w miarę postępu technologicznego, zapotrzebowanie na oprogramowanie nadal będzie wzrastało.
 
     Proces pozyskiwania i przetwarzania wymagań powinien być jednocześnie łatwy w implementacji oraz dający dużą dozę elastyczności. W rozdziale 'Problemy z istniejącymi rozwiązaniami' opisano stan sztuki i zaadresowano niedociągnięcia dzisiejszych narzędzi. 
 
@@ -80,18 +81,40 @@
     W trakcie pracy nad koncepcją narzędzia postawiono następujące cele:
     
     \begin{itemize}
-      \item Wsparcie pozyskiwania, definiowania, katalogowania (grupowania) nieprzetworzonych wymagań oraz nadawania im odpowiednich priorytetów
-      \item Umożliwienie rozbudowy, iteracyjnego doprecyzowywania i rozwijania pozyskanych wymagań
-      \item Ułatwienie dalszego przetwarzania treści wymagań przez zewnętrzne systemy
-      \item Dostarczenie narzędzi umożliwiających sprecyzowanie wymagań w możliwie najprzystępniejszej dla odbiorców formie (odbiorcami są wszyscy interesariusze projektu - zarówno klienci jak i członkowie zespołu).
-      \item Wsparcie zarządzania wymaganiami w późniejszej fazie projektu
+      \item Wsparcie gromadzenia wymagań - wsparcie pozyskiwania, definiowania, katalogowania (grupowania) nieprzetworzonych wymagań oraz nadawania im odpowiednich priorytetów
+      \item Wsparcie podejścia iteracyjnego - umożliwienie rozbudowy, iteracyjnego doprecyzowywania i rozwijania pozyskanych wymagań
+      \item Uniwersalność formatu przechowywanych danych - ułatwienie dalszego przetwarzania treści wymagań przez zewnętrzne systemy
+      \item Dostarczenie rozwiązań zarządzania zmianą - wsparcie zarządzania wymaganiami na późniejszych etapach projektu
+      \item Możliwość ekspresji i przystępna forma komunikacji - udostępnienie obsługi multimedialnych formatów danych (załączniki). Dostarczenie narzędzi umożliwiających sprecyzowanie wymagań w możliwie najprzystępniejszej dla odbiorców formie (odbiorcami są wszyscy interesariusze projektu - zarówno klienci jak i członkowie zespołu).
       \item Stworzenie centralnego repozytorium wiedzy na temat wymagań
-      \item Wsparcie kolaboracji nad wymaganiami wszystkich członków zespołu
+      \item Wsparcie kolaboracji - umożliwienie współpracy wszystkich członków zespołu
+      \item Automatyzacja tworzenia specyfikacji - implementacja algorytmu generującego dokument specyfikacji wymagań 
       \item Silna koncentracja nad praktycznym zastosowaniem systemu wsparcia zarządzania wymaganiami(!) 
     \end{itemize}
 
-    W efekcie powstał prototyp systemu, otwierający drogę do dyskusji i rozwoju w kierunku poprawienia procesów inżynierii wymagań w małych i średnich przedsiębiorstwach. Małe i średnie przedsiębiorstwa są motorem napędowym dzieisjszej gospodarki opartej w znacznym stopni o techniki informacyjne. Obowiązkiem inżynierii oprogramowania jest stałe kwestionowanie istniejących rozwiązań i katalizowanie zmian w kierunku usprawniania procesów związanych z wytwarzaniem oprogramowania. Małe i średnie przedsiębiorstwa stale poszukują nowych rozwiązań i narzędzi. Inżynieria wymagań zdaje się być niedocenianym i nadal słabo rozumianym zagadanieniem związanym z wytwarzaniem oprogramowania. Jest to jednak kluczowa dziedzina - w przyszłości będzie powstawawać coraz więcej oprogramowania, dlatego muszą powstawać narzędzia wspierające ten proces. Małe i średnie przedsiębiorstwa 
+    W efekcie powstał prototyp systemu, otwierający drogę do dyskusji i rozwoju w kierunku poprawienia procesów inżynierii wymagań w małych i średnich przedsiębiorstwach. 
 
-  \section{System Reqmanager - opis}
+  \section{System Reqmanager - opis funkcjonalności}
 
-    
+    \subsubsection{Wsparcie gromadzenia wymagań}
+      Praktyczne narzędzie wspierające proces gromadzenia wymagań musi wspierać najwcześniejszą fazę - pozwstawania wymagań. Wymagania pojawiają się niespodziewanie w różych sytuacjach i przychodzą z różnych źródeł. Narzędzie musi wspierać prostą w obsłudze opcję dodawania wymagań w postaci krótkich notek, dłuższych notatek lub opisów całych procesów. Jednocześnie nie może obarczać użytkownika obowiązkiem nadawania wymaganiu identyfikatorów, łączników, etc. Kluczowym dla osoby zbierającej wymagania, jest spisać jak najszybciej wszystkie obserwacje i zachować je w możliwej do późniejszego przetworzenia formie.
+      Proces definiowania wymagań opiera się na kreatywnej pracy. Zadaniem analityka, jest wzięcie pod uwagę dotychczasowej wiedzy na temat systemu, przeprowadzenie procesu myślowego, ułożenie sobie w głowie, jak dane elementy systemu mają ze sobą współgrać i na tej podstawie musi zdefiniować wymagania. 
+      System wspiera ten proces dzięki wdrożonemu edytorowi tekstu. Czysty tekst, w nieprzetworzonej postaci, sprawia, że użytkownik nie skupia się na detalach związanych z reprezentacją graficzną wymagania. Mimo tego otrzymuje on możliwość formatowania tekstu w systemie Markdown. 
+
+
+    \subsubsection{Wsparcie podejścia iteracyjnego}
+      historia i wersjonowanie
+    \subsubsection{Uniwersalność formatu danych}
+      plain text, xml dla diagramów - w pełni przetwarzalne przez inne narzędzia. 
+    \subsubsection{Zarządzanie zmianą}
+      też wersjonowanie? identyfikacja (traceability) - możliwość dojścia z jakiego wymagania jakies nowe ewoluowało
+    \subsubsection{Możliwość ekspresji komunikacji}
+      załączniki, diagramy, plain text
+    \subsubsection{Centralne repozytorium}
+      oprogramowanie dostępne online, interfejs www z elementami html5 i canvas - dostępne na wszystkich nowoczesnych przeglądarkach
+    \subsubsection{Kolaboracja}
+      komentarze, historia
+    \subsubsection{Generator specyfikacji}
+      j/w
+    \subsubsection{Praktyczne zastosowanie}
+      podsumowanie wszystkiego i odniesienie do rzeczywistości
