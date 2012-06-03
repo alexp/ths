@@ -82,25 +82,33 @@
     W trakcie pracy nad koncepcją narzędzia postawiono następujące cele:
     
     \begin{itemize}
+      \item Ogólny przegląd stanu projektu - najistotniejsze informacje z perspektywy wymagań systemu powinny być dostępne na jednej stronie podsumowującej projekt
       \item Wsparcie gromadzenia wymagań - wsparcie pozyskiwania, definiowania, katalogowania (grupowania) nieprzetworzonych wymagań oraz nadawania im odpowiednich priorytetów
-      \item Wsparcie podejścia iteracyjnego - umożliwienie rozbudowy, iteracyjnego doprecyzowywania i rozwijania pozyskanych wymagań
       \item Uniwersalność formatu przechowywanych danych - ułatwienie dalszego przetwarzania treści wymagań przez zewnętrzne systemy
       \item Dostarczenie rozwiązań zarządzania zmianą - wsparcie zarządzania wymaganiami na późniejszych etapach projektu
-      \item Możliwość ekspresji i przystępna forma komunikacji - udostępnienie obsługi multimedialnych formatów danych (załączniki). Dostarczenie narzędzi umożliwiających sprecyzowanie wymagań w możliwie najprzystępniejszej dla odbiorców formie (odbiorcami są wszyscy interesariusze projektu - zarówno klienci jak i członkowie zespołu).
       \item Stworzenie centralnego repozytorium wiedzy na temat wymagań
       \item Wsparcie kolaboracji - umożliwienie współpracy wszystkich członków zespołu
       \item Automatyzacja tworzenia specyfikacji - implementacja algorytmu generującego dokument specyfikacji wymagań 
-      \item Silna koncentracja nad praktycznym zastosowaniem systemu wsparcia zarządzania wymaganiami(!) 
+      \item Silna koncentracja na praktycznym zastosowaniu systemu wsparcia zarządzania wymaganiami(!) 
     \end{itemize}
 
     W efekcie powstał prototyp systemu, otwierający drogę do dyskusji i rozwoju w kierunku poprawienia procesów inżynierii wymagań w małych i średnich przedsiębiorstwach. 
 
   \section{System Reqmanager - opis funkcjonalności}
 
+    \subsubsection{Ogólny przegląd stanu projektu}
+      Ekranem głównym jest przegląd stanu projektu z perspektywy wymagań. Użytkownik ma możliwość natychmiastowej edycji głównej notatki opsiującej główne założenia całego projektu oraz jego krótki opis. Ponadto, dostępna jest lista wymagań zawierająca podstawowe informacje takie jak kod wymagania, jego opis, priorytet oraz ilość przypisanych przypadków użycia. Wszystkie te elementy umieszczone na jednej stronie, umożliwiają użytkownikowi ogólną orientację w zakresie i celach projektu pod kątem wymagań. 
+
     \subsubsection{Wsparcie gromadzenia wymagań}
       Praktyczne narzędzie do zastosowania w procesie gromadzenia wymagań musi wspierać najwcześniejszą fazę - powstawania wymagań. W dynamicznych projektach, wymagania pojawiają się niespodziewanie, w różych sytuacjach i pochodzą z wielu różnych źródeł. Narzędzie musi wspierać prostą w obsłudze opcję dodawania wymagań w postaci krótkich notek, dłuższych artykułów lub opisów całych procesów. Jednocześnie nie może obarczać użytkownika obowiązkiem nadawania identyfikatorów oraz innych meta-informacji. Powinno również ograniczać potrzebę formatowania treści. Celem użytkownika, jest spisanie jak najszybciej wszystkich obserwacji i zachowanie ich w formie możliwej do późniejszego przetworzenia.
 
-      Proponowane rozwiązanie wspiera ten proces dzięki zitegrowanemu edytorowi tekstu. Użytkownik otrzymuje możliwość formatowania tekstu w języku znaczników Markdown \cite{Grub04}. Markdown umożliwia nadanie dokumentowi logicznej struktury wykorzystując zwykły tekst (plain text). postaci, sprawia, że użytkownik nie skupia się na detalach związanych z reprezentacją graficzną wymagania. Mimo tego 
+      Proponowane rozwiązanie wspiera ten proces dzięki zintegrowanemu edytorowi tekstu, edytorowi diagramów przypadków użycia oraz systemowi załączników.
+      
+      Formatowanie tekstu w języku znaczników Markdown \cite{Grub04} umożliwia nadanie dokumentowi logicznej struktury wykorzystując zwykły tekst (plain text) zaopatrzony w odpowiednie oznaczenia. Dzięki temu użytkownik otrzymuje czytelny dokument, przy jednoczesnym ograniczeniu formy graficznej, która jest w tym konekście drugoplanowa.
+
+      Edytor diagramów przypadków użycia umożliwia wzbogacenie treści wymagania o jego graficzną reprezentację. Moduł edycji diagramów przypadków użycia wspiera współdzielenie diagramów pomiędzy wieloma wymaganiami, umożliwiając oznaczanie odpowiednich elementów graficznych jako odpowiedzialnych za realizację aktualnie opracowywanego wymagania.
+
+      System załączników dodatkowo wzbogaca możliwości ekspresji - do wymagania użytkownik może dodać dokumenty lub treści multimedialne powiązane z danym wymaganiem, mające na clu lepsze zrozumienie istoty problemu.
 
       \begin{figure*}[t]
         \centering
@@ -108,20 +116,25 @@
         \caption{Test}
       \end{figure*}
 
-
-    \subsubsection{Wsparcie podejścia iteracyjnego}
-      historia i wersjonowanie
     \subsubsection{Uniwersalność formatu danych}
-      plain text, xml dla diagramów - w pełni przetwarzalne przez inne narzędzia. 
+      Dojrzałe narzędzie zarządzania wymaganiami powinno ułatwiać późniejsze procesowanie wprowadzonych do niego danych. Proponowany system realizuję tę potrzebę przechowując wszystkie wymagania oraz powiązane diagramy w bazie danych. Treść opisu wymagań jest przechowywana w postaci zwykłego tekstu, zaopatrzonego w znaczniki Markdown. Dzięki temu, treść wymagań jest znacznie łatwiejsza w przetwarzaniu, niż dokumenty tworzone przez klasyczne edytory tekstu.
+      
+      Ponadto, struktura diagramów powiązanych z wymaganiami jest przechowywana w bazie danych w formacie xml. Takie podejście również w zancznym stopniu ułatwia późniejsze przetwarzanie informacji zawartych na diagramach. 
+      
+      System aktywnie wykorzystuje powyższe właściwości podczas automatycznego generowania specyfikacji wymagań.
+
     \subsubsection{Zarządzanie zmianą}
-      też wersjonowanie? identyfikacja (traceability) - możliwość dojścia z jakiego wymagania jakies nowe ewoluowało
-    \subsubsection{Możliwość ekspresji komunikacji}
-      załączniki, diagramy, plain text
+      Zarządzanie zmianą jest istotne z punktu widzenia ewolucji wymagań i stopniowego uszczegóławiania dokumentacji systemu. Proponowane narzędzie wspiera ten proces zachowując poprzedni stan wymagania w trakcie jego zapisu. Dzięki temu możliwe jest prześledzenie zmian dokonywanych w wymaganiach. 
+
     \subsubsection{Centralne repozytorium}
-      oprogramowanie dostępne online, interfejs www z elementami html5 i canvas - dostępne na wszystkich nowoczesnych przeglądarkach
+      Proponowany system jest dostępny przez przeglądarkę, dzięki czemu stanowi centralne repozytorium wiedzy na temat wymagań w projekcie. Interfejs www z elementami html5 powoduje, że narzędzie wymaga jedynie nowoczesnej przeglądarki internetowej, bez żadnych dodatkowych wtyczek. Dzięki temu aplikacja cechuje się wysokim poziomem dostępności.  
+
     \subsubsection{Kolaboracja}
-      komentarze, historia
+      Możliwość komwntowania wymagań została zaimplementowana z myślą o umożliwieniu kolaboracji nad wymaganiami członkom zespołu.
+
     \subsubsection{Generator specyfikacji}
-      j/w
+      Jedną z kluczowych funkcjonalności proponowanego rozwiązania jest automatyczne generowanie dokumentu specyfikacji wymagań na podstawie aktualnych danych w systemie.
+      Użytkownik w każdej chwili jest w stanie wygenerować bieżącą wersję specyfikacji i poddać ją całościowej analizie. Częścią specyfikacji zostają zarówno wymagania jak i powiązane z nią przypadki użycia.
+
     \subsubsection{Praktyczne zastosowanie}
-      podsumowanie wszystkiego i odniesienie do rzeczywistości
+      Proponowane funkcjonalności są oparte na rzeczywistych doświadczeniach, w rzeczywistych projektach w małych i średnich przedsiębiorstwach. Bazują na silnym przekonaniu, że narzędzie, aby było wykorzystywnane, musi być wygodne i proste w użyciu oraz wnosić wartość dodaną do istniejącej infrastruktury i metodyki pracy. Jednocześnie nie adresuje całeg procesu zarządzania projektem - reazlizuje tylko swoje zadanie zarządzanie wymaganiami. W dojrzałym przedsiębiorstwie, narzędzie służące do zarządzania wymaganiami powinno być dopełnione pełnoprawnym systemem zarządzania projektami, systemem kontroli wersji oraz systemem zgłaszania i monitorowania błędów (traq, redmine).
