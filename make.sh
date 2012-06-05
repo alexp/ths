@@ -1,5 +1,4 @@
 #! /bin/bash
-latex thesis
+pdflatex thesis
 bibtex thesis
-latex thesis
-dvipdf thesis
+pdflatex thesis

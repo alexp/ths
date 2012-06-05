@@ -1,13 +1,29 @@
-\chapter{Stan sztuki w małych i średnich przedsiębiorstwach}
+\chapter{Stan faktyczny w inżynierii oprogramowania}
 
-  Badania: \cite{Niku00, Kamis98}
+  W poprzednim rozdziale nakreślono temat przewodni niniejszej pracy. Poruszono problem dostępności i użyteczności istniejących narzędzi wspomagających zarządzanie wymaganiami. Zaprezentowano także autorską koncepcję rozwiązania, mającego na celu usprawnienie procesu tworzenia specyfikacji wymagań użytkownika. 
 
-  Istnieje dużo literatury na temat inżynierii wymagań (Gause and Weinberg 1989; Jackson 1995; Kovitz 1999; Robertson and Robertson 1999a; Sommerville and Sawyer 1997), jednak praktyka pokazuje, że firmy nie stosują zaawansowanych procesów inżynierii wymagań.
-  Podejmowano próby przeprowadzenia badań w zakresie procesów inżynierii oprogramowania w małych i średnich przedsiębiorstwach. (CYTATY)
+  Ten rozdział zadedykowany jest analizie stanu faktycznego w zakresie inżynierii oprogramowania w różnych organizacjach.  
+
+  \section{Źródła wiedzy}
+
+  Inżynieria wymagań stanowi fundament wiedzy pozwalającej na realizację wysokiej jakości projektów informatycznych w założonym budżecie i czasie. 
+
+  Istnieje obszerna literatura podejmująca tematy stricte związane z inżynierią wymagań (Gause and Weinberg 1989; Jackson 1995; Kovitz 1999; Robertson and Robertson 1999a; Sommerville and Sawyer 1997), jednak praktyczne doświadczenia oraz liczne dostępne badania wskazują na istotne problemy z wprowadzaniem teorii w życie \cite{Boehm06, Niku00, Standish94}.
+
+  Znany raport opublikowany przez Standish Group International \cite{Standish94} prezentuje dramatyczną rzeczywistość, gdzie tylko niewielka część projektów kończy się częściowym lub całkowitym sukcesem. Wyniki raportu wskazują na najważniejsze powody niepowodzeń projektów jak brak włączenia użytkowników w proces budowy oprogramowania, niekompletne i nieudokumentowane wymagania, wiecznie zmieniający się zakres projektów czy brak wsparcia kadry zarządzającej.      
+  
+  W badaniu Nikula et al. (2000) przeprowadzonym wśród małych i średnich przedsiębiorstw w Finlandii, autorzy wskazują na alarmujący brak wiedzy dotyczącej wdrażania procesów inżynierii wymagań. Jednocześnie, wnioski z badania wskazują na konieczność zajęcia się problemami inżynierii wymagań na poziomie korporacyjnym, poprzez wdrażanie, optymalizację i automatyzację procesów IW w małych i średnich przedsiębiorstwach \cite{Niku00}.
+  
+  Z kolei badanie Quispe et al. (2010), również dotyczące małych i średnich przedsiębiorstw, zwraca szczególną uwagę na brak lub nienależytą komunikację z klientem, adresowanie nieodpowiednich problemów klienta, wadliwe specyfikacje oraz stosowanie praktyk inżynierii wymagań ,,ad hoc'' \cite{Quispe10}.
+  
+  Powyższe badania zajmują się głównie czynnikami niepowodzeń projektów. W badaniu Fern\'{a}ndez et al. (2012) przeanalizowano 12 projektów zakończonych sukcesem. Wnioski z tego badania sugerują, że wiele ze zidentyfikowanych czynników wpływających na niepowodzenia projektów można z powodzeniem rozwiązać zanim staną się realnym zagrożeniem. Ponadto zauważono, że klienci często mają znaczny wpływ na parametry związane z niepowodzeniem projektu. 
+
+  Analiza wyników powyższych badań w kontekście tej pracy sugeruje przede wszystkim konieczność zwrócenia szczególnej uwagi na poziom dojrzałości organizacji w aspekcie inżynierii wymagań. Nie wszystkie projekty kończą się porażką, a doświadczenia pokazują, że im bardziej dojrzałe procesy inżynierii wymagań w organizacji i odpowiednia ,,kultura'' firmy, tym większe są szanse na realizację projektu zwieńczoną sukcesem. 
+
+  Podsumowując, żaden system informatyczny ani narzędzie nie rozwiąże wszystkich problemów związanych z inżynierią oprogramowania. Na organizacji wytwarzającej oprogramowanie ciąży odpowiedzialność usprawniania procesów inżynierii wymagań, edukacji pracowników i zasięgania wiedzy ekspertów. Sukcesy w branży oprpgramowania można osiągnąć tylko poprzez ciągłą naukę, konsekwentną realizację procesów i ich usprawnianie na poziomie korporacyjnym.
 
 \chapter{Istniejące rozwiązania}
 
-  W poprzednim rozdziale nakreślono temat przewodni niniejszej pracy. Poruszono problem dostępności i użyteczności istniejących narzędzi wspomagających zarządzanie wymaganiami. Zaprezentowano także autorską koncepcję rozwiązania, mającego na celu usprawnienie procesu tworzenia specyfikacji wymagań użytkownika. 
 
   W tym rozdziale zostanie przeprowadzona analiza rynku oprogramowania wspierającego fazę analizy. Druga część rozdziału zajmie się identyfikacją najistotniejszych problemów jakie posiadają istniejące rozwiązania. 
 
@@ -23,9 +39,76 @@
 
       Powodem takiego stanu rzeczy jest szeroko pojęta popularyzacja internetu oraz przenoszenie się do sieci firm tworzących opgrogramowanie. Dystrybucja oprogramowania w formule SaaS ma wiele zalet w stosunku do klasycznych aplikacji "desktopowych". W szczególności pomięty jest w tym przypadku proces rozprowadzania aplikacji do klientów za pomocą sieci stacjonarnych sklepów z oprogramowaniem. Zaimplementowane rozwiązanie, jest gotowe do użycia z chwilą udostępnienia w internecie. Udostępnienie aplikacji na serwerach twórcy oprogramowania daje nieograniczone możliwości wprowadzania nowych funkcjonalności i poprawek. Z kolei monitorowanie zachowań klientów pozwala niemalże w czasie rzeczywistym odpowiadać na potrzeby użytkowników. 
 
-      W związku z licznymi zaletami modelu SaaS, w internecie powstało wiele aplikacji próbujących zaadresować problemy związane z procesem zbierania i dokumentowania wymagań użytkownika. Do najciekawszych rozwiązań można zaliczyć gatherspace (http://gatherspace.com/) [!ref] <<<<<<<< krótki opis głównych osobliwości gatherspace'a >>>>>>>>, tracecloud.com <<<<<<<< krótki opis głównych osobliwości tracecloud'a >>>>>>>>, accompa.com <<<<<<<< krótki opis głównych osobliwości accompy >>>>>>>> 
+      W związku z licznymi zaletami modelu SaaS, w internecie powstało wiele aplikacji próbujących zaadresować problemy związane z procesem zbierania i dokumentowania wymagań użytkownika. Do najciekawszych rozwiązań można zaliczyć gatherspace (http://gatherspace.com/), tracecloud.com oraz accompa.com.
 
       \subsubsection{Gatherspace}
+        Gatherspace dzieli wymagania na wymagania biznesowe oraz wymagania funkcjonalne (software requirements). Dostępne są osobne widoki dla obu typów wymagań. Wymagania można katalogować w definiowane przez użytkownika pakiety.
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_1.pdf}
+          \caption{Gatherspace.com - business requirements}
+        \end{figure*}
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_2.pdf}
+          \caption{Gatherspace.com - software requirements}
+          \label{fig:gatherspace_2}
+        \end{figure*}
+        
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_5.pdf}
+          \caption{Gatherspace.com - dodawanie wymagania ze szczegółami}
+          \label{fig:gatherspace_5}
+        \end{figure*}
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_6.pdf}
+          \caption{Gatherspace.com - tooltip ze szczegółami wymagania}
+          \label{fig:gatherspace_6}
+        \end{figure*}
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_7.pdf}
+          \caption{Gatherspace.com - widok szczegółów wymagania}
+          \label{fig:gatherspace_7}
+        \end{figure*}
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_8.pdf}
+          \caption{Gatherspace.com - widok szczegółów wymagania}
+          \label{fig:gatherspace_8}
+        \end{figure*}
+
+        \begin{figure*}[t]
+          \centering
+          \includegraphics[width=1.0\textwidth]{img/gatherspace_9.pdf}
+          \caption{Gatherspace.com - wymaganie przygotowane do druku}
+          \label{fig:gatherspace_9}
+        \end{figure*}
+
+        Na Rysunku \ref{fig:gatherspace_2} przedstawiono widok wymagań funkcjonalnych. Dodawanie wymagań przebiega w prosty sposób. Po wpisaniu tytułu wymagania i zatwierdzeniu pola formularza, element zostaje dodany do listy bez przeładowania strony.
+
+        Wymaganie może zostać dodane na dwa sposoby - podając jedynie tytuł lub wybierając opcję ,,Add with detail''. Wówczas pojawia się ,,popup'' umożliwiający dodanie zarówno treści jak i opisu wymagania (patrz Rys. \ref{fig:gatherspace_5}).
+
+        Wymaganie posiadające opis, zaopatrzone jest w specjalną ikonkę po lewej stronie. Użytkownik wskazujący myszką na tę ikonkę może podejrzeć treść wymagania, bez konieczności otwierania jego szczegółów. Jest to dość przydatna funkcjonalność, pozwalająca szybko zapoznać się pobieżnie z danym wymaganiem. Rysunek \ref{fig:gatherspace_6} zawiera zrzut ekraniu prezentujący tę funkcjonalność. 
+        
+        Widok szczegółów wymagania jest dość prosty i przejrzysty (Rys. \ref{fig:gatherspace_7}). Do dyspozycji użytkownika jest formularz zawierający pola z parametrami wymagania, takimi jak m.in.: priorytet, status, poziom złożoności, pakiet do którego należy, przez kogo wymaganie zostało dodane oraz kto lub co jest źródłem wymagania.
+
+        Dodawanie przypadków użycia jest wydzielone do osobnego widoku i funkcjonuje jako osobny zestaw formularzy (Rys. \ref{fig:gatherspace_8}). 
+
+        Istnieje możliwość łączenia przypadków użycia z wymaganiami poprzez wskazanie konkretnego wymagania w osobnym widoku. 
+
+        Zarówno przypadki użycia jak i wymagania mogą zostać wyświetlone w formie przyjaznej do wydruku. Dla przykładu zamieszczono zrzut ekranu obrazujący jeden przypadek użycia w formie do wydruku, na Rys. \ref{fig:gatherspace_9}
+
+         
+
       \subsubsection{Tracecloud}
       \subsubsection{Accompa}
 
@@ -49,6 +132,6 @@
 
       Analizując istniejące rozwiązania, nie można oprzeć się wrażeniu, że wszystkie przystosowane są do dużych, korporacyjnych projektów. Większość aplikacji powiela rozwiązania znane i sprawdzone funkcjonalności. W konsekwencji trudnym zadaniem jest znalezienie wyróżniających się elementów wśród oferowanych możliwości tych produktów. 
 
-      Proces definiowania wymagań w niewielkich (budżet max w granicach 100tyś euro - ?!) projektach jest w dużej mierze procesem twórczym. Często pojawienie się nowego wymagania jest inicjowane z kilku heterogenicznych źródeł. Nierzadko zdarza się również, że to samo wymaganie jest różnie komunikowane przez wiele źródeł. W niewielkich projektach, gdzie często jedna osoba, lub mały zespół odpowiedzialny jest za specyfikację wymagań, wymagania przybierają postać wiadomości email, rozmów telefonicznych, notatek ze spotkań i formalnych dokumentów. Zadaniem osoby lub zespołu odpowiedzialnego za specyfikację wymagań, jest przefiltrowanie cząstkowych informacji oraz ekstrakcja i udokumentowanie wymagań. Żadne narzędzie (przynajmniej na razie) nie zastąpi skutecznie pracy człowieka nad wyłuskaniem wszystkich wymagań. 
+      Proces definiowania wymagań w niewielkich projektach jest w dużej mierze procesem twórczym. Często pojawienie się nowego wymagania jest inicjowane z kilku heterogenicznych źródeł. Nierzadko zdarza się również, że to samo wymaganie jest różnie komunikowane przez wiele źródeł. W niewielkich projektach, gdzie często jedna osoba, lub mały zespół odpowiedzialny jest za specyfikację wymagań, wymagania przybierają postać wiadomości email, rozmów telefonicznych, notatek ze spotkań i formalnych dokumentów. Zadaniem osoby lub zespołu odpowiedzialnego za specyfikację wymagań, jest przefiltrowanie cząstkowych informacji oraz ekstrakcja i udokumentowanie wymagań. Żadne narzędzie (przynajmniej na razie) nie zastąpi skutecznie pracy człowieka nad wyłuskaniem wszystkich wymagań. 
 
       !!!!Wymagania trzymane są w dokumentach procesorów tekstowych - trudno dostępne, ciężko analizować!!!

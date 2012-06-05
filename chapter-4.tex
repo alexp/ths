@@ -1,12 +1,22 @@
 \chapter{Technologie wykorzystane w implementacji}
   
-  krótki wstęp
+  W poprzednim rozdziale opisano główne założenia proponowanego systemu i jego poszczególne funkcjonalności. W tym rozdziale zostaną opisane narzędzia, technologie i biblioteki, które zastosowano podczas budowy prototypu.
 
-  \section{Z czego korzystałem z lotu ptaka - grails, java, tomcat, heroku, git, postgresql, javascript, biblioteka jsuml2, jquery}
+  \section{Zarys technologii}
+    
+    Implementację systemu oparto o technologie Java/Jee i pochodne. Jako podstawę szkieletu aplikacji wykorzystano framework Grails umożliwiający szybkie prototypowanie aplikacji internetowych. W warstwie bazy danych wykorzystano bazę postgresql oraz technologię mapowania obiektowo-relacyjnego Hibernate ORM, dostarczaną wraz z frameworkiem Grails. 
+    
+    Interfejs użytkownika oparto o Twitter Bootstrap - predefiniowany zestaw styli oraz komponentów do natychmiastowego wykorzystania w aplikacjach internetowych. 
+
+    Moduł graficznej edycji diagramów UML został stworzony wykorzystując ,,jsUML2'' - bibliotekę przygotowaną przez zespół prof. José Raúl'a Romero, na uniwersytecie w Kordobie [!ref]. 
+
+    Prototyp umieszczono w darmowej infrastrukturze firmy Heroku (heroku.com).
 
   \section{Framework Grails}
     
-    Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się rozwojem Grails, to SpringSource - ta sama organizacja, któ¶a odpowiedzialna jest za stworzenie Spring Framework - jednego z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i stanowi trzon technologiczny dla tego młodego narzędzia wspomagającego tworzenie aplikacji opartych o technologie webowe.  
+    Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się rozwojem Grails, to SpringSource - jest to ta sama organizacja, odpowiedzialna za stworzenie Spring Framework - jednego z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i stanowi trzon technologiczny tego narzędzia.
+
+    Dzięki systemowi wtyczek dostarczanej wraz z technologią Grails istnieje możliwość stosunkowo łatwej rozbudowy systemu o nowe funkcjonalności.
 
     \subsection{Język Groovy}
 
@@ -18,12 +28,18 @@
 
       Hibernate ORM jest technologią pozwalającą na mapowanie rekordów z relacyjnych baz danych, na obiekty w systemie. Jest to metoda w pewnym stopniu rozwiązująca problem niezgodności impedancji \cite{KSub01}
 
-    \subsection{Framework Grails}
+    \subsection{Tworezenie aplikacji w Grails Framework}
 
-      Grails integruje wszystkie najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (python) czy Ruby On Rails. Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z ekosystemu javy.
+      Grails integruje wszystkie najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu javy.
+
+      ** krótki tutorial, opisujący cykl pracy w Grails **
 
   \section{Pozostałe technologie}
     \subsection{Postgresql}
+      Trwałość danych w aplikacjach internetowych standardowo realizowana jest przez bazę danych. Na potrzeby prezentowanego prototypu, wykorzystano bazę danych Postgresql. Jest to obiektowo-relacyjna baza danych udostępniona na licencji Wolnego i Otwartego Oprogramowania. Baza danych PostgreSQL implementuje znaczną część standardu SQL:2008 [!ref - http://www.postgresql.org/docs/9.1/static/features.html]
+
     \subsection{Javascript, jQuery i biblioteka jsUml2}
+      
+      
     \subsection{System kontroli wersji git i serwer heroku}
     \subsection{Srodowisko programistyczne (linux, vim, tmux)}
