@@ -10,17 +10,88 @@
 
     Moduł graficznej edycji diagramów UML został stworzony wykorzystując ,,jsUML2'' - bibliotekę przygotowaną przez zespół prof. José Raúl'a Romero, na uniwersytecie w Kordobie [!ref]. 
 
-    Prototyp umieszczono w darmowej infrastrukturze firmy Heroku (heroku.com).
+    Edytor tekstu oparty jest o bibliotekę javascript Ace Editor. Jest to wiodąca biblioteka, wykorzystywana m. in. w eksperymencie Cloud9 IDE [!ref] - webowym, zintegrowanym środowisku programistycznym zapoczątkowanym przez zespoł Mozilli, pod nazwą Mozilla Skywriter [!ref].
+  
+    Pierwotnie docelowym środowiskiem testowym dla proponowanego systemu był Google App Engine, jednak ze względu na ograniczenia tej usługi, prototyp umieszczono na darmowej infrastrukturze firmy Heroku (heroku.com) znacznie lepiej obsługującej nowoczesne aplikacje oparte o Javę.
 
   \section{Framework Grails}
     
-    Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się rozwojem Grails, to SpringSource - jest to ta sama organizacja, odpowiedzialna za stworzenie Spring Framework - jednego z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i stanowi trzon technologiczny tego narzędzia.
+    Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się rozwojem tej technologii jest tą samą organizacją, odpowiedzialną za stworzenie Spring Framework - jednego z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i wraz z Hibernate ORM stanowi trzon technologiczny tego narzędzia.
+
+   Grails integruje najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i z Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (język python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu javy.
+
+
+    \subsubsection{Język Groovy}
+
+      Podstawowym językiem programowania w platformie Grails, jest język Groovy. Groovy jest dynamicznie kompilowanym językiem o składni i filozofii zbliżonej do takich języków jak Python lub Ruby. Kod bajtowy będący wynikiem kompilacji uruchamiany jest na wirtualnej maszynie Javy, przez co język integruje się niemal w sposób przeźroczysty z technologiami opartymi o JVM. Ponadto, kod programu napisanego w Javie jest poprawnym programem Groovy zarówno pod względem sytnaktycznym jak i semantycznym. Bardziej zwięzła i przyjazna składnia Groovy wraz z szerokimi możliwościami Javy sprawia, że ten język skryptowy jest solidnym rozwiązaniem o szerokim spektrum zastosowań.
+
+      W celach porównawczych, poniżej zamieszczono legendarny, trywialny problem programistyczny ,,FizzBuzz'', zarówno w języku Groovy, jak i Java. Program ,,FizzBuzz'' otrzymując na wejściu ciąg liczb, wypisuje na konsolę słowo ,,Fizz'' jeśli dana liczba jest podzielna przez 5, słowo ,,Buzz'', jeśli dana liczba jest podzielna przez 10, natomiast słowo ,,FizzBuzz'' w przypadku podzielności przez 15.
+
+    \begin{verbatim}
+
+      // Groovy:
+      for (i in 1..100) {
+        println "${i%3?'':'Fizz'}${i%5?'':'Buzz'}" ?: i
+      }    
+
+      //Java:
+      public class FizzBuzz{
+        public static void main(String[] args){
+          for(int i= 1; i <= 100; i++){
+            if(i % 15 == 0){
+              System.out.println("FizzBuzz");
+            } else if(i % 3 == 0){
+              System.out.println("Fizz");
+            } else if(i % 5 == 0){
+              System.out.println("Buzz");
+            } else{
+              System.out.println(i);
+            }
+          }
+        }
+      }
+
+    \end{verbatim}
+
+    W szczególności filozofia Grails jest bardzo zbliżona do bardzo popularnego frameworka Ruby On Rails (RoR) umożliwiającego ekspresowe prototypowanie aplikacji umożliwiających (1) tworzenie, (2) odczyt, (3) aktualizację i (4) usuwanie danych za pomocą formularzy (popularnie zwanych ,,CRUD'' - create, retrieve, update, delete). Wiele przyjętych rozwiązań w Grails zostało zaczerpniętych z RoR, jednak oba frameworki znacznie różnią się pod względem technologicznym. Szczegółowe porównanie tych technologii leży poza zakresem tej pracy, jednak osoby zainteresowane, powinny zapoznać się z doskonałym wątkiem w serwisie Stackoverflow, przytoczonym w bibliografii \cite{RailsGr}.
+
+
+    Grails jest silnie oparte o paradygmat ,,convention over configuration'' - architekturze zakładającej minimalizację potrzeby konfiguracji aplikacji przez programistę na rzecz przyjętych konwencji, do których należy się stosować, aby wydaje dostarczać działające rozwiązania. Podejście to dotyczy wszelkich aspektów z tworzeniem aplikacji w Grails - od struktury katalogów, przez umiejscowienie i zawartość plików konfiguracyjnych, po nazewnictwo klas, zmiennych i zastosowanie odpowiednich struktur danych. 
+
+    Oparcie technologii Grails na wzorcu Model-View-Controller (MVC) jest naturalnym podejściem w nowoczesnych frameworkach ułatwiających tworzenie aplikacji internetowych.
+
+    Struktura katalogów nowo utworzonej aplikacji wygląda następująco:
+
+    \begin{verbatim}
+
+      + grails-app
+        + conf           ---> lokalizacja artefaktów konfiguracji
+          + hibernate    ---> opcjonalne pliki konfiguracyjne hibernate
+          + spring       ---> opcjonalne pliki konfiguracyjne spring 
+        + controllers    ---> kontrolery aplikacji
+        + domain         ---> klasy reprezentujące modele
+        + i18n           ---> zlokalizowane komunikaty il8n
+        + services       ---> warstwa serwisowa
+        + taglib         ---> biblioteki znaczników
+        + util           ---> klasy pomocnicze special utility classes 
+        + views          ---> lokalizacja widoków
+          + layouts      ---> lokalizacja 
+        + lib
+        + scripts       ---> scripts
+        + src
+        + groovy       ---> optional; location for Groovy source files
+                              (of types other than those in grails-app/*)
+        + java      ---> optional; location for Java source files
+        + test          ---> generated test classes
+        + web-app
+          + WEB-INF
+
+    \end{verbatim}
+
+    Po wstępnej analizie, mając wiedzę na temat dziedziny problemu, w prosty sposób można utworzyć podstawową funkcjonalność aplikacji przykładowej aplikacji. Proces tworzenia elementów budowanego systemu rozpoczyna się od stworzenia klasy Groovy
 
     Dzięki systemowi wtyczek dostarczanej wraz z technologią Grails istnieje możliwość stosunkowo łatwej rozbudowy systemu o nowe funkcjonalności.
 
-    \subsection{Język Groovy}
-
-      Podstawowym językiem programowania w platformie Grails, jest język Groovy. Groovy jest dynamicznie kompilowanym językiem o składni i filozofii zbliżonej do takich języków jak Python lub Ruby. Kod bajtowy będący wynikiem kompilacji uruchamiany jest na wirtualnej maszynie Javy, przez co język integruje się niemal w sposób przeźroczysty z technologiami opartymi o JVM. Ponadto, kod programu napisanego w Javie jest poprawnym programem Groovy zarówno pod względem sytnaktycznym jak i semantycznym. Bardziej zwięzła i przyjazna składnia Groovy wraz z szerokimi możliwościami Javy sprawia, że ten język skryptowy jest solidnym rozwiązaniem o szerokim spektrum zastosowań.
 
     \subsection{Spring Framework i Hibernate ORM}
 
@@ -28,18 +99,12 @@
 
       Hibernate ORM jest technologią pozwalającą na mapowanie rekordów z relacyjnych baz danych, na obiekty w systemie. Jest to metoda w pewnym stopniu rozwiązująca problem niezgodności impedancji \cite{KSub01}
 
-    \subsection{Tworezenie aplikacji w Grails Framework}
-
-      Grails integruje wszystkie najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu javy.
-
-      ** krótki tutorial, opisujący cykl pracy w Grails **
-
   \section{Pozostałe technologie}
     \subsection{Postgresql}
       Trwałość danych w aplikacjach internetowych standardowo realizowana jest przez bazę danych. Na potrzeby prezentowanego prototypu, wykorzystano bazę danych Postgresql. Jest to obiektowo-relacyjna baza danych udostępniona na licencji Wolnego i Otwartego Oprogramowania. Baza danych PostgreSQL implementuje znaczną część standardu SQL:2008 [!ref - http://www.postgresql.org/docs/9.1/static/features.html]
 
     \subsection{Javascript, jQuery i biblioteka jsUml2}
       
-      
+       
     \subsection{System kontroli wersji git i serwer heroku}
     \subsection{Srodowisko programistyczne (linux, vim, tmux)}

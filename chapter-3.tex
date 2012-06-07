@@ -67,14 +67,6 @@
 
         Specyfika większości projektów informatycznych, wiąże się z tym, że raz udokumentowane wymagania rzadko pozostają aktualne do momentu zakończenia prac. Wymagania są przedmiotem ciągłych zmian i niezbędne są narzędzia, których zadaniem będzie zarządzanie tymi zmianami. Proces zarządzania wymaganiami należy rozpocząć w momencie powstania pierwszej wersji specyfikacji wymagań i kontynuować aż do zakończenia projektu.
 
-  \section{Język UML w trakcie fazy analizy}
-    ** opis teoretycznych aspetków zastosowania języka UML w trakcie fazy analizy ze szczególnym uwzględnieniem etapu zebirania wymagań.    
-
-
-  \section{Technologie webowe w kontekście RIA (zalety i wady przenoszenia sie do webu)}
-    ** Rich Internet Applications i możliwości jakie niesie ze sobą ten kierunek rozwoju w kontekście inżynierii wymagań **
-
-
   \section{Motywacja podjęcia prac nad nowym rozwiązaniem}
 
     Mając na uwadze teoretyczne tło dziedziny jaką jest inżynieria wymagań oraz praktyczne problemy z jakimi borykają się dzisiaj małe i średnie przedsiębiorstwa w zakresie zarządzania wymaganiami, powstała koncepcja rozwiązania, adresującego najpilniejsze problemy w rzeczywistych projektach małej i średniej skali. 
@@ -94,44 +86,89 @@
     W trakcie prac nad koncepcją narzędzia postawiono następujące cele:
     
     \begin{itemize}
-      \item Ogólny przegląd stanu projektu - najistotniejsze informacje z perspektywy wymagań systemu powinny być dostępne na jednej stronie podsumowującej projekt
-      \item Wsparcie gromadzenia wymagań - wsparcie pozyskiwania, definiowania, katalogowania (grupowania) nieprzetworzonych wymagań oraz nadawania im odpowiednich priorytetów
-      \item Uniwersalność formatu przechowywanych danych - ułatwienie dalszego przetwarzania treści wymagań przez zewnętrzne systemy
-      \item Dostarczenie rozwiązań zarządzania zmianą - wsparcie zarządzania wymaganiami na późniejszych etapach projektu
-      \item Stworzenie centralnego repozytorium wiedzy na temat wymagań
-      \item Wsparcie kolaboracji - umożliwienie współpracy wszystkich członków zespołu
-      \item Automatyzacja tworzenia specyfikacji - implementacja algorytmu generującego dokument specyfikacji wymagań 
-      \item Silna koncentracja na praktycznym zastosowaniu systemu wsparcia zarządzania wymaganiami(!) 
+      \item Silna koncentracja na praktycznym zastosowaniu systemu wsparcia zarządzania wymaganiami - system musi rozwiązywać rzeczywiste problemy zespołów projektowych w zakresie gromadzenia i przetwarzania wymagań. Wdrożenie systemu musi wiązać się z wniesieniem wartości dodanej do procesów inżynierii wymagań w organizacji;
+      \item Obsługa wielu projektów w obrębie aplikacji - system musi umożliwiać obsługę i zarządzanie wieloma projekami w obrębie tej samej aplikacji;
+      \item Ogólny przegląd stanu projektu - najistotniejsze informacje z perspektywy wymagań systemu powinny być dostępne na jednej stronie podsumowującej projekt;
+      \item Wsparcie gromadzenia wymagań - system powinien wspierać pozyskiwanie, definiowanie, katalogowanie (grupowanie) nieprzetworzonych wymagań oraz nadawanie im odpowiednich priorytetów przy pomocy intuicyjnych narzędzi;
+      \item Uniwersalność formatu przechowywanych danych - system powinien umożliwiać łatwe przetwarzanie treści wymagań przez zewnętrzne systemy;
+      \item Dostarczenie rozwiązań zarządzania zmianą - aplikacja powinna dostarczać wsparcia zarządzania wymaganiami na późniejszych etapach projektu;
+      \item Stworzenie centralnego repozytorium wiedzy na temat wymagań - system powinien stanowić główne źródło wiedzy i komunikacji w zakresie wymagań;
+      \item Wsparcie kolaboracji - system powinien umożliwiać współpracę nad wymaganiami poprzez obsługę wielu użytkowników i dostarczenie im modułu komentarzy;
+      \item Automatyzacja tworzenia specyfikacji - należy zaimplementować algorytm generujący dokument specyfikacji wymagań na podstawie informacji dostępnych w systemie;
     \end{itemize}
 
-    W efekcie powstał prototyp systemu, otwierający drogę do dyskusji i rozwoju w kierunku poprawienia procesów inżynierii wymagań w małych i średnich przedsiębiorstwach. 
+    W efekcie powstał prototyp systemu, otwierający drogę do dyskusji i rozwoju w kierunku poprawienia procesów inżynierii wymagań w małych i średnich przedsiębiorstwach, skupiający się na praktycznych rozwiązaniach. 
 
   \section{System Reqmanager - opis funkcjonalności}
 
+    Poniżej opisano poszczególne funkcjonalności systemu i przedstawiono mechanizmy, narzędzia oraz techniczne rowiązania które posłużyły do implementacji poszczególnych założeń systemu.
+
+    \subsection{Obsługa wielu projektów} 
+      System umożliwia tworzenie wielu projektów. Formularz dodawania projektu składa się pól nazwy, krótkiego opisu oraz głównej notatki projektu, będącej jego szczegółowym opisem w formie tzw. briefu. Ostatnią niezbędną informacją, którą należy podać jest planowana data zakończenia prac nad projektem. W założeniu opis i notatka projektu ulegają zmianom w miarę upływu czasu, dlatego na późniejszych etapach projetku istnieje możliwość bardzo łatwej edycji zmian treści tych atrybutów. 
+
     \subsection{Ogólny przegląd stanu projektu}
-      Ekranem głównym jest przegląd stanu projektu z perspektywy wymagań. Użytkownik ma możliwość natychmiastowej edycji głównej notatki opsiującej główne założenia całego projektu oraz jego krótki opis. Ponadto, dostępna jest lista wymagań zawierająca podstawowe informacje takie jak kod wymagania, jego opis, priorytet oraz ilość przypisanych przypadków użycia. Wszystkie te elementy umieszczone na jednej stronie, umożliwiają użytkownikowi ogólną orientację w zakresie i celach projektu pod kątem wymagań. 
+      Ekranem głównym w obrębie wybranego projektu jest przegląd stanu projektu z perspektywy wymagań. Użytkownik ma możliwość natychmiastowej edycji głównej notatki opsiującej założenia całego projektu oraz jego krótki opis. Ponadto, dostępna jest lista wymagań zawierająca podstawowe informacje takie jak kod wymagania, jego opis, priorytet oraz ilość przypisanych przypadków użycia. Wszystkie te elementy umieszczone na jednej stronie, umożliwiają użytkownikowi ogólną orientację w zakresie i celach projektu pod kątem wymagań. 
 
     \subsection{Wsparcie gromadzenia wymagań}
       Praktyczne narzędzie do zastosowania w procesie gromadzenia wymagań musi wspierać najwcześniejszą fazę - powstawania wymagań. W dynamicznych projektach, wymagania pojawiają się niespodziewanie, w różych sytuacjach i pochodzą z wielu różnych źródeł. Narzędzie musi wspierać prostą w obsłudze opcję dodawania wymagań w postaci krótkich notek, dłuższych artykułów lub opisów całych procesów. Jednocześnie nie może obarczać użytkownika obowiązkiem nadawania identyfikatorów oraz innych meta-informacji. Powinno również ograniczać potrzebę formatowania treści. Celem użytkownika, jest spisanie jak najszybciej wszystkich obserwacji i zachowanie ich w formie możliwej do późniejszego przetworzenia.
 
       Proponowane rozwiązanie wspiera ten proces dzięki zintegrowanemu edytorowi tekstu, edytorowi diagramów przypadków użycia oraz systemowi załączników.
       
-      Formatowanie tekstu w języku znaczników Markdown \cite{Grub04} umożliwia nadanie dokumentowi logicznej struktury wykorzystując zwykły tekst (plain text) zaopatrzony w odpowiednie oznaczenia. Dzięki temu użytkownik otrzymuje czytelny dokument, przy jednoczesnym ograniczeniu formy graficznej, która jest w tym konekście drugoplanowa.
 
-      Edytor diagramów przypadków użycia umożliwia wzbogacenie treści wymagania o jego graficzną reprezentację. Moduł edycji diagramów przypadków użycia wspiera współdzielenie diagramów pomiędzy wieloma wymaganiami, umożliwiając oznaczanie odpowiednich elementów graficznych jako odpowiedzialnych za realizację aktualnie opracowywanego wymagania.
+      \subsubsection{Edytor tekstowy}
+
+      Formatowanie tekstu w języku znaczników Markdown \cite{Grub04} umożliwia nadanie dokumentowi logicznej struktury wykorzystując zwykły tekst (plain text) zaopatrzony w odpowiednie oznaczenia. Dzięki temu użytkownik otrzymuje czytelny dokument, przy jednoczesnym ograniczeniu formy graficznej, która jest w tym konekście drugoplanowa. Przykład składni dokumentu Markdown zaprezentowano na Rys. X [!ref].
+
+      \begin{verbatim}
+        # Brief projektu
+
+        Ten dokument zawiera tzw "brief" projektu - wstępny opis 
+        systemu, jaki mamy zamiar zbudować.
+
+        ## System w szczególności musi uwzględniać 
+        następujące funkcjonalności:
+       
+        * logowanie użytkownika
+        * dodawanie i zarządzanie projektami
+        * dodawanie i zarządzanie wymaganiami
+        * _tworzenie diagramów przypadków użycia_
+      \end{verbatim}
+      
+      Po konwersji przez Markdown do języka HTML, otrzymamy następujący wynik:
+
+      \begin{verbatim}
+        <h1>Brief projektu</h1>
+
+        <p>Ten dokument zawiera tzw "brief" projektu - wstępny opis systemu, jaki mamy zamiar zbudować.</p>
+
+        <h2>System w szczególności musi uwzględniać następujące funkcjonalności:</h2>
+
+        <ul>
+          <li>logowanie użytkownika</li>
+          <li>dodawanie i zarządzanie projektami</li>
+          <li>dodawanie i zarządzanie wymaganiami</li>
+          <li><em>tworzenie diagramów przypadków użycia</em></li>
+        </ul>
+      \end{verbatim}
+  
+      Dzięki temu, w łatwy sposób istnieje możliwość tworzenia spójnych dokumentów o logicznej strukturze, przy niewielkim nakładzie pracy.
+
+      \subsubsection{Edytor diagramów UML}
+
+      Edytor diagramów UML umożliwia wzbogacenie treści wymagania o graficzną reprezentację powiązanych przypadków użycia. Moduł ten wspiera współdzielenie diagramów pomiędzy wieloma wymaganiami, umożliwiając oznaczanie odpowiednich elementów jako odpowiedzialnych za realizację aktualnie opracowywanego wymagania. 
+
+      Szczególnie istotnym elementem systemu jest generowanie obiektów aplikacji na podstawie danych odczytywanych bezpośrednio ze struktury diagramu. W efekcie, po utworzeniu elementu na diagramie i odpowiednim powiązaniu go z danym wymaganiem, powstanie reprezentacja tego elementu w postaci obiektu klasy Groovy, który następnie zostanie zapisany do bazy danych dzięki mapowaniu obiektowo - relacyjnemu będącego integralną częścią frameworka Grails. Jednocześnie zostanie zachowana odpowiednia relacja między utworzonym obiektem klasy UseCase, a wymaganiem. Mapowanie elementów utworzonych na diagramie przebiega dzięki możliwości serializacji diagramu do formatu XML. Szczegółowo autor opisuje ten mechanizm w rozdziale dotyczącym rozwiązań implementacyjnych [!ref]
+
+      W przyszłości, istnieje możliwość rozszerzenia funkcjonalności edytora o kolejne rodzaje diagramów UML. Ponadto, w trakcie ewentualnej rozbudowy systemu, wygodnym usprawnieniem byłoby automatyczne przypisywanie nowo utworzonych obiektów do aktualnie edytowanego wymagania.
+
+      \subsubsection{System załączników}
 
       System załączników dodatkowo wzbogaca możliwości ekspresji - do wymagania użytkownik może dodać dokumenty lub treści multimedialne powiązane z danym wymaganiem, mające na clu lepsze zrozumienie istoty problemu.
 
-      \begin{figure*}[t]
-        \centering
-        \includegraphics[width=1.0\textwidth]{screen_test.pdf}
-        \caption{Test}
-      \end{figure*}
-
     \subsection{Uniwersalność formatu danych}
-      Dojrzałe narzędzie zarządzania wymaganiami powinno ułatwiać późniejsze procesowanie wprowadzonych do niego danych. Proponowany system realizuję tę potrzebę przechowując wszystkie wymagania oraz powiązane diagramy w bazie danych. Treść opisu wymagań jest przechowywana w postaci zwykłego tekstu, zaopatrzonego w znaczniki Markdown. Dzięki temu, treść wymagań jest znacznie łatwiejsza w przetwarzaniu, niż dokumenty tworzone przez klasyczne edytory tekstu.
+      Narzędzie do zarządzania wymaganiami powinno ułatwiać późniejsze procesowanie wprowadzonych do niego danych. Proponowany system realizuje tę potrzebę przechowując wszystkie wymagania oraz powiązane diagramy w bazie danych. Treść opisu wymagań jest przechowywana w postaci zwykłego tekstu, zaopatrzonego w znaczniki Markdown. Dzięki temu, treść wymagań jest znacznie łatwiejsza w przetwarzaniu, niż dokumenty tworzone przez klasyczne edytory tekstu.
       
-      Ponadto, struktura diagramów powiązanych z wymaganiami jest przechowywana w bazie danych w formacie xml. Takie podejście również w zancznym stopniu ułatwia późniejsze przetwarzanie informacji zawartych na diagramach. 
+      Struktura diagramów powiązanych z wymaganiami jest przechowywana w bazie danych w formacie xml. Takie podejście również w znacznym stopniu ułatwia późniejsze przetwarzanie informacji zawartych na diagramach. 
       
       System aktywnie wykorzystuje powyższe właściwości podczas automatycznego generowania specyfikacji wymagań.
 
