@@ -1,9 +1,80 @@
-\chapter{Opis prototypu - System ,,Reqmanager''}
+\chapter{Rozwiązania implementacyjne}
   
-  krótki wstęp
+  W poprzednim rozdziale opisano narzędzia jakie wykorzystano w trakcie implementacji prototypu proponowanego rozwiązania. W niniejszym rozdziale, zostaną zaprezentowane konkretne rozwiązania implementacyjne zastosowane w prototypie. Szczegolną uwagę zwrócono na moduł edycji diagramów przypadków użycia oraz generatora specyfikacji wymagań.
 
-  \section{Zbieranie wymagań w Reqmanager}
-  \section{Edycja diagramów UML}
+  \section{Architektura systemu}
+    Jak wspomniano w ogólnym opisie prototypu, w rozdziale 4. definiowanie wymagań w systemie Reqmanager polega na jednoczesnym dostępie do edytora tekstu oraz edytora diagramów przypadków użycia. Użytkownik, mając otwartą aplikację, oprócz tekstowego opisu wymagania, ma możliwość dodawania oraz edycji przypadków użycia w formie graficznej.
+
+    Aplikacja Reqmanager jest typową aplikacją internetową typu klient-serwer, gdzie klientem jest przeglądarka internetowa użytkownika korzystającego z aplikacji zainstalowanej na zdalnym serwerze, odpowiednio odpowiadając na żądania klienta na zasadach request-response. Przeglądarka internetowa jest tak zwanym ,,cienkim klientem'' z racji silnego uzależnienia działania od serwera aplikacji. 
+    
+    Framework Grails narzuca architekturę kodu aplikacji według wzorca Model-View-Controller, opisanego w rozdziale 5 [ref!].  
+
+    Na potrzeby aplikacji Reqmanager, utworzono następującą strukturę modeli aplikacji:
+
+    \begin{verbatim}
+    Diagram 
+    Project
+    Requirement
+    UseCase
+    \end{verbatim}
+
+    Struktura bazy danych jest generowana automatycznie, na podstawie analizy klas modeli 
+
+    \begin{verbatim}
+                    List of relations
+    Schema |         Name          |   Type   |  Owner
+    --------+-----------------------+----------+----------
+    public | diagram               | table    | postgres
+    public | hibernate_sequence    | sequence | postgres
+    public | project               | table    | postgres
+    public | requirement           | table    | postgres
+    public | requirement_use_cases | table    | postgres
+    public | use_case              | table    | postgres
+    \end{verbatim}
+
+
+    ************* TUTAJ STRUKTURA ERD SYSTEMU **************
+
+    \subsection{Mapowanie przypadków użycia}
+      Diagramy przypadków użycia w systemie edytowane są po stronie klienta, dzięki wykorzystaniu elementu \emph{canvas} wprowadzonego niedawno do specyfikacji języka HTML5. Obsługa tej funkcjonalności po stronie przeglądarki użytkownika, stanowi problem związany z zachowaniem stanu diagramu w systemie. W celu rozwiązania tego problemu, zaimplementowano mechanizm serializacji całego diagramu w formacie xml do bazy danych. Cel ten osiągnięto, wykorzystując metodę \emph{getXMLString()} udostępnioną przez wszystkie obiekty nadklasy \emph{Diagram} w bibliotece jsUML2. 
+      
+
+    \subsection{Współdzielenie diagramów}
+
+    Istotnym elementem systemu jest współdzielenie diagramów między wieloma wymaganiami. Każdy diagram może zostać przypisany do kilku wymagań, dzięki czemu jeden diagram przypadków użycia może reprezentować zestawienie wymagań. Na etapie edycji diagramu, użytkownik ma możliwość wskazania konkretnych przypadków użycia znajdujących się na diagramie, jako odpowiedzialnych za realizację aktualnie edytowanego wymagania.
+
+    Powiązanie przypadku użycia z wymaganiem polega na wyborze narzędzia ,,mark for requirement'' z paska narzędzi diagramu, a następnie kliknięcie w dany przypadek użycia na diagramie. Po zatwierdzeniu operacji, zostaje wysłane asynchroniczne żądanie do serwera, pod adres http://reqmanager.herokuapp.com/requirement/addUseCase/[id_wymagania]. W żądaniu przekazywane są do serwera parametry niezbędne dla zestawienia przypadku użycia z wymaganiem. 
+
+    \begin{itemize}
+      \item \emph{id} - identyfikator wymagania do którego dodawany jest przypadek użycia
+      \item \emph{clickedUCName} - nazwa przypadku użycia wprowadzona przez użytkownika
+      \item \emph{clickedUCId} - identyfikator przypadku użycia wygenerowany automatycznie przez bibliotekę jsUML2
+    \end{itemize}
+
+    Asynchronicznie wysłane do serwera żądanie zostaje przekazane wraz z paramterami do akcji \emph{addUseCase} kontrolera \emph{Requirement}. Kod odpowiedzialny za połączenie przypadku użycia z wymaganiem, został załączony na Listingu \ref{lst:addUseCase}.
+
+    \begin{lstlisting}[caption={addUseCase}, label={lst:addUseCase}]
+    def addUseCase = {
+      def requirement = Requirement.get(params.id)
+      def useCase = UseCase.findByTitle(params.clickedUCName)
+
+      if(useCase == null) {
+        useCase = new UseCase(title: params.clickedUCName, code: params.clickedUCId)
+          requirement.addToUseCases(useCase)
+          render(text: "ok")
+      } else {
+        if(!requirement.useCases.contains(useCase)) {
+          requirement.addToUseCases(useCase)
+          render(text: "ok")
+        } else {
+          render(text: "wymaganie już zawiera ten przypadek użycia")
+        }
+      }
+    }
+    \end{lstlisting}
+
+    Jak można odczytać z powyższego kodu źródłowego, akcja ta, pobiera odpowiednie wymaganie oraz podejmuje próbę znalezienia przypadku użycia po nazwie. Jeśli dany przypadek użycia nie istnieje jeszcze w bazie danych (nowo utworzony przypadek użycia), zostaje swtorzony nowy obiket klasy UseCase z odpowiednimi parametrami (nazwa nadana przez użytkownika oraz identyfikator wygenerowany po stronie klienta). W przeciwnym razie, zostaje on dodany do listy przypadków użycia połączonych asocjacją z danym wymaganiem o ile nie istnieje już na tej liście. Cała operacja wykonywana jest asynchronicznie, po stronie serwera. 
+
   \section{Kolaboracja}
   
   \section{Implementacja}

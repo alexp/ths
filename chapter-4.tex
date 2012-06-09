@@ -57,7 +57,6 @@
 
     W szczególności filozofia Grails jest bardzo zbliżona do popularnego frameworka Ruby On Rails (RoR) umożliwiającego ekspresowe prototypowanie aplikacji obsługujących komunikację z bazą danych w zakresie (1) tworzenia, (2) odczytu, (3) aktualizacji i (4) usuwania danych za pomocą formularzy. Tego typu aplikacje popularnie nazywane są aplikacjami ,,CRUD'' - create, retrieve, update, delete). Wiele przyjętych rozwiązań w Grails zostało zaczerpniętych z RoR, jednak oba frameworki znacznie różnią się pod względem technologicznym. Szczegółowe porównanie tych technologii leży poza zakresem tej pracy, jednak osoby zainteresowane, powinny zapoznać się z doskonałym wątkiem w serwisie Stackoverflow, przytoczonym w bibliografii \cite{RailsGr}.
 
-
     Grails jest silnie oparte o paradygmat ,,convention over configuration'' - architekturze zakładającej minimalizację potrzeby konfiguracji aplikacji przez programistę na rzecz przyjętych konwencji, do których należy się stosować, aby wydaje dostarczać działające rozwiązania. Podejście to dotyczy wszelkich aspektów związanych z tworzeniem aplikacji w Grails - od struktury katalogów, przez umiejscowienie i zawartość plików konfiguracyjnych, po nazewnictwo klas, zmiennych i zastosowanie odpowiednich struktur danych. 
 
     \subsubsection{Model - View - Controller}
@@ -203,7 +202,7 @@
       }
     \end{verbatim} 
     
-    Powyższy kod pobiera do zmiennej ,,projects'' listę wszystkich projektów w systemie. Następnie, na liście projektów wywoływana jest metoda ,,collect''. Metoda collect (zdefiniowana w interfejsie Collection) przyjmuje jako parametr blok kodu, domknięcie. Metoda collect iteruje po wszystkich elementach zbioru na rzecz którego jest wykonana i wykonuje blok kodu na kolejnych elementach kolekcji przekazany jej jako parametr, następnie zwracając listę zmodyfikowanych przez domknięcie elementów.
+    Powyższy kod pobiera do zmiennej ,,projects'' listę wszystkich projektów w systemie. Następnie, na liście projektów wywoływana jest metoda ,,collect''. Metoda collect (zdefiniowana w interfejsie Collection) przyjmuje jako parametr blok kodu, domknięcie. Metoda collect iteruje po wszystkich elementach zbioru na rzecz którego została wykonana i wykonuje blok kodu przekazany jej jako parametr na kolejnych elementach kolekcji, następnie zwracaja listę zmodyfikowanych przez domknięcie elementów.
 
     \subsection{Spring Framework i Hibernate ORM}
 
@@ -222,9 +221,96 @@
       Wiele funkcjonlaności zrealizowano po stronie klienta, wykorzystując język javascript. W niewielkim zakresie wykorzystano popularną bibliotekę jQuery, wspierającą realizację najczęściej pojawiających się problemów w trakcie prac nad aplikacjami intenretowymi. Jednak wykorzystanie jQuery w prototypie systemu jest marginalne i ogranicza się jedynie do zastosowania metody \emph{ajax()} ułatwiającej wykonywanie asynchronicznych wywołań serwera.
 
       \subsubsection{jsUML2}
-        jsUML2 jest biblioteką stworzoną na uniwerystecie w Kordobie. Jest to zaimplementowany w całości w języku javascript, rozbudowany zestaw klas umożliwiający tworzenie wielu rodzajów diagramów UML w przeglądarce internetowej. jsUML wykorzystuje najnowszą specyfikację języka znaczników HTML5. Obiekt \emph{canvas} oferuje szerokie spektrum możliwości programistom aplikacji internetowych. Element \emph{canvas} umożliwia programistyczne tworzenie kształtów i obrazów bitmapowych w przeglądarce internetowej. Canvas udostępnia programistom interfejs HTMLCanvasElement umożliwiający modyfikację zawartości elementów canvas w htmlu. Metoda interfejsu \emph{getContext()} zwraca tzw. ,,drawing context''.... 
-        
+        jsUML2 jest biblioteką stworzoną przez środowisko naukowe, na uniwerystecie w Kordobie. Jest to zaimplementowany w całości w języku javascript, rozbudowany zestaw klas umożliwiający tworzenie wielu rodzajów diagramów UML w przeglądarce internetowej. jsUML wykorzystuje najnowszą specyfikację języka znaczników HTML5. Obiekt \emph{canvas} oferuje szerokie spektrum możliwości programistom aplikacji internetowych. Element \emph{canvas} umożliwia programistyczne tworzenie kształtów i obrazów bitmapowych w przeglądarce internetowej. Canvas udostępnia programistom interfejs HTMLCanvasElement umożliwiający modyfikację zawartości elementów canvas w htmlu. Metoda interfejsu \emph{getContext()} zwraca tzw. ,,drawing context'' - w zależności od parametru przekazanego metodzie \emph{getContext()}, zwracany jest obiekt klasy (1) CanvasRenderingContext2D w przypadku przekazania paramteru '2d' lub (2) WebGLRenderingContext w przypadku przekazania paramteru 'experimental-webgl'.
+
+        Poniżej zamieszczono przykładowy kod, umożliwiający rozpoczęcie pracy obiektem klasy CanvasRenderingContext2D. Wykonanie kodu spowoduje narysowanie prostokąta:
+
+        \begin{verbatim}
+        var canvas = document.getElementById('example');
+        var drawingContext = canvas.getContext('2d')
+
+        drawingContext.fillStyle = "rgb(200,0,0)";  
+        drawingContext.fillRect(10, 10, 55, 50);
+        \end{verbatim}
+
+        Biblioteka jsUML2 składa się z dwóch pakietów klas: (1) \emph{UDCode} - zawierający bazowe klasy umożliwiające tworzenie i obsługę graficzną diagramów i komponentów pomocniczych; (2) \emph{UDModules} - zawierający faktyczną implementację diagramów standard UML, zbudowaną na bazie klas pierwotnych z pakietu \emph{core}.
+
+        Głównymi elementami w poszczególnych pakietach są:
+
+        \begin{itemize}
+          \item UDCore
+            \begin{itemize}
+              \item Diagram
+              \item Node (węzeł)
+              \item Relation (relacja)
+            \end{itemize}
+          \item Modules 
+            \begin{itemize}
+              \item Use case diagrams
+              \item Class diagrams
+              \item Component diagrams
+              \item Message sequence diagrams
+              \item State charts
+            \end{itemize}
+        \end{itemize}
+
+        Na listingu zawarto wykaz klas dostępnych w pakiecie \emph{core}:
+
+        \begin{verbatim}
+         AttributeFields.js    ComponentSymbol.js  Dialog.js      JSGraphic.js   OperationFields.js  Region.js        Rhombus.js            StereotypeFields.js  TextArea.js
+         AttributeItem.js      ConnectorItem.js    Element.js     LoopItem.js    OperationItem.js    RegionLine.js    RoleItem.js           StereotypeItem.js    TextBox.js
+         CircleSymbol.js                           Elliptical.js  NodeFigure.js  Point.js            RelationEnd.js   Separator.js          SuperComponent.js    TextFields.js
+         CollapsibleFields.js  DataStoreItem.js    GuardItem.js   Node.js        Rectangular.js      Relation.js      Space.js              SuperNode.js         Text.js
+         Component.js          Diagram.js          JSFun.js       ObjectItem.js  RegionItem.js       RelationLine.js  SpecificationItem.js  Tab.js               TransitionItem.js
+        \end{verbatim}
+
+        W pakiecie modules, do dyspozycji programisty znajdują się następujące podpakiety klas:
+
+        \begin{verbatim}
+        activity
+        class
+        component
+        generic
+        profile
+        sequence
+        stateMachine
+        usecase
+        \end{verbatim}
+
+        W celu inicjalizacji biblioteki jsUML2, należy stworzyć odpowiednią strukturę dokumentu html:
+
+        \begin{verbatim}
+        <div id="ud_diagram_div" style="position: relative">
+          <canvas id="c1" class="ud_diagram_canvas" style="position: absolute;" width="500")
+          <canvas id="c2" class="ud_diagram_canvas" style="position: absolute;" width="500")
+        </div>
+        \end{verbatim}
       
-       
-    \subsection{System kontroli wersji git i serwer heroku}
-    \subsection{Srodowisko programistyczne (linux, vim, tmux)}
+        Następnie, niezbędna jest inicjalizacja odpowiedniego diagramu (na przykładzie diagramu przypadków użycia):
+
+        \begin{verbatim}
+        var mainEl = document.getElementById('c1');
+        var motionEl = document.getElementById('c2');
+
+        var mainCtx = mainEl.getContext('2d');
+        var motionCtx = motionEl.getContext('2d');
+
+        var div = document.getElementById('ud_diagram_div')
+
+        var diagram = new UMLUseCaseDiagram()
+
+        //metoda initialize() przyjmuje kolejno parametry:
+        //(1) unikalny identyfikator diagramu
+        //(2) element blokowy html będący kontenerem diagramu
+        //(3) obiekt 'context' stanowiący 'górną' warstwę
+        //    diagramu
+        //(4,5) rozmiary w pikslach 
+
+        diagram.initialize(1, div, motionCtx, 600, 600) 
+        \end{verbatim}
+
+\subsection{System kontroli wersji git i serwer heroku}
+  
+
+
+\subsection{Srodowisko programistyczne (linux, vim, tmux)}
