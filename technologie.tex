@@ -6,11 +6,11 @@
     
     Implementację systemu oparto o technologie Java/Jee i pochodne. Jako podstawę szkieletu aplikacji wykorzystano framework Grails umożliwiający szybkie prototypowanie aplikacji internetowych. W warstwie bazy danych wykorzystano bazę postgresql oraz technologię mapowania obiektowo-relacyjnego Hibernate ORM, dostarczaną wraz z frameworkiem Grails. 
     
-    Interfejs użytkownika oparto o Twitter Bootstrap - predefiniowany zestaw styli oraz komponentów do natychmiastowego wykorzystania w aplikacjach internetowych. 
+    Interfejs użytkownika oparto o Twitter Bootstrap - pre-definiowany zestaw stylów oraz komponentów do natychmiastowego wykorzystania w aplikacjach internetowych. 
 
     Moduł graficznej edycji diagramów UML został stworzony wykorzystując ,,jsUML2'' - bibliotekę przygotowaną przez zespół prof. José Raúl'a Romero, na uniwersytecie w Kordobie. 
 
-    Edytor tekstu oparty jest o bibliotekę javascript Ace Editor. Jest to wiodąca biblioteka, wykorzystywana m. in. w eksperymencie Cloud9 IDE - webowym, zintegrowanym środowisku programistycznym zapoczątkowanym przez zespoł Mozilli, pod nazwą Mozilla Skywrite.
+    Edytor tekstu oparty jest o bibliotekę JavaScript Ace Editor. Jest to wiodąca biblioteka, wykorzystywana m. in. w eksperymencie Cloud9 IDE - webowym, zintegrowanym środowisku programistycznym zapoczątkowanym przez zespół Mozilli, pod nazwą Mozilla Skywrite.
   
     Pierwotnie docelowym środowiskiem testowym dla proponowanego systemu był Google App Engine, jednak ze względu na ograniczenia tej usługi, prototyp umieszczono na darmowej infrastrukturze firmy Heroku (heroku.com) znacznie lepiej obsługującej nowoczesne aplikacje oparte o Javę.
 
@@ -18,12 +18,12 @@
     
     Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się rozwojem tej technologii jest tą samą organizacją, odpowiedzialną za stworzenie Spring Framework - jednego z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i wraz z Hibernate ORM stanowi trzon technologiczny tego narzędzia.
 
-   Grails integruje najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i z Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (język python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu javy.
+   Grails integruje najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i z Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (język python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na Javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu Javy.
 
 
     \subsubsection{Język Groovy}
 
-      Podstawowym językiem programowania w platformie Grails, jest język Groovy. Groovy jest dynamicznie kompilowanym językiem o składni i filozofii zbliżonej do takich języków jak Python lub Ruby. Kod bajtowy będący wynikiem kompilacji uruchamiany jest na wirtualnej maszynie Javy, przez co język integruje się niemal w sposób przeźroczysty z technologiami opartymi o JVM. Ponadto, kod programu napisanego w Javie jest poprawnym programem Groovy zarówno pod względem sytnaktycznym jak i semantycznym. Bardziej zwięzła i przyjazna składnia Groovy wraz z szerokimi możliwościami Javy sprawia, że ten język skryptowy jest solidnym rozwiązaniem o szerokim spektrum zastosowań.
+      Podstawowym językiem programowania w platformie Grails, jest język Groovy. Groovy jest dynamicznie kompilowanym językiem o składni i filozofii zbliżonej do takich języków jak Python lub Ruby. Kod bajtowy będący wynikiem kompilacji uruchamiany jest na wirtualnej maszynie Javy, przez co język integruje się niemal w sposób przeźroczysty z technologiami opartymi o JVM. Ponadto, kod programu napisanego w Javie jest poprawnym programem Groovy zarówno pod względem syntaktycznym jak i semantycznym. Bardziej zwięzła i przyjazna składnia Groovy wraz z szerokimi możliwościami Javy sprawia, że ten język skryptowy jest solidnym rozwiązaniem o szerokim spektrum zastosowań.
 
       W celach porównawczych, poniżej zamieszczono znany, trywialny problem programistyczny ,,FizzBuzz'', zarówno w języku Groovy, jak i Java. Program ,,FizzBuzz'' otrzymując na wejściu ciąg liczb, wypisuje na konsolę słowo ,,Fizz'' jeśli dana liczba jest podzielna przez 3, słowo ,,Buzz'', jeśli dana liczba jest podzielna przez 5, natomiast słowo ,,FizzBuzz'' w przypadku podzielności przez 15.
 
@@ -151,7 +151,7 @@
       static hasmany = [requirements:requirement]
     \end{lstlisting}
 
-    W języku Groovy konstrukcja ,,[:]'' jest reprezentacją pustej tablicy asocjacyjnej - struktury danych umożliwiającej przechowywanie kolekcji par ,,klucz - wartość''. W Groovy, domyślną kolekcją inicjalizowaną przy pomocy literału ,,[:]'' jest obiekt klasy java.util.LinkedHashMap. Zatem powyższa zmienna statyczna jest referencją do obietku klasy LinkedHashMap, zawierającego jedną parę, gdzie kluczem jest ciąg znaków ,,requirements'' a wartością, jest klasa Requirement. W ten sposób Grails obsługuje relacje jeden-do-wielu. W analogiczny sposób, istnieje możliwość definiowania pozostałych rodzajów relacji, tj. jeden-do-jeden, wiele-do-wielu, etc). Konstrukcja taka, umożliwia uzyskanie listy wymagań w projekcie: 
+    W języku Groovy konstrukcja ,,[:]'' jest reprezentacją pustej tablicy asocjacyjnej - struktury danych umożliwiającej przechowywanie kolekcji par ,,klucz - wartość''. W Groovy, domyślną kolekcją inicjalizowaną przy pomocy literału ,,[:]'' jest obiekt klasy java.util.LinkedHashMap. Zatem powyższa zmienna statyczna jest referencją do obiektu klasy LinkedHashMap, zawierającego jedną parę, gdzie kluczem jest ciąg znaków ,,requirements'' a wartością, jest klasa Requirement. W ten sposób Grails obsługuje relacje jeden-do-wielu. W analogiczny sposób, istnieje możliwość definiowania pozostałych rodzajów relacji, tj. jeden-do-jeden, wiele-do-wielu, etc). Konstrukcja taka, umożliwia uzyskanie listy wymagań w projekcie: 
 
     \begin{lstlisting}[caption={wymagania przypisane do projektu}, label={lst:requirements}]
       //pobiera z bazy projekt o id = 1
@@ -164,7 +164,7 @@
       
     \subsubsection{Kontrolery i widoki}
 
-    W celu połączenia konkretnych widoków z akcjami kontrolerów, konwencja Grails wymaga odpowiedniego nazewnictwa metod w klasach kontrolerów. Generalizując, należy stosować się do zasady, aby nazwa metody odpowiedzialnej za realizację wybranej akcji kontrolera, posiadała plik o tej samej nazwie, z rozszerzeniem .gsp, w odpowiednim katalogu w ścieżce grails-app/views. Poniżej zamieszczono przykład realizacji akcji ,,index'' w kontrolerze ,,ProjectController''. Wbudowany w Grails mechanizm odwzorowywania adresów URL i przekierowywania do odpowiednich akcji kontrolerów automatycznie wykrywa którą metodę należy wykonać. Zatem, po wskazaniu przeglądarce internetowej adresu http://reqmanager.heroku.com/project/index system, przez konwencję, wykryje konieczność wywołania metody ,,index'' w kontrolerze ,,ProjectController''. Z kolei po wykonaniu tej metody, (o ile programista nie zdecyduje inaczej) automatycznie wyświetlany jest widok index.gsp umieszczony w katalogu grails-app/views/project. W widoku, do wykorzystania dostępne są zmienne usatwione w tabeli asocjacyjnej, zwracanej przez kontroler (w tym przypadku, zmienna ,,project'' zawierająca referencję do listy wszystkich projektów w systemie). 
+    W celu połączenia konkretnych widoków z akcjami kontrolerów, konwencja Grails wymaga odpowiedniego nazewnictwa metod w klasach kontrolerów. Generalizując, należy stosować się do zasady, aby nazwa metody odpowiedzialnej za realizację wybranej akcji kontrolera, posiadała plik o tej samej nazwie, z rozszerzeniem .gsp, w odpowiednim katalogu w ścieżce grails-app/views. Poniżej zamieszczono przykład realizacji akcji ,,index'' w kontrolerze ,,ProjectController''. Wbudowany w Grails mechanizm odwzorowywania adresów URL i przekierowywania do odpowiednich akcji kontrolerów automatycznie wykrywa którą metodę należy wykonać. Zatem, po wskazaniu przeglądarce internetowej adresu http://reqmanager.heroku.com/project/index system, przez konwencję, wykryje konieczność wywołania metody ,,index'' w kontrolerze ,,ProjectController''. Z kolei po wykonaniu tej metody, (o ile programista nie zdecyduje inaczej) automatycznie wyświetlany jest widok index.gsp umieszczony w katalogu grails-app/views/project. W widoku, do wykorzystania dostępne są zmienne ustawione w tabeli asocjacyjnej, zwracanej przez kontroler (w tym przypadku, zmienna ,,project'' zawierająca referencję do listy wszystkich projektów w systemie). 
 
 
     \begin{lstlisting}[caption={widok i kontroler}, label={lst:contView}]
@@ -193,7 +193,7 @@
 
     \end{lstlisting}
 
-    Należy jeszcze zwrócić uwagę na pewien detal w strukturze kodu źródłowego kontrolera. Grails dopuszcza dwa podejścia do deklarowania akcji - (1) za pomocą klasycznych metod oraz (2) przy użyciu dokmnięć (closures). Formalnie domknięcia są obiektami wiążącymi funkcję oraz środowisko w jakim ta funkcja ma działać. Jest to specyficzna kontrukcja, będącą zdefiniowanym blokiem kodu, który można przekazać jako parametr innej metodzie lub funkcji. Poniższy przykład wyjaśnia zasadę na jakiej działają domknięcia w Groovy: 
+    Należy jeszcze zwrócić uwagę na pewien detal w strukturze kodu źródłowego kontrolera. Grails dopuszcza dwa podejścia do deklarowania akcji - (1) za pomocą klasycznych metod oraz (2) przy użyciu domknięć (closures). Formalnie domknięcia są obiektami wiążącymi funkcję oraz środowisko w jakim ta funkcja ma działać. Jest to specyficzna konstrukcja, będącą zdefiniowanym blokiem kodu, który można przekazać jako parametr innej metodzie lub funkcji. Poniższy przykład wyjaśnia zasadę na jakiej działają domknięcia w Groovy: 
     
     \begin{lstlisting}[caption={domknięcie w Groovy}, label={lst:closure}]
       def closeAllProjects() {
@@ -202,13 +202,13 @@
       }
     \end{lstlisting} 
     
-    Powyższy kod pobiera do zmiennej ,,projects'' listę wszystkich projektów w systemie. Następnie, na liście projektów wywoływana jest metoda ,,collect''. Metoda collect (zdefiniowana w interfejsie Collection) przyjmuje jako parametr blok kodu, domknięcie. Metoda collect iteruje po wszystkich elementach zbioru na rzecz którego została wykonana i wykonuje blok kodu przekazany jej jako parametr na kolejnych elementach kolekcji, następnie zwracaja listę zmodyfikowanych przez domknięcie elementów.
+    Powyższy kod pobiera do zmiennej ,,projects'' listę wszystkich projektów w systemie. Następnie, na liście projektów wywoływana jest metoda ,,collect''. Metoda collect (zdefiniowana w interfejsie Collection) przyjmuje jako parametr blok kodu, domknięcie. Metoda collect iteruje po wszystkich elementach zbioru na rzecz którego została wykonana i wykonuje blok kodu przekazany jej jako parametr na kolejnych elementach kolekcji, następnie zwracają listę zmodyfikowanych przez domknięcie elementów.
 
     \subsection{Spring Framework i Hibernate ORM}
 
       Sercem Grails jest Spring Framework oraz Hibernate ORM. Obie technologie są wiodące na rynku i szeroko stosowane w komercyjnych projektach dowolnych rozmiarów. Spring jest de facto zestawem narzędzi, wzorców projektowych i bibliotek realizujących ogromną ilość funkcjonalności, mających za zadanie przyśpieszyć proces wytwarzania oprogramowania oraz w pewnym zakresie zapewnić wysoką jakość tworzonych rozwiązań. Przede wszystkim jednak, jest tzw. kontenerem Inversion Of Control (odwrócenie sterowania) \cite{MFow01}. Prócz IoC Spring Framework to potężna platforma integrująca wiele rozwiązań, takich jak webowy framework Spring MVC, biblioteki i wzorce dotyczące bezpieczeństwa (Spring Security), wrapper jdbc, transakcje (Spring JDBC Templates), etc.
 
-      Hibernate ORM jest technologią pozwalającą na mapowanie rekordów z relacyjnych baz danych, na obiekty w systemie przy pomocy plikow konfiguracyjnych xml. W Grails, potrzeba konfiguracji warstwy ORM ogranicza się do minimum, a większość standardowych zadań można zrealizować konfigurując odpowiednio blok \emph{mapping} w klasie modelu.
+      Hibernate ORM jest technologią pozwalającą na mapowanie rekordów z relacyjnych baz danych, na obiekty w systemie przy pomocy plików konfiguracyjnych xml. W Grails, potrzeba konfiguracji warstwy ORM ogranicza się do minimum, a większość standardowych zadań można zrealizować konfigurując odpowiednio blok \emph{mapping} w klasie modelu.
 
   \section{Pozostałe technologie}
     \subsection{Postgresql}
@@ -218,10 +218,10 @@
 
     \subsection{Javascript, jQuery i biblioteka jsUML2}
 
-      Wiele funkcjonlaności zrealizowano po stronie klienta, wykorzystując język javascript. W niewielkim zakresie wykorzystano popularną bibliotekę jQuery, wspierającą realizację najczęściej pojawiających się problemów w trakcie prac nad aplikacjami intenretowymi. Jednak wykorzystanie jQuery w prototypie systemu jest marginalne i ogranicza się jedynie do zastosowania metody \emph{ajax()} ułatwiającej wykonywanie asynchronicznych wywołań serwera.
+      Wiele funkcjonalności zrealizowano po stronie klienta, wykorzystując język JavaScript. W niewielkim zakresie wykorzystano popularną bibliotekę jQuery, wspierającą realizację najczęściej pojawiających się problemów w trakcie prac nad aplikacjami internetowymi. Jednak wykorzystanie jQuery w prototypie systemu jest marginalne i ogranicza się jedynie do zastosowania metody \emph{ajax()} ułatwiającej wykonywanie asynchronicznych wywołań serwera.
 
       \subsubsection{jsUML2}
-        jsUML2 jest biblioteką stworzoną przez środowisko naukowe, na uniwerystecie w Kordobie. Jest to zaimplementowany w całości w języku javascript, rozbudowany zestaw klas umożliwiający tworzenie wielu rodzajów diagramów UML w przeglądarce internetowej. jsUML wykorzystuje najnowszą specyfikację języka znaczników HTML5. Obiekt \emph{canvas} oferuje szerokie spektrum możliwości programistom aplikacji internetowych. Element \emph{canvas} umożliwia programistyczne tworzenie kształtów i obrazów bitmapowych w przeglądarce internetowej. Canvas udostępnia programistom interfejs HTMLCanvasElement umożliwiający modyfikację zawartości elementów canvas w htmlu. Metoda interfejsu \emph{getContext()} zwraca tzw. ,,drawing context'' - w zależności od parametru przekazanego metodzie \emph{getContext()}, zwracany jest obiekt klasy (1) CanvasRenderingContext2D w przypadku przekazania paramteru '2d' lub (2) WebGLRenderingContext w przypadku przekazania paramteru 'experimental-webgl'.
+        jsUML2 jest biblioteką stworzoną przez środowisko naukowe, na uniwersytecie w Kordobie. Jest to zaimplementowany w całości w języku JavaScript, rozbudowany zestaw klas umożliwiający tworzenie wielu rodzajów diagramów UML w przeglądarce internetowej. jsUML wykorzystuje najnowszą specyfikację języka znaczników HTML5. Obiekt \emph{canvas} oferuje szerokie spektrum możliwości programistom aplikacji internetowych. Element \emph{canvas} umożliwia programistyczne tworzenie kształtów i obrazów bitmapowych w przeglądarce internetowej. Canvas udostępnia programistom interfejs HTMLCanvasElement umożliwiający modyfikację zawartości elementów canvas w htmlu. Metoda interfejsu \emph{getContext()} zwraca tzw. ,,drawing context'' - w zależności od parametru przekazanego metodzie \emph{getContext()}, zwracany jest obiekt klasy (1) CanvasRenderingContext2D w przypadku przekazania paramteru '2d' lub (2) WebGLRenderingContext w przypadku przekazania paramteru 'experimental-webgl'.
 
         Poniżej zamieszczono przykładowy kod, umożliwiający rozpoczęcie pracy obiektem klasy CanvasRenderingContext2D. Wykonanie kodu spowoduje narysowanie prostokąta:
 
