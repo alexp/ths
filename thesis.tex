@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{report}
+\documentclass[a4paper, 12pt, notitlepage]{report}
   \usepackage[polish]{babel}
   \usepackage[utf8]{inputenc}
   \usepackage[T1]{fontenc}
@@ -8,6 +8,36 @@
   \usepackage{color}
   \usepackage{amssymb}
   \usepackage{biblatex}
+  
+  \makeatletter
+  \renewcommand{\maketitle}{\begin{titlepage}
+    \includegraphics[width=1\textwidth]{img/logo.png}\\
+      
+      \begin{center}\small
+        Wydział Informatyki\\
+        \vspace{2cm}
+        {\bf Katedra Inżynierii Oprogramowania}\\
+        Inżynieria Oprogramowania i Baz Danych\\
+        \vspace{1cm}
+        {\bf \@author}\\
+        Nr albumu s3250\\
+        \vspace{2cm}
+        \large{\bf \@title}
+      \end{center}
+      \vspace{2cm}
+      \begin{flushright}\small
+        \begin{minipage}{6cm}
+          Praca magisterska napisana \\pod kierunkiem:\\
+          dr inż. Mariusz Trzaska
+        \end{minipage}
+      \end{flushright}
+      \vspace*{\stretch{6}}
+      \begin{center}\small
+        Warszawa \@date 
+      \end{center}
+    \end{titlepage}%
+  }
+  \makeatother
    
   \definecolor{dkgreen}{rgb}{0,0.6,0}
   \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -46,7 +76,11 @@
 
   \onehalfspacing
 
+  \author{Aleksander Pszczółkowski}
+  \title{Otwarta platforma zarządzania wymaganiami}
 \begin{document}
+
+  \maketitle
 
   \tableofcontents
   \newpage
