@@ -1,9 +1,27 @@
-\chapter{Podstawy teoretyczne i omówienie koncepcji proponowanego rozwiązania}
+\chapter{Podstawy teoretyczne \\i omówienie koncepcji proponowanego rozwiązania}
   
   W poprzednim rozdziale opisano przykładowe narzędzia funkcjonujące na rynku oprogramowania do zarządzania wymaganiami. Opisano ich główne wady i zalety oraz przedstawiono najważniejsze problemy związane ze stosowaniem ich w praktyce.
 
-  W tym rozdziale, zostaną opisane procesy inżynierii wymagań od strony teoretycznej. Zostanie również zwrócona uwaga na niezbędne elementy nowoczesnego systemu wspierającego pracę z wymaganiami w małych i średnich przedsiębiorstwach. Na koniec rozdziału, przedstawiona zostanie koncepcja nowego narzędzia, będącego przedmiotem tej pracy.
+  W tym rozdziale, opisano procesy inżynierii wymagań od strony teoretycznej. Została również zwrócona uwaga na niezbędne elementy nowoczesnego systemu wspierającego pracę z wymaganiami w małych i średnich przedsiębiorstwach. Na końcu, przedstawiono koncepcję nowego narzędzia, będącego przedmiotem tej pracy.
   
+  \section{Stan faktyczny w inżynierii wymagań}
+
+    Inżynieria wymagań stanowi fundament wiedzy pozwalającej na realizację wysokiej jakości projektów informatycznych w założonym budżecie i czasie. 
+
+    Istnieje obszerna literatura podejmująca tematy stricte związane z inżynierią wymagań (Gause and Weinberg 1989; Jackson 1995; Kovitz 1999; Robertson and Robertson 1999a; Sommerville and Sawyer 1997), jednak praktyczne doświadczenia oraz liczne dostępne badania wskazują na istotne problemy z wprowadzaniem teorii w życie \cite{Boehm06, Niku00, Standish94}.
+
+    Znany raport opublikowany przez Standish Group International \cite{Standish94} prezentuje dramatyczną rzeczywistość, gdzie tylko niewielka część projektów kończy się częściowym lub całkowitym sukcesem. Wyniki raportu wskazują na najważniejsze powody niepowodzeń projektów jak brak włączenia użytkowników w proces budowy oprogramowania, niekompletne i nieudokumentowane wymagania, wiecznie zmieniający się zakres projektów czy brak wsparcia kadry zarządzającej.      
+    
+    W badaniu Nikula et al. (2000) przeprowadzonym wśród małych i średnich przedsiębiorstw w Finlandii, autorzy wskazują na alarmujący brak wiedzy dotyczącej wdrażania procesów inżynierii wymagań. Jednocześnie, wnioski z badania wskazują na konieczność zajęcia się problemami inżynierii wymagań na poziomie korporacyjnym, poprzez wdrażanie, optymalizację i automatyzację procesów IW w małych i średnich przedsiębiorstwach \cite{Niku00}.
+    
+    Z kolei badanie Quispe et al. (2010), również dotyczące małych i średnich przedsiębiorstw, zwraca szczególną uwagę na brak lub nienależytą komunikację z klientem, adresowanie nieodpowiednich problemów klienta, wadliwe specyfikacje oraz stosowanie praktyk inżynierii wymagań ,,ad hoc'' \cite{Quispe10}.
+    
+    Powyższe badania zajmują się głównie czynnikami niepowodzeń projektów. W badaniu Fern\'{a}ndez et al. (2012) przeanalizowano 12 projektów zakończonych sukcesem. Wnioski z tego badania sugerują, że wiele ze zidentyfikowanych czynników wpływających na niepowodzenia projektów można z powodzeniem rozwiązać zanim staną się realnym zagrożeniem. Ponadto zauważono, że klienci często mają znaczny wpływ na parametry związane z niepowodzeniem projektu. 
+
+    Analiza wyników powyższych badań w kontekście tej pracy sugeruje przede wszystkim konieczność zwrócenia szczególnej uwagi na poziom dojrzałości organizacji w aspekcie inżynierii wymagań. Nie wszystkie projekty kończą się porażką, a doświadczenia pokazują, że im bardziej dojrzałe procesy inżynierii wymagań w organizacji i odpowiednia ,,kultura'' firmy, tym większe są szanse na realizację projektu zwieńczoną sukcesem. 
+
+    Podsumowując, żaden system informatyczny ani narzędzie nie rozwiąże wszystkich problemów związanych z inżynierią oprogramowania. Na organizacji wytwarzającej oprogramowanie ciąży odpowiedzialność usprawniania procesów inżynierii wymagań, edukacji pracowników i zasięgania wiedzy ekspertów. Sukcesy w branży oprogramowania można osiągnąć tylko poprzez ciągłą naukę, konsekwentną realizację procesów i ich usprawnianie na poziomie korporacyjnym.
+
   \section{Inżynieria wymagań}
     
     Inżynieria wymagań (IW) jest dziedziną, na którą składają się wszelkie działania związane z odkrywaniem (elicitation), analizą (analysis), weryfikacją (validation) oraz zarządzaniem wymaganiami \cite{Somm06}. Dotyczy ona każdego systemu informatycznego, niezależnie od jego rozmiarów i jest jednocześnie jednym z najistotniejszych procesów w cyklu życia projektu.
@@ -81,9 +99,9 @@
 
     Proces pozyskiwania i przetwarzania wymagań powinien być przede wszystkim łatwy w implementacji dla organizacji oraz dający dużą dozę elastyczności. W rozdziale 'Problemy z istniejącymi rozwiązaniami' opisano stan sztuki i zaadresowano niedociągnięcia dzisiejszych narzędzi. 
 
-    Motywem przewodnim proponowanego narzędzia jest przystępność i prostota obsługi oraz wniesienie rzeczywistej wartości dodanej poprzez dostarczenie funkcji, mających realne zastosowanie w praktyce. 
+    Motywem przewodnim proponowanego rozwiązania jest przystępność i prostota obsługi oraz wniesienie rzeczywistej wartości dodanej poprzez dostarczenie funkcji, mających realne zastosowanie w praktyce. 
 
-    W trakcie prac nad koncepcją narzędzia postawiono następujące cele:
+    W trakcie prac nad koncepcją narzędzia przyjęto następujące założenia:
     
     \begin{itemize}
       \item Silna koncentracja na praktycznym zastosowaniu systemu wsparcia zarządzania wymaganiami - system musi rozwiązywać rzeczywiste problemy zespołów projektowych w zakresie gromadzenia i przetwarzania wymagań. Wdrożenie systemu musi wiązać się z wniesieniem wartości dodanej do procesów inżynierii wymagań w organizacji;
@@ -101,7 +119,7 @@
 
   \section{System Reqmanager - opis funkcjonalności}
 
-    Poniżej opisano poszczególne funkcjonalności systemu i przedstawiono mechanizmy, narzędzia oraz techniczne rozwiązania które posłużyły do implementacji poszczególnych założeń systemu.
+    Poniżej opisano poszczególne funkcjonalności systemu i przedstawiono przyjęte rozwiązania które posłużyły do realizacji poszczególnych założeń systemu.
 
     \subsection{Obsługa wielu projektów} 
       System umożliwia tworzenie wielu projektów. Formularz dodawania projektu składa się pól nazwy, krótkiego opisu oraz głównej notatki projektu, będącej jego szczegółowym opisem w formie tzw. briefu. Ostatnią niezbędną informacją, którą należy podać jest planowana data zakończenia prac nad projektem. W założeniu opis i notatka projektu ulegają zmianom w miarę upływu czasu, dlatego na późniejszych etapach projektu istnieje możliwość bardzo łatwej edycji zmian treści tych atrybutów. 
