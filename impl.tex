@@ -1,15 +1,30 @@
 \chapter{Rozwiązania implementacyjne}
   
-  W poprzednim rozdziale opisano narzędzia jakie wykorzystano w trakcie implementacji prototypu proponowanego rozwiązania. W niniejszym rozdziale, zostaną zaprezentowane konkretne rozwiązania implementacyjne zastosowane w prototypie. Szczególną uwagę zwrócono na moduł edycji diagramów przypadków użycia oraz generatora specyfikacji wymagań.
+  W poprzednim rozdziale opisano narzędzia jakie wykorzystano w trakcie budowy prototypu. W niniejszym rozdziale, przedstawiono zastosowane konkretne rozwiązania implementacyjne. Szczególną uwagę zwrócono na moduł edycji diagramów przypadków użycia oraz generatora specyfikacji wymagań.
 
   \section{Architektura systemu}
-    Jak wspomniano w ogólnym opisie prototypu w rozdziale 4, definiowanie wymagań w systemie Reqmanager polega na jednoczesnym dostępie do edytora tekstu oraz edytora diagramów przypadków użycia. Użytkownik, mając otwartą aplikację, oprócz tekstowego opisu wymagania, ma możliwość dodawania oraz edycji przypadków użycia w formie graficznej.
 
-    Aplikacja Reqmanager jest typową aplikacją internetową typu klient-serwer, gdzie klientem jest przeglądarka użytkownika korzystającego z aplikacji zainstalowanej na zdalnym serwerze, odpowiednio reagującej na żądania klienta na zasadzie żądanie - odpowiedź (request - response). Przeglądarka internetowa jest tak zwanym ,,cienkim klientem'' z racji silnego uzależnienia działania od serwera aplikacji. 
-    
-    Framework Grails narzuca architekturę kodu aplikacji według wzorca Model-View-Controller, opisanego w rozdziale 5.  
+    System Reqmanager zbudowany jest na bazie opisanej w rozdziale 4 technologii Grails integrującej wiele istniejących rozwiązań zbudowanych na bazie wirtualnej maszyny Javy. Na Rysunku \ref{fig:techstack} przedstawiono ogólną architekturę Grails.
 
+    \begin{figure*}[h]
+      \centering
+      \includegraphics[width=1.0\textwidth]{img/grails-stack-rev2.pdf}
+      \caption{Architektura Grails}
+      \label{fig:techstack}
+    \end{figure*}
+     
+    Definiowanie wymagań w systemie Reqmanager polega na jednoczesnym dostępie do edytora tekstu oraz edytora diagramów przypadków użycia. Użytkownik, mając otwartą aplikację, oprócz tekstowego opisu wymagania, ma możliwość dodawania oraz edycji przypadków użycia w formie graficznej.
+
+    Aplikacja Reqmanager jest typową aplikacją internetową typu klient-serwer, gdzie klientem jest przeglądarka użytkownika korzystającego z aplikacji zainstalowanej na zdalnym serwerze, odpowiednio reagującej na żądania klienta na zasadzie żądanie - odpowiedź (request - response). Przeglądarka internetowa jest tak zwanym ,,cienkim klientem'' z racji silnego uzależnienia działania od serwera aplikacji. Na Rysunku \ref{fig:reqarch} przedstawiono poszczególne moduły proponowanego systemu wraz z podziałem na warstwy.
+ 
     Na potrzeby aplikacji Reqmanager, utworzono następującą strukturę modeli aplikacji:
+
+    \begin{figure*}[p]
+      \centering
+      \includegraphics[width=1.0\textwidth]{img/reqmanager.pdf}
+      \caption{Ogólna architektura systemu}
+      \label{fig:reqarch}
+    \end{figure*}
 
     \begin{verbatim}
     Diagram 
@@ -18,43 +33,34 @@
     UseCase
     \end{verbatim}
 
-    Struktura bazy danych jest generowana automatycznie, na podstawie analizy klas modeli:
+    Struktura bazy danych jest generowana automatycznie, na podstawie analizy klas modeli. Diagram utworzonej bazy, przedstawiono na rysunku \ref{fig:erd1}
 
-    \begin{verbatim}
-                    List of relations
-    Schema |         Name          |   Type   |  Owner
-    --------+-----------------------+----------+----------
-    public | diagram               | table    | postgres
-    public | hibernate_sequence    | sequence | postgres
-    public | project               | table    | postgres
-    public | requirement           | table    | postgres
-    public | requirement_use_cases | table    | postgres
-    public | use_case              | table    | postgres
-    \end{verbatim}
-
-    
-    \begin{figure*}[t]
+    \begin{figure*}[p]
       \centering
-      \includegraphics[width=1.0\textwidth]{img/erd.pdf}
+      \includegraphics[width=1.0\textwidth]{img/erd2.pdf}
       \caption{Diagram struktury bazy danych systemu Reqmanager}
       \label{fig:erd1}
     \end{figure*}
 
+  \section{Funkcjonalności systemu}
+  
     \subsection{Tworzenie diagramów}
 
       Diagramy przypadków użycia w systemie edytowane są po stronie klienta, dzięki wykorzystaniu elementu \emph{canvas} wprowadzonego niedawno do specyfikacji języka HTML5. Obsługa tej funkcjonalności po stronie przeglądarki, stanowi problem związany z zachowaniem stanu diagramu w systemie. W celu rozwiązania tego problemu, zaimplementowano mechanizm serializacji całego diagramu w formacie xml do bazy danych. Cel ten osiągnięto, wykorzystując metodę \emph{getXMLString()} udostępnioną przez wszystkie obiekty dziedziczące po klasie \emph{Diagram} w bibliotece jsUML2. Przykładową strukturę zserializowanego diagramu, umieszczno na Listingu \ref{lst:diagramXml}. 
-      Dodanie nowego diagramu wiąże się zatem z inicjalizacją i wyświetleniem użytkownikowi obszaru roboczego diagramu bez komunikacji z serwerem. Diagram tworzony jest po załadowaniu widoku edycji wymagania:
+      Dodanie nowego diagramu wiąże się zatem z inicjalizacją i wyświetleniem użytkownikowi obszaru roboczego diagramu bez komunikacji z serwerem. Diagram tworzony jest po załadowaniu widoku edycji wymagania, jak pokazano na Listingu \ref{lst:appUseCase}:
 
-      \begin{lstlisting}[caption={widok requriement/edit.gsp}, label={lst:appUseCase}]
+      \begin{lstlisting}[caption={Widok requriement/edit.gsp}, label={lst:appUseCase}]
       window.onload = function() {
         var app = new AppUseCase("ud_diagram_div");
       }
 
       \end{lstlisting}
 
-      AppUseCase jest obiektem javascript typu singleton, którego skrócona implementacja została przedstawiona na poniższym listingu: 
+      \newpage
+
+      AppUseCase jest obiektem JavaScript typu singleton, którego skrócona implementacja została przedstawiona na Listingu \ref{lst:appUseCaseImpl}: 
     
-      \begin{lstlisting}[caption={implementacja obiektu JS AppUseCase}, label={lst:appUseCaseImpl}]
+      \begin{lstlisting}[caption={Implementacja obiektu JS AppUseCase}, label={lst:appUseCaseImpl}]
       var AppUseCase = function(elementId) { 
         var xmlstr = document.getElementById('diagramXml').value
         var ucDiag = new UMLUseCaseDiagram() 
@@ -81,8 +87,7 @@
 
       Dopiero gdy użytkownik wybierze opcję zapisu aktualnego wymagania, zserializowany stan diagramu w formacie xml, zostanie przesłany metodą POST do serwera. Następnie otrzymany po stronie serwera ciąg znaków xml zostanie przetworzony, utworzony zostanie obiekt klasy Diagram i na końću nastąpi zapis obiektu do bazy danych. Za ten proces odpowiedzialna jest akcja \emph{save} kontrolera \emph{Requirement}. Jest to dość ograniczone rozwiązanie, które można byłoby usprawnić wprowadzając asynchroniczny, automatyczny zapis stanu diagramu co kilka sekund lub po każdej aktualizacji po stronie klienta.
 
-
-    \begin{lstlisting}[caption={struktura xml diagramu}, label={lst:diagramXml}]
+      \begin{lstlisting}[caption={Struktura xml diagramu}, label={lst:diagramXml}]
 
       <UMLUseCaseDiagram name="Use case diagram">
         <UMLSystem id="UMLSystem_4" x="165" y="97" ... >
@@ -99,27 +104,11 @@
         </UMLSystem>
       </UMLUseCaseDiagram>
 
-    \end{lstlisting}
-
-      Baza danych postgresql obsługuje specjalny typ danych ,,xml''. Dzięki obsłudze tego typu danych, po stronie bazy dokonywana jest weryfikacja poprawnosci dokumentu jaki programista ma zamiar zapisać. Framework Grails nie współpracuje dobrze z typem danych xml w bazie, dlatego niezbędna była implementacja rozwiązania rzutującego typ String na typ SQLXMLType.W tym celu została stworzona specjalna klasa w Javie, implementująca interfejs \emph{org.hibernate.usertype.UserType}. Hibernate udostępnia ten interfejs umożliwiając programistom tworzenie własnych typów danych i zdefiniowanie ich zachowania w stosunku do bazy danych. Dodatkowo, niezbędne było odpowiednie przygotowanie modelu, podając typ pola przechowującego xmla jako String, a następnie sworzyć odpowiedni blok ,,mapping'' w modelu. Na Listingu \ref{lst:xml}, dla przykładu zaprezentowano implementację klasy Diagram z systemu Reqmanager:
-
-      \begin{lstlisting}[caption={implementacja modelu Diagram}, label={lst:xml}]
-      package pl.edu.pjwstk.reqmanager
-      public class Diagram {
-        String name
-        String xmlString
-
-        static belongsTo = Requirement
-        static mapping = {
-          xmlString type: SQLXMLType
-        }
-        static constraints = {
-          name(nullable:true)
-        }
-      }
       \end{lstlisting}
-      
-      \begin{lstlisting}[caption={implementacja niestandardowego typu SQLXMLType}, label={lst:xmlType}]
+
+      Baza danych postgresql obsługuje specjalny typ danych ,,xml''. Dzięki obsłudze tego typu danych, po stronie bazy dokonywana jest weryfikacja poprawnosci dokumentu jaki programista ma zamiar zapisać. Framework Grails nie współpracuje dobrze z typem danych xml w bazie, dlatego niezbędna była implementacja rozwiązania rzutującego typ \emph{String} na typ \emph{SQLXMLType}. W tym celu została stworzona specjalna klasa w Javie, implementująca interfejs \emph{org.hibernate.usertype.UserType} (patrz Listing \ref{lst:xmlType}). Hibernate udostępnia ten interfejs umożliwiając programistom tworzenie własnych typów danych i zdefiniowanie ich zachowania w stosunku do bazy danych. Dodatkowo, niezbędne było odpowiednie przygotowanie modelu, podając typ pola przechowującego xmla jako String, a następnie sworzyć odpowiedni blok ,,mapping'' w modelu. Na Listingu \ref{lst:xml}, dla przykładu zaprezentowano implementację klasy Diagram z systemu Reqmanager:
+ 
+      \begin{lstlisting}[caption={Implementacja niestandardowego typu SQLXMLType}, label={lst:xmlType}]
       package pl.edu.pjwstk.reqmanager
        
       import java.io.Serializable;
@@ -205,6 +194,24 @@
       }
       \end{lstlisting}
 
+      \newpage
+
+      \begin{lstlisting}[caption={Implementacja modelu Diagram}, label={lst:xml}]
+      package pl.edu.pjwstk.reqmanager
+      public class Diagram {
+        String name
+        String xmlString
+
+        static belongsTo = Requirement
+        static mapping = {
+          xmlString type: SQLXMLType
+        }
+        static constraints = {
+          name(nullable:true)
+        }
+      }
+      \end{lstlisting}
+
     \subsection{Współdzielenie diagramów}
 
     Istotnym elementem systemu jest współdzielenie diagramów między wieloma wymaganiami. Każdy diagram może zostać przypisany do kilku wymagań, dzięki czemu wiele wymagań może wykorzystywać i rozszerzać już istniejące diagramy. Modyfikacja diagramu przypadku użycia w trakcie edycji konkretnego wymagania, wiąże się z aktualizacją stanu diagramu we wszystkich korzystających z niego wymaganiach.
@@ -212,7 +219,7 @@
     \subsection{Mapowanie przypadków użycia}
       W związku z możliwością współdzielenia diagramów pomiędzu wieloma wymaganiami, w aktualnej wersji prototypu, przypadki użycia są łączone z wymaganiem, tylko po wykonaniu przez użytkownika akcji wskazania przypadku użycia jako realizującego aktualnie modyfikowane wymaganie.
 
-      Na etapie edycji diagramu, użytkownik ma możliwość wskazania konkretnych use case'ów znajdujących się na diagramie, jako odpowiedzialnych za realizację aktualnie edytowanego wymagania. Powiązanie przypadku użycia z wymaganiem polega na wyborze opcji \emph{mark for requirement} z paska narzędzi diagramu, a następnie kliknięcie w dany przypadek użycia na diagramie. Po zatwierdzeniu operacji, zostaje wysłane asynchroniczne żądanie do serwera, pod adres http://reqmanager.herokuapp.com/requirement/addUseCase/id\_wymagania. W żądaniu przekazywane są do serwera parametry niezbędne dla zestawienia przypadku użycia z wymaganiem. Poniżej zamieszczono listę tych parametrów:
+      Na etapie edycji diagramu, użytkownik ma możliwość wskazania konkretnych use case'ów znajdujących się na diagramie, jako odpowiedzialnych za realizację aktualnie edytowanego wymagania. Powiązanie przypadku użycia z wymaganiem polega na wyborze opcji \emph{mark for requirement} z paska narzędzi diagramu, a następnie kliknięcie w dany przypadek użycia na diagramie. Po zatwierdzeniu operacji, zostaje wysłane asynchroniczne żądanie do serwera, pod adres http://reqmanager.herokuapp.com/requirement/\\addUseCase/id\_wymagania. W żądaniu przekazywane są do serwera parametry niezbędne dla zestawienia przypadku użycia z wymaganiem. Poniżej zamieszczono listę tych parametrów:
 
     \begin{itemize}
       \item \emph{id} - identyfikator wymagania do którego dodawany jest przypadek użycia
@@ -222,11 +229,10 @@
 
     Asynchronicznie wysłane do serwera żądanie zostaje przekazane wraz z paramterami do akcji \emph{addUseCase} kontrolera \emph{Requirement}. Kod odpowiedzialny za połączenie przypadku użycia z wymaganiem, został załączony na Listingu \ref{lst:addUseCase}.
 
-    \begin{lstlisting}[caption={addUseCase}, label={lst:addUseCase}]
+    \begin{lstlisting}[caption={Kod łączący przypadek użycia z wymaganiem}, label={lst:addUseCase}]
     def addUseCase = {
       def requirement = Requirement.get(params.id)
       def useCase = UseCase.findByTitle(params.clickedUCName)
-
       if(useCase == null) {
         useCase = new UseCase(title: params.clickedUCName, code: params.clickedUCId)
           requirement.addToUseCases(useCase)
@@ -235,9 +241,7 @@
         if(!requirement.useCases.contains(useCase)) {
           requirement.addToUseCases(useCase)
           render(text: "ok")
-        } else {
-          render(text: "wymaganie zawiera ten przypadek")
-        }
+        } 
       }
     }
     \end{lstlisting}
@@ -246,11 +250,10 @@
 
     \subsection{Przypadki użycia a wymagania}
     
-      W celu odpowiedniego oznaczenia przypadków użycia przypisanych do wybranego wymagania, zaimplementowano algorytm dwustopniowej inicjalizacji diagramu. Pierwszym krokiem jest ekstrakcja z bazy danych odpowiedniego wymagania, weryfikacja czy do danego wymagania przypisany jest diagram oraz czy istnieją jakieś przypadki użycia dla wymagania. Na podstawie informacji z bazy danych przekazanych przez kontroler, ładowany jest widok \emph{requirement/show.gsp}. Następnie, po załadowaniu większej części strony uruchamiany jest skrypt po stronie klienta, odwołujący się asynchronicznie z powrotem do serwera z ,,pytaniem'' o nazwy przypadków użycia przypisanych do danego wymagania. Jednocześnie, do pamięci ładowana jest struktura xml diagramu. Program iteruje po wszyskich węzłach w poszukiwaniu pokrywających się przypadków użycia. Jeśli znajdzie choć jeden, zmienia kolor jego tła na żółty.
+      W celu odpowiedniego oznaczenia przypadków użycia przypisanych do wybranego wymagania, zaimplementowano algorytm dwustopniowej inicjalizacji diagramu. Pierwszym krokiem jest ekstrakcja z bazy danych odpowiedniego wymagania, weryfikacja czy do danego wymagania przypisany jest diagram oraz czy istnieją jakieś przypadki użycia dla wymagania. Na podstawie informacji z bazy danych przekazanych przez kontroler, ładowany jest widok \emph{requirement/show.gsp}. Następnie, po załadowaniu strony uruchamiany jest skrypt po stronie klienta, odwołujący się asynchronicznie z powrotem do serwera z ,,pytaniem'' o nazwy przypadków użycia przypisanych do danego wymagania. Jednocześnie, do pamięci ładowana jest struktura xml diagramu. Program iteruje po wszyskich węzłach w poszukiwaniu pokrywających się przypadków użycia. Jeśli znajdzie choć jeden, zmienia kolor jego tła na żółty. Listing \ref{lst:colorUC} przedstawia implementację tego algorytmu.
       
     
-    \begin{lstlisting}[caption={Kolorowanie tła przypadków użycia}, label={lst:colorUC}]
-
+    \begin{lstlisting}[caption={Mechanizm oznaczania przypadku użycia przypisanego do aktualnie otwartego wymagania}, label={lst:colorUC}]
     var reqUseCases = $.ajax({
       type: "GET",
       url: "http://reqmanager.herokuapp.com/requirement/getUseCases/" + reqId,
@@ -285,9 +288,9 @@
 
     \subsection{Edytor tekstu}
       W celu ułatwienia użytkownikowi pracy z tekstem, zaimplementowano edytor, oparty na bibliotece Ace Editor. 
-      Kod inicjujący edytor tekstu, znajduje się poniżej:
+      Kod inicjujący edytor tekstu, znajduje się na Listingu \ref{lst:editorInit}.
 
-    \begin{lstlisting}[caption={Inicjalizacja edytora tekstu}, label={lst:colorUC}]
+    \begin{lstlisting}[caption={Inicjalizacja edytora tekstu}, label={lst:editorInit}]
     var editor = ace.edit("description");
     var MarkdownMode = require("ace/mode/markdown").Mode;
     editor.setTheme("ace/theme/clouds_midnight");
@@ -295,10 +298,10 @@
     editor.getSession().setUseWrapMode(true);
     \end{lstlisting}
 
-    Powyższy kod inicjuje edytor, załączając go do wskazanego węzła w dokumencie html (w tym przypadku jest to warstwa ,,description''). Następnie ustawia wygląd graficzny edytora oraz przestawia go w tryb pracy z formatem Markdown.
-    Zawartość edytora tekstu, przekazywana jest do serwera po wysłaniu formularza przez użytkownika. Ponieważ zawartość formularza znajduje się w elemencie \emph{div} w strukturze DOM strony, w celu przekazania jego wartości, jest ona kopiowana do specjalnego pola typu textarea:
+    Kod z Listingu \ref{lst:editorInit} inicjuje edytor, załączając go do wskazanego węzła w dokumencie html (w tym przypadku jest to warstwa ,,description''). Następnie ustawia wygląd graficzny edytora oraz przestawia go w tryb pracy z formatem Markdown.
+    Zawartość edytora tekstu, przekazywana jest do serwera po wysłaniu formularza przez użytkownika. Ponieważ zawartość formularza znajduje się w elemencie \emph{div} w strukturze DOM strony, w celu przekazania jego wartości, jest ona kopiowana do specjalnego pola typu textarea. Proces ten zaprezentowano na Listingu \ref{lst:txtCopy}.
 
-    \begin{lstlisting}[caption={Inicjalizacja edytora tekstu}, label={lst:colorUC}]
+    \begin{lstlisting}[caption={Kopiowanie zawartości edytora tekstu do pola textarea}, label={lst:txtCopy}]
     $("#submitbtn").click(function() {
       textarea.val(editor.getSession().getValue()); 
       $("#diagramXml").val(app.diagram.getXMLString());
@@ -306,6 +309,17 @@
     \end{lstlisting} 
 
     \subsection{Generowanie dokumentacji}
+      
+      Kilka zdań o generowaniu specyfikacji \ref{fig:seq}    
+  
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/seq.pdf}
+        \caption{Generowanie dokumentu pdf specyfikacji}
+        \label{fig:seq}
+      \end{figure*}
+
+      \newpage
 
   \section{Zalety i wady proponowanego rozwiązania}
     Proponowane rozwiązanie jest podjęciem próby uproszczenia procesów inżynierii wymagań. Głównym celem stworzenia prototypu było dostarczenie narzędzia umożliwiającego efektywne zbieranie i przetwarzanie wymagań przy jednoczesnym uproszczeniu poziomu jego skomplikowania. Powstał prototyp realizujący te cele, jednak siłą rzeczy jest to narzędzie przystosowane jedynie do małych projektów. W przeciwieństwie do istniejących rozwiązań, filozofia proponowanego systemu inspirowana była filozofią systemów Unix - programy i aplikacje powinny wykonywać jedną czynność i powinny ją wykonywać możliwie najlepiej. Jednocześnie należy tworzyć aplikacje tak, aby mogły w łatwy sposób współpracować z innymi systemami. Dlatego proponowane rozwiązanie, aby rozwiązywało skutecznie problemy ogólnie pojętej inżynierii oprogramowania, powinno być stosowane komplementarnie z innymi narzędziami, w szczególności systemem zarządzania projektami i zespołem. Od świadomości i dojrzałości organizacji zależy, jak taka infrastruktura zostanie zbudowana oraz jak wybrane narzędzia będą funkcjonowały w organizacji.
