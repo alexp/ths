@@ -43,10 +43,12 @@
     \end{figure*}
 
   \section{Funkcjonalności systemu}
+
+    Poniżej opisano poszczególne funkcjonalności proponowanego rozwiązania wraz z przykładami realizacji w kodzie.
   
     \subsection{Tworzenie diagramów}
 
-      Diagramy przypadków użycia w systemie edytowane są po stronie klienta, dzięki wykorzystaniu elementu \emph{canvas} wprowadzonego niedawno do specyfikacji języka HTML5. Obsługa tej funkcjonalności po stronie przeglądarki, stanowi problem związany z zachowaniem stanu diagramu w systemie. W celu rozwiązania tego problemu, zaimplementowano mechanizm serializacji całego diagramu w formacie xml do bazy danych. Cel ten osiągnięto, wykorzystując metodę \emph{getXMLString()} udostępnioną przez wszystkie obiekty dziedziczące po klasie \emph{Diagram} w bibliotece jsUML2. Przykładową strukturę zserializowanego diagramu, umieszczno na Listingu \ref{lst:diagramXml}. 
+      Diagramy przypadków użycia w systemie edytowane są po stronie klienta, dzięki wykorzystaniu elementu \emph{canvas} wprowadzonego niedawno do specyfikacji języka HTML5. Obsługa tej funkcjonalności po stronie przeglądarki, stanowi problem związany z zapisem stanu diagramu. W celu rozwiązania tego problemu, zaimplementowano mechanizm serializacji stanu elementów diagramu w formacie xml do bazy danych. Cel ten osiągnięto, wykorzystując metodę \emph{getXMLString()} udostępnioną przez wszystkie obiekty dziedziczące po klasie \emph{Diagram} w bibliotece jsUML2. Przykładową strukturę zserializowanego diagramu, umieszczno na Listingu \ref{lst:diagramXml}. 
       Dodanie nowego diagramu wiąże się zatem z inicjalizacją i wyświetleniem użytkownikowi obszaru roboczego diagramu bez komunikacji z serwerem. Diagram tworzony jest po załadowaniu widoku edycji wymagania, jak pokazano na Listingu \ref{lst:appUseCase}:
 
       \begin{lstlisting}[caption={Widok requriement/edit.gsp}, label={lst:appUseCase}]
@@ -310,8 +312,23 @@
 
     \subsection{Generowanie dokumentacji}
       
-      Kilka zdań o generowaniu specyfikacji \ref{fig:seq}    
-  
+      W prototypie zaimplementowano mechanizm generowania specyfikacji wymagań przy użyciu bibliotek MarkdownJ oraz iText.
+
+      MarkdownJ jest napisaną w Javie implementacją konwertera tekstu do formatu HTML. Jest to bardzo prosta biblioteka, w której główną klasą jest \emph{MarkdownProcessor}. Metoda \emph{markdown()} przymuje jako parametr ciąg znaków (sformatowany znacznikami Markdown). W odpowiedzi zwracana jest ta sama treść, osadzona w odpowiedniej strukturze HTML. Przykładowy kod konwertujący przedstawiono na Listingu \ref{lst:markdownProc}
+
+      \begin{lstlisting}[caption={Wykorzystanie klasy MarkdownProcessor}, label={lst:markdownProc}]
+      def m = new MarkdownProcessor(); 
+      StringBuffer sb = new StringBuffer()
+      sb.append("# Example header in Markdown")
+      sb.append("\n")
+      sb.append("This will render as a regular '<p>' paragraph")
+      String html = m.markdown(sb.toString()); 
+      \end{lstlisting}
+
+      iText z kolei, jest zaawansowaną biblioteką wykorzystywaną do generowania wszelkiego rodzaju dokumentów PDF bezpośrednio z kodu Javy. W pracy wykorzystano klasę \emph{ITextRenderer} dostępną w pakiecie org.xhtmlrenderer.pdf. Pozwala ona na generowanie dokumentów PDF w oparciu o strukturę XHTML. Połączenie MarkdownJ z biblioteką iText idealnie spełnia wymagania systemu w zakresie automatycznego tworzenia specyfikacji.
+
+      Generowanie specyfikacji w systemie przebiega w dwóch krokach. W pierwszej kolejności zostają pobranie niezbędne informacje z bazy danych dotyczące wybranego projektu, a zawartość poszczególnych pól, zostaje przekazana do klasy MarkdownToHTML konwertującej tekst do HTML. Następnie, zwrócona struktura jest przekazywana klasie ITextRenderer w celu wygenerowania dokumentu PDF. Zwrócony strumień danych zostaje wysłany do klienta jako odpowiedź serwera, co skutkuje możliwością zapisu pliku PDF na komputerze klienckim. Proces ten zobrazowany został na diagramie sekwencji, załączonym na Rysunku \ref{fig:seq}.
+
       \begin{figure*}[t]
         \centering
         \includegraphics[width=1.0\textwidth]{img/seq.pdf}
@@ -320,6 +337,95 @@
       \end{figure*}
 
       \newpage
+
+  \section{Przykład zastosowania}
+    
+    W tej sekcji opisano przykład zastosowania proponowanego narzędzia.
+
+    \subsection{Ekran główny}
+      
+      Ekranem głównym systemu jest przegląd wszystkich projektów, przedstawiony na Rysunku \ref{fig:mainView}. Przy każdym projekcie zawarte są podstawowe informacje na jego temat, takie jak nazwa, data zakończenia, krótki opis, ilość wymagań oraz przypadków użycia. Ponadto dostępne są trzy przyciski: (1) odnośnik do szczegółów projektu, (2) odnośnik do edycji projektu, (3) przycisk generujący aktualną wersję specyfikacji wymagań. 
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_screen_1.png}
+        \caption{Ekran główny projektu}
+        \label{fig:mainView}
+      \end{figure*}
+
+    \subsection{Nowy projekt}
+    
+      Dodanie nowego projektu polega na wypełnieniu prostego formularza zawierającego informacje o nazwie, dacie zakończenia prac, krótkim opisie oraz głównej notatce. Rysunek \ref{fig:addProj} przedstawia ekran zakładania projektu.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_2.png}
+        \caption{Dodawanie nowego projektu}
+        \label{fig:addProj}
+      \end{figure*}
+
+    \subsection{Pierwsze wymaganie}
+
+      Do nowo utworzonego projektu, można natychmiast rozpocząć dodawanie wymagań. Widok dodawania pierwszego wymagania załączono na Rysunku \ref{fig:addReq}. W tym miejscu, użytkownik ma możliwość podjęcia decyzji dotyczącej ponownego wykorzystania już istniejącego diagramu lub stworzenia nowego. Rysunek \ref{fig:addReq} przedstawia stan aplikacji po stworzeniu nowego diagramu, dodaniu pierwszego aktora, elementu granicy systemu i jednego przypadku użycia. W kolejnych widokach zaprezentowano współdzielenie diagramów.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_3.png}
+        \caption{Definicja wymagania}
+        \label{fig:addReq}
+      \end{figure*}
+
+    \subsection{Przegląd projektu}
+
+      Rysunek \ref{fig:afterAddReq} przedstawia stan systemu po dodaniu jednego wymagania. Za pośrednictwem tego ekranu, użytkownik ma możliwość kontynuacji pracy nad główną notką projektową (i łatwy zapis tego pola za pomocą przycisku ,,Update'' umieszczonego w widocznym, dostępnym miejscu) lub dodania kolejnego wymagania.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_4.png}
+        \caption{Stan systemu po dodaniu pierwszego wymagania}
+        \label{fig:afterAddReq}
+      \end{figure*}
+      
+    \subsection{Współdzielenie wymagań}
+
+      Podczas dodawania kolejnych wymagań, użytkownik ma możliwość skorzystania z już istniejącego diagramu, co zaprezentowano na Rysunku \ref{fig:diagReuse}. Zamiast tworzenia nowej instacji diagramu, użytkownik ma możliwość wskazania istniejącego obiektu, który zostanie przypisany do aktualnie definiowanego elementu. Rysunek \ref{fig:diagReuse} zawiera również przykład zastosowania podstawowej składni Markdown w opisie wymagania.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_8.png}
+        \caption{Współdzielenie diagramu}
+        \label{fig:diagReuse}
+      \end{figure*}
+
+    \subsection{Łączenie przypadków użycia z wymaganiem}
+
+      Wracając do widoku przedstawionego na Rysunku \ref{fig:addReq}, należy zwrócić uwagę na przycisk ,,mark for requirement'' w pasku narzędzi edytora UML. Wybierając tę opcję, a następnie wskazując wybrany przypadek użycia na diagramie, zostaje wykonana asynchronicznie operacja połączenia use case'u z wymaganiem. Po przejściu do podglądu wymagania, przypisane do niego przypadki użycia są zaznaczane kolorem żółtym. Właściwość ta, została zaprezentowana odpowiednio na Rysunkach \ref{fig:reqShow1} oraz \ref{fig:reqShow2}.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_11.png}
+        \caption{Jeden przypadek połączony z wymaganiem}
+        \label{fig:reqShow1}
+      \end{figure*}
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_10.png}
+        \caption{Dwa przypadki użycia połączone z wymaganiem}
+        \label{fig:reqShow2}
+      \end{figure*}
+
+    \subsection{Generowanie specyfikacji}
+
+      W każdym momencie prac nad analizą, użytkownicy mają możliwość wygenerowania aktualnej specyfikacji wymagań z ekranu głównego aplikacji. Proces polega wyłącznie na wybraniu opcji ,,Generate specification''. System analizuje dane wprowadzone do bazy i na ich podstawie generuje dokument PDF, który jest przekazywany do przeglądarki klienckiej. Wynik wygenerowania specyfikacji dla projektu powstałego na potrzeby powyższych przykładów pokazano na Rysunku \ref{fig:spec}.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/tut_9.png}
+        \caption{Wygenerowana specyfikacja wymagań w PDF}
+        \label{fig:spec}
+      \end{figure*}
+
+  \newpage
 
   \section{Zalety i wady proponowanego rozwiązania}
     Proponowane rozwiązanie jest podjęciem próby uproszczenia procesów inżynierii wymagań. Głównym celem stworzenia prototypu było dostarczenie narzędzia umożliwiającego efektywne zbieranie i przetwarzanie wymagań przy jednoczesnym uproszczeniu poziomu jego skomplikowania. Powstał prototyp realizujący te cele, jednak siłą rzeczy jest to narzędzie przystosowane jedynie do małych projektów. W przeciwieństwie do istniejących rozwiązań, filozofia proponowanego systemu inspirowana była filozofią systemów Unix - programy i aplikacje powinny wykonywać jedną czynność i powinny ją wykonywać możliwie najlepiej. Jednocześnie należy tworzyć aplikacje tak, aby mogły w łatwy sposób współpracować z innymi systemami. Dlatego proponowane rozwiązanie, aby rozwiązywało skutecznie problemy ogólnie pojętej inżynierii oprogramowania, powinno być stosowane komplementarnie z innymi narzędziami, w szczególności systemem zarządzania projektami i zespołem. Od świadomości i dojrzałości organizacji zależy, jak taka infrastruktura zostanie zbudowana oraz jak wybrane narzędzia będą funkcjonowały w organizacji.

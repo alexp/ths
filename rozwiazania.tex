@@ -152,12 +152,54 @@
 
       W klasycznych aplikacjach okienkowych, odpowiedzialność w zakresie zabezpieczenia danych spoczywa na samej korporacji i jej pracowniku. Dzięki temu, nadal istnieje zapotrzebowanie na oprogramowanie instalowane na lokalnym dysku użytkownika. Przykładami takich aplikacji są m.in. IBM DOORS oraz IBM Rational Requirements Composer.
 
-      \subsubsection{RequisitePRO}
-      \subsubsection{DOORS}
+      Rational Requirements Composer jest aplikacją zbudowaną przez firmę IBM. Dostępna jest wersja zbudowana na bazie platformy \emph{eclipse} jak również klient webowy, dostępny w przeglądarce internetowej na platformie IBM Jazz. Jest to potężne narzędzie wspierające kolaborację, śledzenie wymagań, audyty, raportowanie, graficzne modelowanie procesów biznesowych oraz zaawansowaną edycję dokumentów tekstowych. 
+
+      Definiowanie wymagań w Rational Requriements Composer jest możliwe na wiele sposobów, m. in.: szablonowanie interfejsów, edycja tekstu, story boardy oraz przy użyciu wbudowanych w system kontrolek i szablonów.
+
+      Przykładowy ekran definiowania wymagania umieszczono na Rysunku \ref{fig:rrc1}.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/rrc-primary.png}
+        \caption{Rational Requisite PRO - definiowanie wymagania. Źródło: jazz.net}
+        \label{fig:rrc1}
+      \end{figure*}
+
+      Platforma umożliwia również modelowanie procesów biznesowych w języku BPML (Business Process Modeling Language) (Rysunek \ref{fig:bpml}).
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/visually-define.png}
+        \caption{Rational Requisite PRO - definiowanie wymagania. Źródło: jazz.net.}
+        \label{fig:bpml}
+      \end{figure*}
+
+      Zaawansowane narzędzia wspierające kolaborację, umożliwiają komunikację drogą elektroniczną, rewidowanie artefaktów, aktualizację statusów zadań i wiele innych (Rysunek \ref{fig:colla}). Z kolei audyty i historia zmian pozwalają na wspólne tworzenie i modyfikację dokumentów na zasadzie śledzenia podobną do tej znanej z pakietu MS Office (Rysunek \ref{fig:audit}).
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/review-and-collaboration.png}
+        \caption{Rational Requisite PRO - kolaboracja. Źródło: jazz.net.}
+        \label{fig:colla}
+      \end{figure*}
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/audit-history.png}
+        \caption{Rational Requisite PRO - historia zmian. Źródło: jazz.net.}
+        \label{fig:audit}
+      \end{figure*}
 
     \subsection{Platforma IBM .jazz}
 
-      Platforma IBM jazz zasługuje na osobną sekcję, ponieważ jest zintegrowanym, kompleksowym zestawem narzędzi i aplikacji dla przedsiębiorstw tworzących oprogramowanie. Centrum zarządzania platformą jazz jest serwer stanowiący repozytorium danych i ośrodek dowodzenia. Platforma składa się zarówno udostępnionych na serwerze usług sieciowych oraz aplikacji instalowanych lokalnie, łączących się ze zdalnym serwerem (tzw. rich-client applications). 
+      Platforma IBM Jazz zasługuje na osobną sekcję, ponieważ jest zintegrowanym, kompleksowym zestawem narzędzi i aplikacji dla przedsiębiorstw tworzących oprogramowanie. Centrum zarządzania platformą jazz jest serwer Jazz Team Server stanowiący repozytorium danych i ośrodek dowodzenia. Platforma składa się zarówno udostępnionych na serwerze usług sieciowych oraz aplikacji instalowanych lokalnie, łączących się ze zdalnym serwerem (tzw. rich-client applications). Ogólna architektura platformy została zaprezentowana na Rysunku \ref{fig:jts}. Interesującym rozwiązaniem w tym przypadku jest fakt, iż jazz.net stoni swojego rodzaju szynę integracyjną, pozwalającą na korzystanie z istniejącego oprogramowania zainstalowanego na licznych komputerach klienckich. Kompunikacja z aplikacjami klienckimi przebiega na bazie protokołu HTTP i webservice'ów RESTowych.
+
+      \begin{figure*}[t]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/jts.png}
+        \caption{Platforma jazz.net - Jazz Team Server. Źródło: jazz.net}
+        \label{fig:jts}
+      \end{figure*}
 
   \section{Problemy z istniejącymi rozwiązaniami}
 
