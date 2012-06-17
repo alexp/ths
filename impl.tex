@@ -1,10 +1,10 @@
 \chapter{Rozwiązania implementacyjne}
   
-  W poprzednim rozdziale opisano narzędzia jakie wykorzystano w trakcie budowy prototypu. W niniejszym rozdziale, przedstawiono zastosowane konkretne rozwiązania implementacyjne. Szczególną uwagę zwrócono na moduł edycji diagramów przypadków użycia oraz generatora specyfikacji wymagań.
+  W poprzednim rozdziale opisano narzędzia jakie wykorzystano w trakcie budowy prototypu. W niniejszym rozdziale, przedstawiono zastosowane konkretne rozwiązania implementacyjne. Szczególną uwagę zwrócono na moduł edycji diagramów przypadków użycia oraz generator specyfikacji wymagań.
 
   \section{Architektura systemu}
 
-    System Reqmanager zbudowany jest na bazie opisanej w rozdziale 4 technologii Grails integrującej wiele istniejących rozwiązań zbudowanych na bazie wirtualnej maszyny Javy. Na Rysunku \ref{fig:techstack} przedstawiono ogólną architekturę Grails.
+    System Reqmanager zbudowany jest w oparciu o, opisaną w rozdziale 4, technologię Grails, integrującą wiele istniejących rozwiązań zbudowanych na bazie wirtualnej maszyny Javy. Na Rysunku \ref{fig:techstack} przedstawiono ogólną architekturę Grails.
 
     \begin{figure*}[h]
       \centering
@@ -48,7 +48,7 @@
   
     \subsection{Tworzenie diagramów}
 
-      Diagramy przypadków użycia w systemie edytowane są po stronie klienta, dzięki wykorzystaniu elementu \emph{canvas} wprowadzonego niedawno do specyfikacji języka HTML5. Obsługa tej funkcjonalności po stronie przeglądarki, stanowi problem związany z zapisem stanu diagramu. W celu rozwiązania tego problemu, zaimplementowano mechanizm serializacji stanu elementów diagramu w formacie xml do bazy danych. Cel ten osiągnięto, wykorzystując metodę \emph{getXMLString()} udostępnioną przez wszystkie obiekty dziedziczące po klasie \emph{Diagram} w bibliotece jsUML2. Przykładową strukturę zserializowanego diagramu, umieszczno na Listingu \ref{lst:diagramXml}. 
+      Diagramy przypadków użycia w systemie edytowane są po stronie klienta, dzięki wykorzystaniu elementu \emph{canvas} wprowadzonego niedawno do specyfikacji języka HTML5. Obsługa tej funkcjonalności po stronie przeglądarki, stanowi problem związany z zapisem stanu diagramu. W celu rozwiązania tego problemu, zaimplementowano mechanizm serializacji stanu elementów diagramu w formacie xml do bazy danych. Cel ten osiągnięto, wykorzystując metodę \emph{getXMLString()} udostępnioną przez wszystkie obiekty dziedziczące po klasie \emph{Diagram} w bibliotece jsUML2. Przykładową strukturę zserializowanego diagramu, umieszczono na Listingu \ref{lst:diagramXml}. 
       Dodanie nowego diagramu wiąże się zatem z inicjalizacją i wyświetleniem użytkownikowi obszaru roboczego diagramu bez komunikacji z serwerem. Diagram tworzony jest po załadowaniu widoku edycji wymagania, jak pokazano na Listingu \ref{lst:appUseCase}:
 
       \begin{lstlisting}[caption={Widok requriement/edit.gsp}, label={lst:appUseCase}]
@@ -83,11 +83,11 @@
       }
       \end{lstlisting}
 
-      Powyższy kod w javascript, pobiera wartość z elementu formularza i identyfikatorze ,,diagramXml'' oraz tworzy nowy obiekt UMLUseCaseDiagram, zdefiniowany w pakiecie \emph{modules} biblioteki jsUML2. Następnie weryfikuje czy pole \emph{diagramXml} jest niepuste. Jeśli warunek jest prawdziwy, wywołuje metodę \emph{setXMLString()} na obiekcie diagramu, dzięki czemu diagram inicjalizowany jest z wartościami wcześniej zserializowanymi do formatu xml i zapisanymi w bazie danych. Kolejne wiersze zajmują się utworzeniem kontekstów na bazie elementów \emph{canvas}, aby na końcu zainicjować i narysować odpowiedni diagram w oknie przeglądarki użytkownika. Należy jednocześnie zaznaczyć, iż w przypadku gdy nie istnieje zserializowana wersja diagramu w bazie (pole \emph{diagramXml} jest puste), wówczas zostanie zainicjalizowany nowy, pusty diagram, nieposiadających żadnych elementów. Pole \emph{diagramXml} jest wcześniej ustawiane na podstawie danych z bazy.
+      Powyższy kod JavaScript, pobiera wartość z elementu formularza i identyfikatorze ,,diagramXml'' oraz tworzy nowy obiekt UMLUseCaseDiagram, zdefiniowany w pakiecie \emph{modules} biblioteki jsUML2. Następnie weryfikuje czy pole \emph{diagramXml} jest niepuste. Jeśli warunek jest prawdziwy, wywołuje metodę \emph{setXMLString()} na obiekcie diagramu, dzięki czemu diagram inicjalizowany jest z wartościami wcześniej zserializowanymi do formatu xml i zapisanymi w bazie danych. Kolejne wiersze zajmują się utworzeniem kontekstów na bazie elementów \emph{canvas}, aby na końcu zainicjować i narysować odpowiedni diagram w oknie przeglądarki użytkownika. Należy jednocześnie zaznaczyć, iż w przypadku, gdy nie istnieje zserializowana wersja diagramu w bazie (pole \emph{diagramXml} jest puste), wówczas zostanie zainicjalizowany nowy, pusty diagram, nieposiadający żadnych elementów. 
 
       \subsubsection{Zapis danych xml}
 
-      Dopiero gdy użytkownik wybierze opcję zapisu aktualnego wymagania, zserializowany stan diagramu w formacie xml, zostanie przesłany metodą POST do serwera. Następnie otrzymany po stronie serwera ciąg znaków xml zostanie przetworzony, utworzony zostanie obiekt klasy Diagram i na końću nastąpi zapis obiektu do bazy danych. Za ten proces odpowiedzialna jest akcja \emph{save} kontrolera \emph{Requirement}. Jest to dość ograniczone rozwiązanie, które można byłoby usprawnić wprowadzając asynchroniczny, automatyczny zapis stanu diagramu co kilka sekund lub po każdej aktualizacji po stronie klienta.
+      Dopiero gdy użytkownik wybierze opcję zapisu aktualnego wymagania, zserializowany stan diagramu w formacie xml, zostanie przesłany metodą POST do serwera. Następnie otrzymany po stronie serwera ciąg znaków xml zostanie przetworzony, utworzony zostanie obiekt klasy Diagram i na końcu nastąpi zapis obiektu do bazy danych. Za ten proces odpowiedzialna jest akcja \emph{save} kontrolera \emph{Requirement}. Jest to dość ograniczone rozwiązanie, które można byłoby usprawnić wprowadzając asynchroniczny, automatyczny zapis stanu diagramu co kilka sekund lub po każdej aktualizacji po stronie klienta.
 
       \begin{lstlisting}[caption={Struktura xml diagramu}, label={lst:diagramXml}]
 
@@ -108,7 +108,7 @@
 
       \end{lstlisting}
 
-      Baza danych postgresql obsługuje specjalny typ danych ,,xml''. Dzięki obsłudze tego typu danych, po stronie bazy dokonywana jest weryfikacja poprawnosci dokumentu jaki programista ma zamiar zapisać. Framework Grails nie współpracuje dobrze z typem danych xml w bazie, dlatego niezbędna była implementacja rozwiązania rzutującego typ \emph{String} na typ \emph{SQLXMLType}. W tym celu została stworzona specjalna klasa w Javie, implementująca interfejs \emph{org.hibernate.usertype.UserType} (patrz Listing \ref{lst:xmlType}). Hibernate udostępnia ten interfejs umożliwiając programistom tworzenie własnych typów danych i zdefiniowanie ich zachowania w stosunku do bazy danych. Dodatkowo, niezbędne było odpowiednie przygotowanie modelu, podając typ pola przechowującego xmla jako String, a następnie sworzyć odpowiedni blok ,,mapping'' w modelu. Na Listingu \ref{lst:xml}, dla przykładu zaprezentowano implementację klasy Diagram z systemu Reqmanager:
+      Baza danych PostgreSQL obsługuje specjalny typ danych ,,xml''. Dzięki temu, po stronie bazy dokonywana jest weryfikacja poprawności dokumentu jaki programista ma zamiar zapisać. Niestety Framework Grails nie współpracuje dobrze z taką konstrukcją, dlatego niezbędna była implementacja rozwiązania rzutującego typ \emph{String} na typ \emph{SQLXMLType}. W tym celu została stworzona specjalna klasa w Javie, implementująca interfejs \emph{org.hibernate.usertype.UserType} (patrz Listing \ref{lst:xmlType}). Hibernate udostępnia ten interfejs umożliwiając programistom tworzenie własnych typów danych i zdefiniowanie ich zachowania w stosunku do bazy. Dodatkowo, niezbędne było odpowiednie przygotowanie modelu, podając typ pola przechowującego xml jako String, a następnie stworzyć odpowiedni blok ,,mapping'' w modelu. Na Listingu \ref{lst:xml}, dla przykładu zaprezentowano implementację klasy Diagram z systemu Reqmanager:
  
       \begin{lstlisting}[caption={Implementacja niestandardowego typu SQLXMLType}, label={lst:xmlType}]
       package pl.edu.pjwstk.reqmanager
@@ -216,12 +216,12 @@
 
     \subsection{Współdzielenie diagramów}
 
-    Istotnym elementem systemu jest współdzielenie diagramów między wieloma wymaganiami. Każdy diagram może zostać przypisany do kilku wymagań, dzięki czemu wiele wymagań może wykorzystywać i rozszerzać już istniejące diagramy. Modyfikacja diagramu przypadku użycia w trakcie edycji konkretnego wymagania, wiąże się z aktualizacją stanu diagramu we wszystkich korzystających z niego wymaganiach.
+    Istotnym elementem systemu jest współdzielenie diagramów między wieloma wymaganiami. Każdy diagram może zostać przypisany do kilku wymagań. Wówczas modyfikacja przypadków użycia w trakcie edycji konkretnego wymagania, wiąże się z aktualizacją stanu diagramu we wszystkich korzystających z niego miejscach w systemie.
     
     \subsection{Mapowanie przypadków użycia}
-      W związku z możliwością współdzielenia diagramów pomiędzu wieloma wymaganiami, w aktualnej wersji prototypu, przypadki użycia są łączone z wymaganiem, tylko po wykonaniu przez użytkownika akcji wskazania przypadku użycia jako realizującego aktualnie modyfikowane wymaganie.
+      W związku z możliwością współdzielenia diagramów pomiędzy wieloma wymaganiami, w aktualnej wersji prototypu, przypadki użycia są łączone z wymaganiem, tylko po wykonaniu przez użytkownika akcji wskazania przypadku użycia jako realizującego aktualnie modyfikowane wymaganie.
 
-      Na etapie edycji diagramu, użytkownik ma możliwość wskazania konkretnych use case'ów znajdujących się na diagramie, jako odpowiedzialnych za realizację aktualnie edytowanego wymagania. Powiązanie przypadku użycia z wymaganiem polega na wyborze opcji \emph{mark for requirement} z paska narzędzi diagramu, a następnie kliknięcie w dany przypadek użycia na diagramie. Po zatwierdzeniu operacji, zostaje wysłane asynchroniczne żądanie do serwera, pod adres http://reqmanager.herokuapp.com/requirement/\\addUseCase/id\_wymagania. W żądaniu przekazywane są do serwera parametry niezbędne dla zestawienia przypadku użycia z wymaganiem. Poniżej zamieszczono listę tych parametrów:
+      Na etapie edycji diagramu, użytkownik ma możliwość wskazania konkretnych use case'ów znajdujących się na diagramie, jako odpowiedzialnych za realizację wybranego wymagania. Powiązanie przypadku użycia z wymaganiem polega na wyborze opcji \emph{mark for requirement} z paska narzędzi diagramu, a następnie kliknięciu w dany przypadek użycia na diagramie. Po zatwierdzeniu operacji, zostaje wysłane asynchroniczne żądanie do serwera, pod adres http://reqmanager.herokuapp.com/requirement/\\addUseCase/id\_wymagania. W żądaniu przekazywane są do serwera parametry niezbędne dla zestawienia przypadku użycia z wymaganiem. Poniżej zamieszczono listę tych parametrów:
 
     \begin{itemize}
       \item \emph{id} - identyfikator wymagania do którego dodawany jest przypadek użycia
@@ -248,11 +248,11 @@
     }
     \end{lstlisting}
 
-    Jak można odczytać z powyższego kodu źródłowego, akcja ta, pobiera odpowiednie wymaganie oraz podejmuje próbę znalezienia przypadku użycia po nazwie. Jeśli dany przypadek użycia nie istnieje jeszcze w bazie danych (nowo utworzony przypadek użycia), zostaje swtorzony nowy obiekt klasy UseCase z odpowiednimi parametrami (nazwa nadana przez użytkownika oraz identyfikator wygenerowany po stronie klienta). W przeciwnym razie, zostaje on dodany do listy przypadków użycia połączonych asocjacją z danym wymaganiem, o ile nie istnieje już na tej liście. Cała operacja wykonywana jest asynchronicznie, po stronie serwera. 
+    Jak można odczytać z powyższego kodu źródłowego, akcja ta, pobiera odpowiednie wymaganie oraz podejmuje próbę znalezienia przypadku użycia po nazwie. Jeśli dany przypadek użycia nie istnieje jeszcze w bazie danych (nowo utworzony przypadek użycia), zostaje swtorzony nowy obiekt klasy UseCase z odpowiednimi parametrami (nazwa nadana przez użytkownika oraz identyfikator wygenerowany po stronie klienta). W przeciwnym razie, zostaje on dodany do listy przypadków użycia połączonych asocjacją z danym wymaganiem, o ile nie istnieje już na tej liście. 
 
     \subsection{Przypadki użycia a wymagania}
     
-      W celu odpowiedniego oznaczenia przypadków użycia przypisanych do wybranego wymagania, zaimplementowano algorytm dwustopniowej inicjalizacji diagramu. Pierwszym krokiem jest ekstrakcja z bazy danych odpowiedniego wymagania, weryfikacja czy do danego wymagania przypisany jest diagram oraz czy istnieją jakieś przypadki użycia dla wymagania. Na podstawie informacji z bazy danych przekazanych przez kontroler, ładowany jest widok \emph{requirement/show.gsp}. Następnie, po załadowaniu strony uruchamiany jest skrypt po stronie klienta, odwołujący się asynchronicznie z powrotem do serwera z ,,pytaniem'' o nazwy przypadków użycia przypisanych do danego wymagania. Jednocześnie, do pamięci ładowana jest struktura xml diagramu. Program iteruje po wszyskich węzłach w poszukiwaniu pokrywających się przypadków użycia. Jeśli znajdzie choć jeden, zmienia kolor jego tła na żółty. Listing \ref{lst:colorUC} przedstawia implementację tego algorytmu.
+      W celu odpowiedniego oznaczenia przypadków użycia przypisanych do wybranego wymagania, zaimplementowano algorytm dwustopniowej inicjalizacji diagramu. Pierwszym krokiem jest ekstrakcja z bazy danych odpowiedniego wymagania, weryfikacja czy jest do niego przypisany diagram oraz czy istnieją dla niego jakieś przypadki użycia. Na podstawie tych informacji, ładowany jest widok \emph{requirement/show.gsp}. Następnie, po załadowaniu strony uruchamiany jest skrypt po stronie klienta, odwołujący się asynchronicznie z powrotem do serwera z ,,pytaniem'' o nazwy przypadków użycia przypisanych do danego wymagania. Następnie, do pamięci ładowana jest struktura xml diagramu. Program iteruje po wszyskich węzłach w poszukiwaniu pokrywających się przypadków użycia. Jeśli znajdzie choć jeden, zmienia kolor jego tła na żółty. Listing \ref{lst:colorUC} przedstawia implementację tego algorytmu.
       
     
     \begin{lstlisting}[caption={Mechanizm oznaczania przypadku użycia przypisanego do aktualnie otwartego wymagania}, label={lst:colorUC}]
@@ -288,6 +288,8 @@
     });
     \end{lstlisting}
 
+    \newpage
+
     \subsection{Edytor tekstu}
       W celu ułatwienia użytkownikowi pracy z tekstem, zaimplementowano edytor, oparty na bibliotece Ace Editor. 
       Kod inicjujący edytor tekstu, znajduje się na Listingu \ref{lst:editorInit}.
@@ -314,7 +316,7 @@
       
       W prototypie zaimplementowano mechanizm generowania specyfikacji wymagań przy użyciu bibliotek MarkdownJ oraz iText.
 
-      MarkdownJ jest napisaną w Javie implementacją konwertera tekstu do formatu HTML. Jest to bardzo prosta biblioteka, w której główną klasą jest \emph{MarkdownProcessor}. Metoda \emph{markdown()} przymuje jako parametr ciąg znaków (sformatowany znacznikami Markdown). W odpowiedzi zwracana jest ta sama treść, osadzona w odpowiedniej strukturze HTML. Przykładowy kod konwertujący przedstawiono na Listingu \ref{lst:markdownProc}
+      MarkdownJ jest napisaną w Javie implementacją konwertera tekstu do formatu HTML. Jest to bardzo prosta biblioteka, w której główną klasą jest \emph{MarkdownProcessor}. Metoda \emph{markdown()} przymuje jako parametr ciąg znaków (sformatowany znacznikami Markdown). W odpowiedzi zwracana jest ta sama treść, osadzona w odpowiedniej strukturze HTML. Przykładowy kod konwertujący przedstawiono na Listingu \ref{lst:markdownProc}.
 
       \begin{lstlisting}[caption={Wykorzystanie klasy MarkdownProcessor}, label={lst:markdownProc}]
       def m = new MarkdownProcessor(); 
@@ -388,7 +390,7 @@
       
     \subsection{Współdzielenie wymagań}
 
-      Podczas dodawania kolejnych wymagań, użytkownik ma możliwość skorzystania z już istniejącego diagramu, co zaprezentowano na Rysunku \ref{fig:diagReuse}. Zamiast tworzenia nowej instacji diagramu, użytkownik ma możliwość wskazania istniejącego obiektu, który zostanie przypisany do aktualnie definiowanego elementu. Rysunek \ref{fig:diagReuse} zawiera również przykład zastosowania podstawowej składni Markdown w opisie wymagania.
+      Podczas dodawania kolejnych wymagań, użytkownik ma możliwość skorzystania z już istniejącego diagramu, co zaprezentowano na Rysunku \ref{fig:diagReuse}. Zamiast tworzenia nowej instancji diagramu, użytkownik ma możliwość wskazania istniejącego obiektu, który zostanie przypisany do aktualnie definiowanego elementu. Rysunek \ref{fig:diagReuse} zawiera również przykład zastosowania podstawowej składni Markdown w opisie wymagania.
 
       \begin{figure*}[t]
         \centering
@@ -428,7 +430,7 @@
   \newpage
 
   \section{Zalety i wady proponowanego rozwiązania}
-    Proponowane rozwiązanie jest podjęciem próby uproszczenia procesów inżynierii wymagań. Głównym celem stworzenia prototypu było dostarczenie narzędzia umożliwiającego efektywne zbieranie i przetwarzanie wymagań przy jednoczesnym uproszczeniu poziomu jego skomplikowania. Powstał prototyp realizujący te cele, jednak siłą rzeczy jest to narzędzie przystosowane jedynie do małych projektów. W przeciwieństwie do istniejących rozwiązań, filozofia proponowanego systemu inspirowana była filozofią systemów Unix - programy i aplikacje powinny wykonywać jedną czynność i powinny ją wykonywać możliwie najlepiej. Jednocześnie należy tworzyć aplikacje tak, aby mogły w łatwy sposób współpracować z innymi systemami. Dlatego proponowane rozwiązanie, aby rozwiązywało skutecznie problemy ogólnie pojętej inżynierii oprogramowania, powinno być stosowane komplementarnie z innymi narzędziami, w szczególności systemem zarządzania projektami i zespołem. Od świadomości i dojrzałości organizacji zależy, jak taka infrastruktura zostanie zbudowana oraz jak wybrane narzędzia będą funkcjonowały w organizacji.
+    Proponowane rozwiązanie jest podjęciem próby uproszczenia procesów inżynierii wymagań. Głównym celem stworzenia prototypu było dostarczenie narzędzia umożliwiającego efektywne zbieranie i przetwarzanie wymagań przy jednoczesnym uproszczeniu poziomu jego skomplikowania. Powstał prototyp realizujący te cele, jednak siłą rzeczy, jest to narzędzie przystosowane jedynie do małych projektów. W przeciwieństwie do istniejących rozwiązań, filozofia proponowanego systemu inspirowana była filozofią systemów Unix - programy i aplikacje powinny wykonywać jedną czynność i powinny ją wykonywać możliwie najlepiej. Jednocześnie należy tworzyć aplikacje tak, aby mogły w łatwy sposób współpracować z innymi systemami. Dlatego proponowane rozwiązanie, aby rozwiązywało skutecznie problemy ogólnie pojętej inżynierii oprogramowania, powinno być stosowane komplementarnie z innymi narzędziami, w szczególności systemem zarządzania projektami i zespołem. Od świadomości i dojrzałości organizacji zależy, jak taka infrastruktura zostanie zbudowana oraz jak wybrane narzędzia będą funkcjonowały w organizacji.
 
     Dużą zaletą systemu jest dostępność przez przeglądarkę internetową przy jednoczesnej realizacji funkcjonalności manipulacji obiektami graficznymi. W szczególności zastosowanie technologii HTML5 daje przewagę w dostępności nad istniejącymi rozwiązaniami, najczęściej implementowanymi w technologii Flash. Rzadko też można spotkać podobny poziom elastyczności aplikacji do zarządzania wymaganiami. Koncepcja systemu celowo nie narzuca wielu ograniczeń związanych ze strukturą wymagań w wierze, że brak restrykcji projektanta wpłynie pozytywnie na proces definiowania i formułowania wymagań. 
 

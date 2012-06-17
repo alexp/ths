@@ -4,7 +4,7 @@
 
   \section{Zarys technologii}
     
-    Implementację systemu oparto o technologie Java/Jee i pochodne. Jako podstawę szkieletu aplikacji wykorzystano framework Grails umożliwiający szybkie prototypowanie aplikacji internetowych. W warstwie bazy danych wykorzystano bazę postgresql oraz technologię mapowania obiektowo-relacyjnego Hibernate ORM, dostarczaną wraz z frameworkiem Grails. 
+    Implementację systemu oparto o technologie Java/JEE i pochodne. Jako podstawę szkieletu aplikacji wykorzystano framework Grails umożliwiający szybkie prototypowanie aplikacji internetowych. W warstwie bazy danych wykorzystano bazę postgresql oraz technologię mapowania obiektowo-relacyjnego Hibernate ORM, dostarczaną wraz z frameworkiem Grails. 
     
     Interfejs użytkownika oparto o Twitter Bootstrap - pre-definiowany zestaw stylów oraz komponentów do natychmiastowego wykorzystania w aplikacjach internetowych. 
 
@@ -16,9 +16,9 @@
 
   \section{Framework Grails}
     
-    Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się rozwojem tej technologii jest tą samą organizacją, odpowiedzialną za stworzenie Spring Framework - jednego z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i wraz z Hibernate ORM stanowi trzon technologiczny tego narzędzia.
+    Framework Grails jest stosunkowo młodą technologią opartą na sprawdzonych rozwiązaniach. Firma która zajmuje się jej rozwojem jest tą samą organizacją, odpowiedzialną za stworzenie Spring Framework - jednej z najpopularniejszych i jednocześnie najbardziej rozbudowanych platform programistycznych dla języka Java dostępnych na rynku. To właśnie Spring Framework leży u podstaw Grails i wraz z Hibernate ORM stanowi trzon technologiczny tego narzędzia.
 
-   Grails integruje najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i z Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (język python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na Javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu Javy.
+   Grails integruje najlepsze praktyki i narzędzia zarówno ze Spring Framework jak i z Hibernate ORM. Jest poniekąd odpowiedzią środowiska Javy, na rosnącą konkurencyjność frameworków opartych o dynamicznie typowane, skryptowe języki programowania jak Django (język Python) czy Ruby On Rails (Ruby). Jednocześnie, ze względu na fakt iż jest swoistą nakładką na technologie oparte na Javie, dostarcza znacznie większych możliwości niż konkurenci, wynikających z rozbudowanego ekosystemu Javy.
 
 
     \subsubsection{Język Groovy}
@@ -72,9 +72,11 @@
     \begin{figure*}[t]
       \centering
       \includegraphics[width=1.0\textwidth]{img/mvc-1.pdf}
-      \caption{Model-View-Controller - różna reprezentacja graficzna tych samych danych. Żródło: \cite{GoF}.}
+      \caption{Model-View-Controller - różna reprezentacja graficzna tych samych danych. Źródło: \cite{GoF}.}
       \label{fig:mvc-1}
     \end{figure*}
+
+    \newpage
 
     \subsubsection{Praca z Grails}
 
@@ -109,22 +111,20 @@
   
     Po wstępnej analizie, mając wiedzę na temat dziedziny problemu, w prosty sposób można utworzyć podstawową funkcjonalność przykładowej aplikacji. Proces tworzenia elementów budowanego systemu rozpoczyna się od stworzenia klasy Groovy reprezentującej model (Listing \ref{lst:modelExample} przedstawia rozwiązanie na przykładzie implementacji z systemu Reqmanager):
 
-    \begin{lstlisting}[caption={klasa modelu Project.groovy}, label={lst:modelExample}]
-    package pl.edu.pjwstk.reqmanager.examples
+    \begin{lstlisting}[caption={Klasa modelu Project.groovy}, label={lst:modelExample}]
     class Project {
         String name
         String description
         String mainNote
         java.sql.Timestamp timestamp
         java.util.Date deadline
-
         static hasMany = [requirements:Requirement]
     }
     \end{lstlisting}
 
     Jeśli nie skonfigurujemy aplikacji w niestandardowy sposób, po stworzeniu powyższej klasy Groovy w katalogu grails-app/domain, Framework Grails przy pomocy Hibernate utworzy strukturę w bazie danych odpowiadającą strukturze modeli. Wynik odzwierciedlenia obiektu \emph{Project} w relacyjnej bazie danych, zamieszczono na Listingu \ref{lst:dbSchemaProject}:
 
-    \begin{lstlisting}[caption={struktura bazy danych dla modelu Project}, label={lst:dbSchemaProject}]
+    \begin{lstlisting}[caption={Struktura bazy danych dla modelu Project}, label={lst:dbSchemaProject}]
                       Table "public.project"
        Column    |            Type             | Modifiers 
     -------------+-----------------------------+-----------
@@ -146,13 +146,13 @@
 
     Na szczególną uwagę zasługuje konstrukcja w klasie \emph{Project} przedstawiona na Listingu \ref{lst:oneToMany}.
 
-    \begin{lstlisting}[caption={relacja jeden-do-wielu}, label={lst:oneToMany}]
+    \begin{lstlisting}[caption={Relacja jeden-do-wielu}, label={lst:oneToMany}]
       static hasmany = [requirements:requirement]
     \end{lstlisting}
 
     W języku Groovy konstrukcja ,,[:]'' jest reprezentacją pustej tablicy asocjacyjnej - struktury danych umożliwiającej przechowywanie kolekcji par ,,klucz - wartość''. W Groovy, domyślną kolekcją inicjalizowaną przy pomocy literału ,,[:]'' jest obiekt klasy java.util.LinkedHashMap. Zatem powyższa zmienna statyczna jest referencją do obiektu klasy LinkedHashMap, zawierającego jedną parę, gdzie kluczem jest ciąg znaków ,,requirements'' a wartością, jest klasa \emph{Requirement}. W ten sposób Grails obsługuje relacje jeden-do-wielu. W analogiczny sposób, istnieje możliwość definiowania pozostałych rodzajów relacji, tj. jeden-do-jeden, wiele-do-wielu, etc). Konstrukcja taka, umożliwia uzyskanie listy wymagań w projekcie, jak zaprezentowano na Listingu \ref{lst:requirements}: 
 
-    \begin{lstlisting}[caption={wymagania przypisane do projektu}, label={lst:requirements}]
+    \begin{lstlisting}[caption={Wymagania przypisane do projektu}, label={lst:requirements}]
       //pobiera z bazy projekt o id = 1
       def project = Project.get(1)
 
@@ -166,7 +166,7 @@
     W celu połączenia konkretnych widoków z akcjami kontrolerów, konwencja Grails wymaga odpowiedniego nazewnictwa metod w klasach kontrolerów. Generalizując, należy stosować się do zasady, aby nazwa metody odpowiedzialnej za realizację wybranej akcji kontrolera, posiadała plik o tej samej nazwie, z rozszerzeniem .gsp, w odpowiednim katalogu w ścieżce grails-app/views. Poniżej zamieszczono przykład realizacji akcji ,,index'' w kontrolerze ,,ProjectController''. Wbudowany w Grails mechanizm odwzorowywania adresów URL i przekierowywania do odpowiednich akcji kontrolerów automatycznie wykrywa którą metodę należy wykonać. Zatem, po wskazaniu przeglądarce internetowej adresu http://reqmanager.heroku.com/project/index system, przez konwencję, wykryje konieczność wywołania metody ,,index'' w kontrolerze ,,ProjectController''. Z kolei po wykonaniu tej metody, (o ile programista nie zdecyduje inaczej) automatycznie wyświetlany jest widok index.gsp umieszczony w katalogu grails-app/views/project. W widoku, do wykorzystania dostępne są zmienne ustawione w tabeli asocjacyjnej, zwracanej przez kontroler (w tym przypadku, zmienna ,,project'' zawierająca referencję do listy wszystkich projektów w systemie). Listing \ref{lst:contView} przedstawia klasę kontrolera z akcją \emph{index} oraz odpowiadający mu widok \emph{index.gsp}.
 
 
-    \begin{lstlisting}[caption={widok i kontroler}, label={lst:contView}]
+    \begin{lstlisting}[caption={Widok i kontroler}, label={lst:contView}]
       // klasa kontrolera:
       package pl.edu.pjwstk.reqmanager
 
@@ -194,16 +194,14 @@
 
     Należy jeszcze zwrócić uwagę na pewien detal w strukturze kodu źródłowego kontrolera. Grails dopuszcza dwa podejścia do deklarowania akcji - (1) za pomocą klasycznych metod oraz (2) przy użyciu domknięć (closures). Formalnie domknięcia są obiektami wiążącymi funkcję oraz środowisko w jakim ta funkcja ma działać. Jest to specyficzna konstrukcja, będącą zdefiniowanym blokiem kodu, który można przekazać jako parametr innej metodzie lub funkcji. Przykład zamieszczony na Listingu \ref{lst:closure} wyjaśnia zasadę na jakiej działają domknięcia w Groovy: 
 
-    \newpage
-    
-    \begin{lstlisting}[caption={domknięcie w Groovy}, label={lst:closure}]
+    \begin{lstlisting}[caption={Domknięcie w Groovy}, label={lst:closure}]
       def closeAllProjects() {
         def projects = Project.list()
         projects.collect { it.open = false }
       }
     \end{lstlisting} 
     
-    Powyższy kod pobiera do zmiennej ,,projects'' listę wszystkich projektów w systemie. Następnie, na liście projektów wywoływana jest metoda ,,collect''. Metoda collect (zdefiniowana w interfejsie Collection) przyjmuje jako parametr blok kodu, domknięcie. Metoda collect iteruje po wszystkich elementach zbioru na rzecz którego została wykonana i wykonuje blok kodu przekazany jej jako parametr na kolejnych elementach kolekcji, następnie zwracają listę zmodyfikowanych przez domknięcie elementów.
+    Powyższy kod pobiera do zmiennej ,,projects'' listę wszystkich projektów w systemie. Następnie, na liście projektów wywoływana jest metoda ,,collect''. Metoda collect (zdefiniowana w interfejsie Collection) przyjmuje jako parametr blok kodu, domknięcie. Metoda collect iteruje po wszystkich elementach zbioru na rzecz którego została wykonana i wykonuje blok kodu przekazany jej jako parametr na kolejnych elementach kolekcji, następnie zwracając listę zmodyfikowanych przez domknięcie elementów.
 
     \section{Spring Framework i Hibernate ORM}
 
@@ -212,12 +210,13 @@
       Hibernate ORM jest technologią pozwalającą na mapowanie rekordów z relacyjnych baz danych, na obiekty w systemie przy pomocy plików konfiguracyjnych xml. W Grails, potrzeba konfiguracji warstwy ORM ogranicza się do minimum, a większość standardowych zadań można zrealizować konfigurując odpowiednio blok \emph{mapping} w klasie modelu.
 
   \section{Pozostałe technologie}
+
+    W poniższych sekcjach opisano komplementarne technologie jakie zastosowano w trakcie implementacji prototypu.
+
     \subsection{Postgresql}
-      Trwałość danych w aplikacjach internetowych standardowo realizowana jest przez bazę danych. Na potrzeby prezentowanego prototypu, wykorzystano bazę danych Postgresql. Jest to obiektowo-relacyjna baza danych udostępniona na licencji Wolnego i Otwartego Oprogramowania. 
+      Trwałość danych w aplikacjach internetowych standardowo realizowana jest przez bazę danych. Na potrzeby prezentowanego prototypu, wykorzystano Postgresql. Jest to obiektowo-relacyjna baza danych udostępniona na licencji Wolnego i Otwartego Oprogramowania. PostgreSQL implementuje znaczną część standardu SQL:2008 [!ref - http://www.postgresql.org/docs/9.1/static/features.html]
 
-      Baza danych PostgreSQL implementuje znaczną część standardu SQL:2008 [!ref - http://www.postgresql.org/docs/9.1/static/features.html]
-
-    \subsection{Javascript, jQuery i biblioteka jsUML2}
+    \subsection{JavaScript, jQuery i biblioteka jsUML2}
 
       Wiele funkcjonalności zrealizowano po stronie klienta, wykorzystując język JavaScript. W niewielkim zakresie wykorzystano popularną bibliotekę jQuery, wspierającą realizację najczęściej pojawiających się problemów w trakcie prac nad aplikacjami internetowymi. Jednak wykorzystanie jQuery w prototypie systemu jest marginalne i ogranicza się jedynie do zastosowania metody \emph{ajax()} ułatwiającej wykonywanie asynchronicznych wywołań serwera.
 
@@ -305,7 +304,7 @@
         TransitionItem.js
         \end{lstlisting}
 
-        W pakiecie \emph{modules}, do dyspozycji programisty znajdują się podpakiety klas przedstawione na Listingu \ref{lst:UDModules}:
+        W pakiecie \emph{modules}, do dyspozycji programisty znajdują się pod-pakiety klas przedstawione na Listingu \ref{lst:UDModules}:
 
         \begin{lstlisting}[caption={Pakiety modułów jsUML2}, label={lst:UDModules}]
         activity
@@ -358,7 +357,7 @@
 
   Git jest systemem kontroli wersji udostępnionym na licencji GPL, stworzonym przez Linusa Torvaldsa w 2005 roku. Głównymi założeniami projektu były szybkość działania, bezpieczeństwo oraz rozwiązanie problemów jakie twórca uważał są najbardziej rażące w systemach CSV oraz SVN.
 
-  Heroku udostępnia platformę hostingową obsługującą wiele języków programowania. Zasada działa serwerów Heroku, oparta jest na koncepcji utrzymania aplikacji w ,,chmurze'' serwerów - infrastruktura sprzętowa jest niewidoczna dla użytkowników. Użytkownicy tej usługi wykupują moc obliczeniową serwerów odpowiadającą potrzebom utrzymywanych aplikacji, płacąc za czas dostępu do serwerów o wybranej mocy obliczeniowej. Główną zaletą tego rozwiązania jest możliwość natychmiastowego skalowania aplikacji w zależności od zapotrzebowania na moc obliczeniową. W przypadku znacznego wzrostu ruchu na serwerze, użytkownik może wykupić dodatkową moc obliczeniową, bez konieczności przerywania ciągłości działania usługi w sieci. Heroku udostępnia swoją infrastrukturę w podstawowym zakresie, bez konieczności uiszczania opłat, dlatego jest to rewelacyjne rozwiązania na potrzeby testów i prezentacji aplikacji internetowych. Dzięki natywnemu wsparciu systemu kontroli wersji Git, instalacja aplikacji w chmurze, polega na przesłaniu na serwer aktualizacji kodu źródłowego i wykonania polecenia inicjalizującego instalację kodu na serwerze heroku. Listing \ref{lst:gitEx} przedstawia procedurę aktualizacji kodu na zdalnym serwerze.
+  Heroku udostępnia platformę hostingową obsługującą wiele języków programowania. Zasada działa serwerów Heroku, oparta jest na koncepcji utrzymania aplikacji w ,,chmurze'' serwerów - infrastruktura sprzętowa jest niewidoczna dla klientów. Użytkownicy tej usługi wykupują moc obliczeniową serwerów odpowiadającą potrzebom utrzymywanych aplikacji, płacąc za czas dostępu do sprzętu o wybranej charakterystyce. Główną zaletą tego rozwiązania jest możliwość natychmiastowego skalowania aplikacji. W przypadku znacznego wzrostu ruchu na serwerze, użytkownik może wykupić dodatkową moc obliczeniową, bez konieczności przerywania ciągłości działania usługi w sieci. Heroku udostępnia swoją infrastrukturę w podstawowym zakresie, bez konieczności uiszczania opłat, dlatego jest to rewelacyjne rozwiązania na potrzeby testów i tworzenia rozwiązań ,,proof-of-concept''. Dzięki natywnemu wsparciu systemu kontroli wersji Git, instalacja aplikacji w chmurze, polega na przesłaniu na serwer aktualizacji kodu źródłowego i wykonania polecenia inicjalizującego instalację kodu na serwerze heroku. Listing \ref{lst:gitEx} przedstawia tę procedurę.
 
 
         \begin{lstlisting}[caption={Commit i wysłanie kodu na serwer Heroku}, label={lst:gitEx}]
@@ -369,8 +368,8 @@
 
 \subsection{Środowisko programistyczne (Linux, vim)}
 
-  Do stworzenia zarówno prorotypu aplikacji, jak i do edycji i składu części tekstowej niniejszej pracy, wykorzystano zasadniczo narzędzia dostępne w systemie operacyjnym Linux (Ubuntu Linux v11.10). 
+  Do stworzenia zarówno prototypu aplikacji, jak i do edycji i składu części tekstowej niniejszej pracy, wykorzystano zasadniczo narzędzia dostępne w systemie operacyjnym Linux (Ubuntu Linux v11.10). 
 
-  Do edycji kodu źródłowego wykorzystano klasyczny edytor tekstowy vim z zainstalowanym dodatkiem ułatwiającym poruszanie się w strukturze katalogów grails (vim grails plugin z zainstalowanym dodatkiem ułatwiającym poruszanie się w strukturze katalogów grails (vim grails plugin).
+  Do edycji kodu źródłowego wykorzystano klasyczny edytor tekstowy vim z zainstalowanym dodatkiem ułatwiającym poruszanie się w strukturze katalogów grails.
 
-  Część opisowa niniejszej pracy również powstała w edytorze tekstu vim. Do składu tekstu zastosowano popularne oprogramowanie \LaTeX. 
+  Część opisowa niniejszej pracy również powstała w edytorze tekstu vim. Weryfikacja pisowni została wykonana przy użyciu narzędzia aspell z zainstalowanym słownikiem języka polskiego. Do składu tekstu zastosowano popularne oprogramowanie \LaTeX. 
